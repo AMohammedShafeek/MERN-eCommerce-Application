@@ -54,22 +54,6 @@ const AdsSlider = (probs) => {
             link={"/"}
           ></BannerBox>
         </SwiperSlide>
-        <SwiperSlide>
-          <BannerBox
-            img={"../src/assets/Banners/Ad2.jpg"}
-            title={"FURNITURES"}
-            offer={"15%"}
-            link={"/"}
-          ></BannerBox>
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBox
-            img={"../src/assets/Banners/Ad3.jpg"}
-            title={"ELECTRONICS"}
-            offer={"45%"}
-            link={"/"}
-          ></BannerBox>
-        </SwiperSlide>
       </Swiper>
     </div>
   );

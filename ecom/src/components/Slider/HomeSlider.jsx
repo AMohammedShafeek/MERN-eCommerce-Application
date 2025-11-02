@@ -43,19 +43,7 @@ const HomeSlider = () => {
                 <div className="item rounded-[20px] overflow-hidden">
                   <img src="../src/assets/Sliders/Slider-4.png" alt="Slider 4" className='w-full' />
                 </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="item rounded-[20px] overflow-hidden">
-                  <img src="../src/assets/Sliders/Slider-5.png" alt="Slider 5" className='w-full' />
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="item rounded-[20px] overflow-hidden">
-                  <img src="../src/assets/Sliders/Slider-6.png" alt="Slider 6" className='w-full' />
-                </div>
-              </SwiperSlide>
+              </SwiperSlide>z
 
           </Swiper>
         </div>
