@@ -8,6 +8,11 @@
 .primary{
   color: var(--primary-clr);
 }
+
+.bg-body{
+  background-color: var(--body-clr);
+}
+
 .bg-primary{
   background-color: var(--primary-clr);
 }
