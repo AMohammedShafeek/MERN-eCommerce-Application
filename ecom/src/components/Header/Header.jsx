@@ -27,7 +27,7 @@ const Header = () => {
 
 {/* NOTIFICATION BAR */}
 
-        <div className="top-stripe py-2 border-t-[1px] border-gray-300 border-b-[1px] border-gray-300">
+        <div className="top-stripe py-2 border-t-[1px] border-b-[1px] border-gray-300">
             <div className='container'>
                 <div className="flex items-center justify-between">
                     <div className="col1 w-[50%]">
