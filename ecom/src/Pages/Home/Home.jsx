@@ -77,6 +77,36 @@ const Home = () => {
           <AdsSlider items={4}></AdsSlider>
         </div>
       </section>
+
+      <section className="bg-white pt-8">
+        <div className="container">
+          <div className="flex items-center justify-between">
+            <div className="leftSection">
+              <h2 className="text-[20px] font-medium">Latest Products</h2>
+              <p className="text-[14px] font-[500]">
+                Do not miss the current offers until the end of the Season
+              </p>
+            </div>
+          </div>
+          <ProductSlider items={6}></ProductSlider>
+          <AdsSlider items={4}></AdsSlider>
+        </div>
+      </section>
+
+      <section className="bg-white pt-8">
+        <div className="container">
+          <div className="flex items-center justify-between">
+            <div className="leftSection">
+              <h2 className="text-[20px] font-medium">Featured Products</h2>
+              <p className="text-[14px] font-[500]">
+                Do not miss the current offers until the end of the Season
+              </p>
+            </div>
+          </div>
+          <ProductSlider items={6}></ProductSlider>
+          <AdsSlider items={4}></AdsSlider>
+        </div>
+      </section>
     </>
   );
 };
