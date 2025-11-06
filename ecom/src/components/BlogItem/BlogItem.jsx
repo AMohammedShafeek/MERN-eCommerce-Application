@@ -17,17 +17,19 @@ const BlogItem = () => {
           <MdOutlineAccessTimeFilled className="text-[16px] primary"></MdOutlineAccessTimeFilled>
           <h4 className="text-[14px] font-[500] primary">05 SEPT 2025</h4>
         </div>
-        <Link to={'/'}>
-        <div className="info-title pt-1.5">
-          <h2 className="text-[18px] font-[600] link transition-all">How to find best pillows under $500</h2>
-          <p className="text-[14px] pt-1.5 text-justify inline">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
-            dolorum eveniet recusandae at sit nesciunt eligendi expedita
-            distinctio, labore deserunt molestiae consectetur, asperiores ipsa
-            sint?
-            <p className="text-[14px] font-bold inline"> ....</p>
-          </p>
-        </div>
+        <Link to={"/"}>
+          <div className="info-title pt-1.5">
+            <h2 className="text-[18px] font-[600] link transition-all">
+              How to find best pillows under $500
+            </h2>
+            <p className="text-[14px] pt-1.5 text-justify inline">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
+              dolorum eveniet recusandae at sit nesciunt eligendi expedita
+              distinctio, labore deserunt molestiae consectetur, asperiores ipsa
+              sint?
+              <p className="text-[14px] font-bold text-justify inline"> ....</p>
+            </p>
+          </div>
         </Link>
         <div className="read-more pt-1.5 flex gap-0.5">
           <Link className="text-[16px] font-[500] primary underline">

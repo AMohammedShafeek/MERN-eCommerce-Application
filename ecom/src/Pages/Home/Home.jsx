@@ -11,6 +11,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import BlogItem from "../../components/BlogItem/BlogItem";
+import Footer from "../../components/Footer/Footer";
 
 const Home = () => {
   const [value, setValue] = React.useState(0);
@@ -142,10 +143,11 @@ const Home = () => {
           </Swiper>
         </div>
       </section>
+      <Footer></Footer>
     </>
   );
 };
 
 export default Home;
 
-// TIMESTAMP 14.40
+// TIMESTAMP 33.14
