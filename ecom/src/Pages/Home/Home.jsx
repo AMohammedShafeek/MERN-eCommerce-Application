@@ -149,5 +149,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// TIMESTAMP 33.14
