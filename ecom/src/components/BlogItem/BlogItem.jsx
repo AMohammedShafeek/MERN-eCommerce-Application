@@ -8,7 +8,7 @@ const BlogItem = () => {
       <div className="imgWrapper w-full overflow-hidden rounded-md cursor-pointer">
         <img
           src="../src/assets/Blogs/blog1.jpg"
-          className="w-full transition-all group-hover:scale-110 group-hover:rotate-2 hover:scale-120 hover:rotate-4"
+          className="w-full transition-all duration-300 group-hover:scale-110 group-hover:rotate-2 hover:scale-120 hover:rotate-4"
           alt="blog"
         />
       </div>
@@ -19,7 +19,7 @@ const BlogItem = () => {
         </div>
         <Link to={"/"}>
           <div className="info-title pt-1.5">
-            <h2 className="text-[18px] font-[600] link transition-all">
+            <h2 className="text-[18px] font-[600] link transition-all duration-300">
               How to find best pillows under $500
             </h2>
             <p className="text-[14px] pt-1.5 text-justify inline">

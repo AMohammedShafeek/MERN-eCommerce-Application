@@ -24,9 +24,9 @@ const Nav = () => {
         <nav className='py-2'>
             <div className="container flex items-center">
                 <div className="col_1 w-[14.5%] border-r-[1px] border-gray-300">
-                    <Button className='link transition !font-[600] gap-3 w-[90%]' onClick={openDrawer}>
+                    <Button className='link transition-all duration-300 !font-[600] gap-3 w-[90%]' onClick={openDrawer}>
                         <RiMenu2Fill className='text-[21px] pt-0.5'></RiMenu2Fill>
-                            <p className='mt-0.5 link transition'>Categories</p>
+                            <p className='mt-0.5 link transition-all duration-300'>Categories</p>
                         <LiaAngleDownSolid className='text-[15px] font-bold ml-2 mr-3'></LiaAngleDownSolid>
                     </Button>
                 </div>
@@ -34,7 +34,7 @@ const Nav = () => {
                     <ul className="flex items-center gap-5 nav">
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <IoMdHome className='text-[18px] mr-0.5'></IoMdHome>
                                         <p className='mt-0.5'>Home</p>
                                 </Button>
@@ -42,17 +42,17 @@ const Nav = () => {
                         </li>
                         <li className="list-none relative">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <FaShirt className='text-[16px] mr-0.5'></FaShirt>
                                         <p className='mt-0.5'>Fashion</p>
                                 </Button>
                             </Link>
-                            <div className="submenu absolute top-[100%] left-[0%] min-w-[160px] bg-white shadow-md opacity-0 transition-all">
+                            <div className="submenu absolute top-[100%] left-[0%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
                                 <ul>
                                     <li className="list-none w-full">
                                         <Link to={'/'}>
                                             <Button className='!font-[600] w-full !text-left !justify-start !rounded-none'>Mens</Button>
-                                            <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all">
+                                            <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
                                                 <ul>
                                                     <li className="list-none w-full">
                                                         <Link to={'/'}>
@@ -81,7 +81,7 @@ const Nav = () => {
                                     <li className="list-none w-full">
                                         <Link to={'/'}>
                                             <Button className='!font-[600] w-full !text-left !justify-start !rounded-none'>Womens</Button>
-                                            <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all">
+                                            <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
                                                 <ul>
                                                     <li className="list-none w-full">
                                                         <Link to={'/'}>
@@ -122,7 +122,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <IoHeadset className='text-[17px] mr-0.5'></IoHeadset>
                                         <p className='mt-0.5'>Electronics</p>
                                 </Button>
@@ -130,7 +130,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <MdWatch className='text-[17px] mr-0.5'></MdWatch>
                                         <p className='mt-0.5'>Accessories</p>
                                 </Button>
@@ -138,7 +138,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <GiBeachBag className='text-[17px] mr-0.5'></GiBeachBag>
                                         <p className='mt-0.5'>Bags</p>
                                 </Button>
@@ -146,7 +146,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <GiConverseShoe className='text-[21px] mr-0.5 mt-0.5'></GiConverseShoe>
                                         <p className='mt-0.5'>Footwear</p>
                                 </Button>
@@ -154,7 +154,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <RiBrushAiFill className='text-[18px] mr-0.5 mt-0.5'></RiBrushAiFill>
                                         <p className='mt-0.5'>Beauty</p>
                                 </Button>
@@ -162,7 +162,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <GiDiamondRing className='text-[17px] mr-0.5'></GiDiamondRing>
                                         <p className='mt-0.5'>Jewellery</p>
                                 </Button>
@@ -170,7 +170,7 @@ const Nav = () => {
                         </li>
                         <li className="list-none">
                             <Link to={'/'}>
-                                <Button className='link transition !font-[600]'>
+                                <Button className='link transition-all duration-300 !font-[600]'>
                                     <GiHeatHaze className='text-[18px] mr-0.5'></GiHeatHaze>
                                         <p className='mt-0.5'>Wellness</p>
                                 </Button>

@@ -36,10 +36,10 @@ const Header = () => {
                     <div className="col2 flex items-center justify-end mr-7">
                         <ul className='flex items-center gap-5'>
                             <li className="list-none">
-                                <Link to="/help-center" className='text-[13px] link font-[500] transition'>Help Center</Link>
+                                <Link to="/help-center" className='text-[13px] link font-[500] transition-all duration-300'>Help Center</Link>
                             </li>
                             <li className="list-none">
-                                <Link to="/order-tracking" className='text-[13px] link font-[500] transition'>Order Tracking</Link>
+                                <Link to="/order-tracking" className='text-[13px] link font-[500] transition-all duration-300'>Order Tracking</Link>
                             </li>
                         </ul>
                     </div>
@@ -60,7 +60,7 @@ const Header = () => {
                 <div className="col3 w-[32%] pl-45 justify-end">
                     <ul className="flex items-center gap-3 w-full">
                         <li className="list-none">
-                            <Link to={'/login'} className='link transition text-[15px] font-[500]'>Login</Link> | <Link className='link transition text-[15px] font-[500]' to={'/register'}>Register</Link>
+                            <Link to={'/login'} className='link transition-all duration-300 text-[15px] font-[500]'>Login</Link> | <Link className='link transition-all duration-300 text-[15px] font-[500]' to={'/register'}>Register</Link>
                         </li>
                         <li className='ml-5'>
                             <Tooltip title="Compare">

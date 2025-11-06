@@ -53,11 +53,11 @@ const DrawerPanel = (props) => {
             {
               submenuIndex===0 ? 
               
-              <FaRegMinusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(0)}></FaRegMinusSquare>
+              <FaRegMinusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(0)}></FaRegMinusSquare>
 
               :
 
-              <FaRegPlusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(0)}></FaRegPlusSquare>
+              <FaRegPlusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(0)}></FaRegPlusSquare>
 
             }
 
@@ -76,11 +76,11 @@ const DrawerPanel = (props) => {
                 {
               innerSubmenuIndex===0 ? 
               
-              <FaRegMinusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(0)}></FaRegMinusSquare>
+              <FaRegMinusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(0)}></FaRegMinusSquare>
 
               :
 
-              <FaRegPlusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(0)}></FaRegPlusSquare>
+              <FaRegPlusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(0)}></FaRegPlusSquare>
 
             }
               </li>
@@ -91,16 +91,16 @@ const DrawerPanel = (props) => {
                 <ul className="innerSubmenu w-full pl-14">
 
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Baggy Shirts</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Baggy Shirts</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Party wear Shirts</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Party wear Shirts</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Popcorn Shirts</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Popcorn Shirts</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Printed Shirts</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Printed Shirts</Link>
                   </li>
 
               </ul>
@@ -124,11 +124,11 @@ const DrawerPanel = (props) => {
                 {
               innerSubmenuIndex===1 ? 
               
-              <FaRegMinusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(1)}></FaRegMinusSquare>
+              <FaRegMinusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(1)}></FaRegMinusSquare>
 
               :
 
-              <FaRegPlusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(1)}></FaRegPlusSquare>
+              <FaRegPlusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(1)}></FaRegPlusSquare>
 
             }
               </li>
@@ -139,16 +139,16 @@ const DrawerPanel = (props) => {
                 <ul className="innerSubmenu w-full pl-14">
 
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Baggy Pants</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Baggy Pants</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Lycra Pants</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Lycra Pants</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Polo pants</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Polo pants</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Denim Pants</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Denim Pants</Link>
                   </li>
 
               </ul>
@@ -172,11 +172,11 @@ const DrawerPanel = (props) => {
 
               submenuIndex===1 ? 
               
-              <FaRegMinusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(1)}></FaRegMinusSquare>
+              <FaRegMinusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(1)}></FaRegMinusSquare>
 
               :
 
-              <FaRegPlusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(1)}></FaRegPlusSquare>
+              <FaRegPlusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openSubmenu(1)}></FaRegPlusSquare>
 
             }
 
@@ -197,11 +197,11 @@ const DrawerPanel = (props) => {
 
               innerSubmenuIndex===2 ? 
               
-              <FaRegMinusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(2)}></FaRegMinusSquare>
+              <FaRegMinusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(2)}></FaRegMinusSquare>
 
               :
 
-              <FaRegPlusSquare className='link transition absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(2)}></FaRegPlusSquare>
+              <FaRegPlusSquare className='link transition-all duration-300 absolute top-[14px] right-[20px] cursor-pointer' onClick={()=>openInnerSubmenu(2)}></FaRegPlusSquare>
 
             }
 
@@ -214,19 +214,19 @@ const DrawerPanel = (props) => {
                 <ul className="innerSubmenu w-full pl-14">
 
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>USB Adapter</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>USB Adapter</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Type C Adapter</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Type C Adapter</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>B type Cable</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>B type Cable</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>C type Cable</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>C type Cable</Link>
                   </li>
                   <li className="list-none relative mb-2">
-                    <Link to={'/'} className='link transition w-full !text-left !text-[14px] !justify-start !px-4'>Lighting Cable</Link>
+                    <Link to={'/'} className='link transition-all duration-300 w-full !text-left !text-[14px] !justify-start !px-4'>Lighting Cable</Link>
                   </li>
 
               </ul>
