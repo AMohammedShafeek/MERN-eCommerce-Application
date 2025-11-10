@@ -1,18 +1,56 @@
-.MuiCheckbox-root{
-    padding: 6px !important;
+@import "tailwindcss";
+
+:root {
+  --primary-clr: #ff5252;
+  --body-clr: #f5f0f0;
 }
 
-.sidebar .scroll{
-    max-height: 200px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+.primary {
+  color: var(--primary-clr);
 }
 
-.sidebar .scroll::-webkit-scrollbar{
-    width: 5px !important;
-    height: 5px !important;
+.bg-body {
+  background-color: var(--body-clr);
 }
 
-.ReactCollapse--collapse{
-    transition: height 500ms;
+.bg-primary {
+  background-color: var(--primary-clr);
+}
+
+.MuiCheckbox-root {
+  padding: 6px !important;
+}
+
+.sidebar .scroll {
+  max-height: 220px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.sidebar .scroll::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}
+
+.range-slider {
+  height: 3px !important;
+}
+
+.range-slider .range-slider__thumb {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.range-slider .range-slider__thumb,
+.range-slider .range-slider__range {
+  background: var(--primary-clr) !important;
+}
+
+.Mui-selected.MuiPaginationItem-page {
+  background: var(--primary-clr) !important;
+  color: white !important;
 }

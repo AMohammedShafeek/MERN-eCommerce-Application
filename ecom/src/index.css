@@ -85,10 +85,6 @@ button:hover {
   opacity: 1 !important;
   z-index: 1000;
 }
-/* 
-.sliderHome {
-  overflow: inherit !important;
-} */
 
 .homeSlider {
   background-color: none;
@@ -160,4 +156,8 @@ button:hover {
   font-size: 14px !important;
   font-weight: 600 !important;
   color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.itemViewActions button.active svg{
+  color: var(--primary-clr);
 }
