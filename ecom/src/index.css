@@ -57,12 +57,28 @@ button:hover {
 }
 
 .swiper-navigation-icon {
+  color: white;
+}
+
+.swiper-button-next {
   padding: 12px;
-  color: var(--primary-clr);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
+  background: var(--primary-clr);
+  border-radius: 100%;
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
+  box-shadow: 0 1px 2px var(--primary-clr);
+}
+
+.swiper-button-prev {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-clr);
   border-radius: 100%;
   width: 45px;
   min-width: 45px;
@@ -112,6 +128,6 @@ button:hover {
   color: rgba(0, 0, 0, 0.8) !important;
 }
 
-.itemViewActions button.active svg{
+.itemViewActions button.active svg {
   color: var(--primary-clr);
 }

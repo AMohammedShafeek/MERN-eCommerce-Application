@@ -27,22 +27,22 @@ const ProductList = () => {
     <section className="bg-white py-5  border-t border-t-gray-300">
       <div className="bg-white">
         <div className="container flex gap-3">
-          <div className="sidebarWrapper w-[15%] h-full bg-white p-3">
-            <div className="container pt-2">
-              <Breadcrumbs aria-label="breadcrumb" className="pl-1">
+          <div className="sidebarWrapper w-[15%] h-full bg-white">
+            <div className="container bg-body py-4 rounded-md flex items-center justify-center">
+              <Breadcrumbs aria-label="breadcrumb">
                 <Link
                   underline="hover"
                   color="inherit"
-                  href="/"
-                  className="link transition-all duration-300 !font-[600]"
+                  to={'/'}
+                  className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
                 >
                   HOME
                 </Link>
                 <Link
                   underline="hover"
                   color="inherit"
-                  href="/"
-                  className="link transition-all duration-300 !font-[600]"
+                  to={'/'}
+                  className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
                 >
                   FASHION
                 </Link>
