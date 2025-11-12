@@ -71,7 +71,7 @@ const MainImage = () => {
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className="parentImage w-[85%] mt-8 overflow-hidden h-[455px] border-2 border-[#ff5252]">
+      <div className="parentImage w-[85%] mt-8 overflow-hidden h-[455px] border-2 border-[#ff5252] rounded-[15px]">
         <Swiper
           ref={parentImg}
           slidesPerView={1}
