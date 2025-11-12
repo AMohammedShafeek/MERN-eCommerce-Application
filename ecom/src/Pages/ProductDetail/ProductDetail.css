@@ -1,33 +1,41 @@
 @import "tailwindcss";
 
-.zoomProductSliderThumbs .swiper-slide{
-    height: auto !important;
+.zoomProductSliderThumbs .swiper-slide {
+  height: auto !important;
 }
 
-.slider .item{
-    margin-bottom: 0.5px;
+.slider .item {
+  margin-bottom: 0.5px;
 }
 
-.zoomProductSliderThumbs .swiper-button-next{
-    left: 13px !important;
-    bottom: 0px !important;
-    width: 120% !important;
-    height: 40px !important;
-    border-radius: 0px !important;
+.zoomProductSliderThumbs .swiper-button-next {
+  left: 13px !important;
+  bottom: 0px !important;
+  width: 120% !important;
+  height: 40px !important;
+  border-radius: 0px !important;
 }
 
-.zoomProductSliderThumbs .swiper-button-prev{
-    left: 13px !important;
-    top: 0px !important;
-    width: 120% !important;
-    height: 40px !important;
-    border-radius: 0px !important;
+.zoomProductSliderThumbs .swiper-button-prev {
+  left: 13px !important;
+  top: 0px !important;
+  width: 120% !important;
+  height: 40px !important;
+  border-radius: 0px !important;
 }
 
-.parentImage .swiper-pagination.swiper-pagination-bullets-dynamic.swiper-pagination-bullets.swiper-pagination-horizontal{
-    padding: 0.6rem 20rem;
-    background: white !important;
-    position: absolute !important;
-    left: 130px !important;
-    bottom: 28px !important;
+.parentImage
+  .swiper-pagination.swiper-pagination-bullets-dynamic.swiper-pagination-bullets.swiper-pagination-horizontal {
+  padding: 0.6rem 20rem;
+  background: white !important;
+  position: absolute !important;
+  left: 130px !important;
+  bottom: 28px !important;
+}
+
+.MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected.css-1usuzwp-MuiButtonBase-root-MuiTab-root,
+.MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.css-1usuzwp-MuiButtonBase-root-MuiTab-root {
+  font-weight: 600 !important;
+  transition: 0.3s !important;
+  font-size: 16px !important;
 }
