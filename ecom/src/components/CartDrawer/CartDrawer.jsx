@@ -3,14 +3,22 @@ import { MdDeleteForever } from "react-icons/md";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { MyContext } from "../../App";
 
 const CartDrawer = () => {
+  const context = useContext(MyContext);
+
   return (
     <>
       <div className="scroll w-full max-h-[500px] overflow-y-scroll overflow-x-hidden px-4">
         <div className="cartItem w-full items-center flex gap-3 border-b border-gray-300 py-3">
           <div className="img w-[25%] overflow-hidden h-[140px] rounded-md">
-            <Link to={"/productDetail/1"} className="group">
+            <Link
+              to={"/productDetail/1"}
+              className="group"
+              onClick={() => context.setOpenCartDrawer(false)}
+            >
               <img
                 src="../src/assets/Products/p1-2.jpg"
                 className="group-hover:scale-110 transition-all duration-300"
@@ -19,7 +27,10 @@ const CartDrawer = () => {
           </div>
           <div className="info w-[75%] ml-1 relative">
             <Link to={"/productDetail/1"}>
-              <h4 className="text-[16px] font-[500] link transition-all duration-300">
+              <h4
+                className="text-[16px] font-[500] link transition-all duration-300"
+                onClick={() => context.setOpenCartDrawer(false)}
+              >
                 TAGDO Gray Shirt | Casual Shirt
               </h4>
             </Link>
@@ -56,7 +67,11 @@ const CartDrawer = () => {
         </div>
         <div className="cartItem w-full items-center flex gap-3 border-b border-gray-300 py-3">
           <div className="img w-[25%] overflow-hidden h-[140px] rounded-md">
-            <Link to={"/productDetail/1"} className="group">
+            <Link
+              to={"/productDetail/1"}
+              className="group"
+              onClick={() => context.setOpenCartDrawer(false)}
+            >
               <img
                 src="../src/assets/Products/p1-2.jpg"
                 className="group-hover:scale-110 transition-all duration-300"
@@ -65,7 +80,10 @@ const CartDrawer = () => {
           </div>
           <div className="info w-[75%] ml-1 relative">
             <Link to={"/productDetail/1"}>
-              <h4 className="text-[16px] font-[500] link transition-all duration-300">
+              <h4
+                className="text-[16px] font-[500] link transition-all duration-300"
+                onClick={() => context.setOpenCartDrawer(false)}
+              >
                 TAGDO Gray Shirt | Casual Shirt
               </h4>
             </Link>
@@ -102,7 +120,11 @@ const CartDrawer = () => {
         </div>
         <div className="cartItem w-full items-center flex gap-3 border-b border-gray-300 py-3">
           <div className="img w-[25%] overflow-hidden h-[140px] rounded-md">
-            <Link to={"/productDetail/1"} className="group">
+            <Link
+              to={"/productDetail/1"}
+              className="group"
+              onClick={() => context.setOpenCartDrawer(false)}
+            >
               <img
                 src="../src/assets/Products/p1-2.jpg"
                 className="group-hover:scale-110 transition-all duration-300"
@@ -111,7 +133,10 @@ const CartDrawer = () => {
           </div>
           <div className="info w-[75%] ml-1 relative">
             <Link to={"/productDetail/1"}>
-              <h4 className="text-[16px] font-[500] link transition-all duration-300">
+              <h4
+                className="text-[16px] font-[500] link transition-all duration-300"
+                onClick={() => context.setOpenCartDrawer(false)}
+              >
                 TAGDO Gray Shirt | Casual Shirt
               </h4>
             </Link>
@@ -148,7 +173,11 @@ const CartDrawer = () => {
         </div>
         <div className="cartItem w-full items-center flex gap-3 border-b border-gray-300 py-3">
           <div className="img w-[25%] overflow-hidden h-[140px] rounded-md">
-            <Link to={"/productDetail/1"} className="group">
+            <Link
+              to={"/productDetail/1"}
+              className="group"
+              onClick={() => context.setOpenCartDrawer(false)}
+            >
               <img
                 src="../src/assets/Products/p1-2.jpg"
                 className="group-hover:scale-110 transition-all duration-300"
@@ -157,7 +186,10 @@ const CartDrawer = () => {
           </div>
           <div className="info w-[75%] ml-1 relative">
             <Link to={"/productDetail/1"}>
-              <h4 className="text-[16px] font-[500] link transition-all duration-300">
+              <h4
+                className="text-[16px] font-[500] link transition-all duration-300"
+                onClick={() => context.setOpenCartDrawer(false)}
+              >
                 TAGDO Gray Shirt | Casual Shirt
               </h4>
             </Link>
@@ -194,7 +226,11 @@ const CartDrawer = () => {
         </div>
         <div className="cartItem w-full items-center flex gap-3 border-b border-gray-300 py-3">
           <div className="img w-[25%] overflow-hidden h-[140px] rounded-md">
-            <Link to={"/productDetail/1"} className="group">
+            <Link
+              to={"/productDetail/1"}
+              className="group"
+              onClick={() => context.setOpenCartDrawer(false)}
+            >
               <img
                 src="../src/assets/Products/p1-2.jpg"
                 className="group-hover:scale-110 transition-all duration-300"
@@ -203,7 +239,10 @@ const CartDrawer = () => {
           </div>
           <div className="info w-[75%] ml-1 relative">
             <Link to={"/productDetail/1"}>
-              <h4 className="text-[16px] font-[500] link transition-all duration-300">
+              <h4
+                className="text-[16px] font-[500] link transition-all duration-300"
+                onClick={() => context.setOpenCartDrawer(false)}
+              >
                 TAGDO Gray Shirt | Casual Shirt
               </h4>
             </Link>
@@ -240,7 +279,11 @@ const CartDrawer = () => {
         </div>
         <div className="cartItem w-full items-center flex gap-3 border-b border-gray-300 py-3">
           <div className="img w-[25%] overflow-hidden h-[140px] rounded-md">
-            <Link to={"/productDetail/1"} className="group">
+            <Link
+              to={"/productDetail/1"}
+              className="group"
+              onClick={() => context.setOpenCartDrawer(false)}
+            >
               <img
                 src="../src/assets/Products/p1-2.jpg"
                 className="group-hover:scale-110 transition-all duration-300"
@@ -249,7 +292,10 @@ const CartDrawer = () => {
           </div>
           <div className="info w-[75%] ml-1 relative">
             <Link to={"/productDetail/1"}>
-              <h4 className="text-[16px] font-[500] link transition-all duration-300">
+              <h4
+                className="text-[16px] font-[500] link transition-all duration-300"
+                onClick={() => context.setOpenCartDrawer(false)}
+              >
                 TAGDO Gray Shirt | Casual Shirt
               </h4>
             </Link>
