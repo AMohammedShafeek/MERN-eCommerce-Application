@@ -19,12 +19,21 @@ const MyContext = createContext();
 function App() {
   const [openProductDetailDialog, setOpenProductDetailDialog] = useState(false);
 
+  const [openCartDrawer, setOpenCartDrawer] = useState(false);
+
   const handleCloseProductDetailDialog = () => {
     setOpenProductDetailDialog(false);
+  };
+  
+  const toggleCartDrawer = (newOpen) => () => {
+    setOpenCartDrawer(newOpen);
   };
 
   const values = {
     setOpenProductDetailDialog,
+    setOpenCartDrawer,
+    toggleCartDrawer,
+    openCartDrawer,
   };
 
   return (

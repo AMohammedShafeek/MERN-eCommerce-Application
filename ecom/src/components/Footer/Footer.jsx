@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LiaShippingFastSolid } from "react-icons/lia";
-import { IoSync } from "react-icons/io5";
+import { IoCloseSharp, IoSync } from "react-icons/io5";
 import { IoWalletOutline } from "react-icons/io5";
 import { IoGiftOutline } from "react-icons/io5";
 import { BiSupport } from "react-icons/bi";
@@ -13,8 +13,13 @@ import { FaInstagram } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa6";
+import Drawer from "@mui/material/Drawer";
+import CartDrawer from "../CartDrawer/CartDrawer";
+import { MyContext } from "../../App";
 
 const Footer = () => {
+  const context = useContext(MyContext);
+
   return (
     <>
       <footer className=" bg-white">
@@ -181,19 +186,27 @@ const Footer = () => {
             <div className="social mt-3">
               <p className="text-[13px] font-[400]">Lets Connect with.</p>
               <div className="items-center gap-5 mt-3">
-                <ul className="flex items-center gap-5"><li>
-                  <Link to={"/"}>
-                    <FaGithub className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaGithub>
-                  </Link></li><li>
-                  <Link to={"/"}>
-                    <FaInstagram className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaInstagram>
-                  </Link></li><li>
-                  <Link to={"/"}>
-                    <FaLinkedin className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaLinkedin>
-                  </Link></li><li>
-                  <Link to={"/"}>
-                    <FaWhatsapp className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaWhatsapp>
-                  </Link></li>
+                <ul className="flex items-center gap-5">
+                  <li>
+                    <Link to={"/"}>
+                      <FaGithub className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaGithub>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>
+                      <FaInstagram className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaInstagram>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>
+                      <FaLinkedin className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaLinkedin>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={"/"}>
+                      <FaWhatsapp className="text-black text-[30px] hover:text-[#ff5252] hover:-translate-y-2 transition-all duration-300"></FaWhatsapp>
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -203,9 +216,32 @@ const Footer = () => {
 
       <div className="bottomStipe bg-primary py-3">
         <div className="container flex items-center justify-center">
-          <p className="text-[13px] text-white font-[600]">&copy; 2025 - ECOMMERCE SOFTWARE BY MOHAMMED SHAFEEK A</p>
+          <p className="text-[13px] text-white font-[600]">
+            &copy; 2025 - ECOMMERCE SOFTWARE BY MOHAMMED SHAFEEK A
+          </p>
         </div>
       </div>
+
+      <Drawer
+        open={context.openCartDrawer}
+        onClose={context.toggleCartDrawer(false)}
+        anchor="right"
+        sx={{
+          "& .MuiDrawer-paper": {
+            width: "500px",
+          },
+        }}
+        className="cartDrawer"
+      >
+        <div className="flex items-center justify-between py-3 px-4 gap-3 border-b border-gray-300 overflow-hidden">
+          <h4 className="font-[600]">Shipping Cart (1)</h4>
+          <IoCloseSharp
+            className="text-[20px] cursor-pointer"
+            onClick={context.toggleCartDrawer(false)}
+          ></IoCloseSharp>
+        </div>
+        <CartDrawer></CartDrawer>
+      </Drawer>
     </>
   );
 };
