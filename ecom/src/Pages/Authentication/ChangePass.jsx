@@ -5,35 +5,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { MyContext } from "../../App";
 
-const Login = () => {
-  const [formFeilds, setFormFeilds] = useState({
-    email: "",
-    password: "",
-  });
+const ChangePass = () => {
 
   const context = useContext(MyContext)
 
   const history = useNavigate();
 
-  const forgotPass = () => {
-      context.openAlertBox('success', "OTP Sent to your Email")
-      history("/verify");
-  };
-
   return (
     <section className="section py-10">
       <div className="container">
         <div className="card shadow-md w-[500px] m-auto rounded-md bg-white p-5 px-8">
-          <h3 className="text-center text-[20px] font-[500]">
-            Login to your Account
+          <h3 className="text-center text-[20px] mb-5 font-[500]">
+            Reset Password
           </h3>
           <form className="w-full">
-            <div className="form-group w-full my-5">
+            <div className="form-group w-full mb-3 relative">
               <TextField
-                type="email"
-                id="email"
-                name="email"
-                label="Email"
+                type="password"
+                id="password"
+                name="password"
+                label="New Password"
                 variant="outlined"
                 sx={{
                   "& label.Mui-focused": {
@@ -59,9 +50,9 @@ const Login = () => {
             <div className="form-group w-full mb-3 relative">
               <TextField
                 type="password"
-                id="password"
-                name="password"
-                label="Password"
+                id="cPassword"
+                name="cPassword"
+                label="Confirm New Password"
                 variant="outlined"
                 sx={{
                   "& label.Mui-focused": {
@@ -84,34 +75,11 @@ const Login = () => {
                 className="w-full"
               />
             </div>
-            <a
-              className="transition-all duration-300 !text-[14px] !pl-1 !text-[#ff5252] !cursor-pointer !font-[600]"
-              type="submit"
-              onClick={forgotPass}
-            >
-              Forgot Password?
-            </a>
-            <div className="flex items-center gap-3 justify-center my-3">
+            <div className="flex items-center gap-3 justify-center my-3 mt-7">
               <Button className="btn-org !w-full !py-2 !font-bold hover:!bg-black hover:!text-white transition-all duration-300">
-                LOGIN
+                UPDATE PASSWORD
               </Button>
             </div>
-            <p className="transition-all duration-300 text-[14px] pl-1 pb-5 pt-[0.8] text-black font-[500]">
-              Not Registered?
-              <Link to={"/register"} className="text-[#ff5252] pl-2">
-                Sign Up Now
-              </Link>
-            </p>
-            <hr className="text-gray-300" />
-            <p className="text-center transition-all duration-300 text-[14px] py-4 text-gray-600 font-[500]">
-              Or Continue with Social Account
-            </p>
-            <Link to={"/"}>
-              <div className="socialLogin transition-all duration-300 bg-blue-50 flex items-center justify-center p-1 py-2 rounded-sm cursor-pointer hover:bg-[#ffdbdb]">
-                <FcGoogle className="text-[25px] mr-1.5"></FcGoogle>
-                <h3 className="pb-0.5 font-[500]">Sign in With Google</h3>
-              </div>
-            </Link>
           </form>
         </div>
       </div>
@@ -119,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ChangePass;

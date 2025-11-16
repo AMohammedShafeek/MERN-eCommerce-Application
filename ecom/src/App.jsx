@@ -15,6 +15,9 @@ import Login from "./Pages/Authentication/Login";
 import Register from "./Pages/Authentication/Register";
 import CartDrawer from "./components/CartDrawer/CartDrawer";
 import Cart from "./Pages/Cart/Cart";
+import VerifyOtp from "./Pages/VerifyOtp/VerifyOtp";
+import toast, { Toaster } from "react-hot-toast";
+import ChangePass from "./Pages/Authentication/ChangePass";
 
 const MyContext = createContext();
 
@@ -22,6 +25,15 @@ function App() {
   const [openProductDetailDialog, setOpenProductDetailDialog] = useState(false);
 
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
+
+  const openAlertBox = (status, msg) => {
+    if (status === "success") {
+      toast.success(msg);
+    }
+    if (status === "error") {
+      toast.error(msg);
+    }
+  };
 
   const handleCloseProductDetailDialog = () => {
     setOpenProductDetailDialog(false);
@@ -36,6 +48,7 @@ function App() {
     setOpenCartDrawer,
     toggleCartDrawer,
     openCartDrawer,
+    openAlertBox,
   };
 
   return (
@@ -65,15 +78,24 @@ function App() {
               path={"/register"}
               exact={true}
               element={<Register></Register>}
-            ></Route><Route
-              path={"/cart"}
+            ></Route>
+            <Route path={"/cart"} exact={true} element={<Cart></Cart>}></Route>
+            <Route
+              path={"/verify"}
               exact={true}
-              element={<Cart></Cart>}
+              element={<VerifyOtp></VerifyOtp>}
+            ></Route>
+            <Route
+              path={"/changePassword"}
+              exact={true}
+              element={<ChangePass></ChangePass>}
             ></Route>
           </Routes>
           <Footer></Footer>
         </MyContext.Provider>
       </BrowserRouter>
+
+      <Toaster></Toaster>
 
       <Dialog
         open={openProductDetailDialog}
