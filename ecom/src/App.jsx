@@ -18,6 +18,7 @@ import Cart from "./Pages/Cart/Cart";
 import VerifyOtp from "./Pages/VerifyOtp/VerifyOtp";
 import toast, { Toaster } from "react-hot-toast";
 import ChangePass from "./Pages/Authentication/ChangePass";
+import Checkout from "./Pages/Checkout/Checkout";
 
 const MyContext = createContext();
 
@@ -89,6 +90,11 @@ function App() {
               path={"/changePassword"}
               exact={true}
               element={<ChangePass></ChangePass>}
+            ></Route>
+            <Route
+              path={"/checkout"}
+              exact={true}
+              element={<Checkout></Checkout>}
             ></Route>
           </Routes>
           <Footer></Footer>
