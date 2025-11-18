@@ -19,6 +19,7 @@ import VerifyOtp from "./Pages/VerifyOtp/VerifyOtp";
 import toast, { Toaster } from "react-hot-toast";
 import ChangePass from "./Pages/Authentication/ChangePass";
 import Checkout from "./Pages/Checkout/Checkout";
+import MyAccount from "./Pages/MyAccount/MyAccount";
 
 const MyContext = createContext();
 
@@ -99,6 +100,11 @@ function App() {
               path={"/checkout"}
               exact={true}
               element={<Checkout></Checkout>}
+            ></Route>
+            <Route
+              path={"/my-account"}
+              exact={true}
+              element={<MyAccount></MyAccount>}
             ></Route>
           </Routes>
           <Footer></Footer>

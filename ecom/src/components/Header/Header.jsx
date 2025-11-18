@@ -86,13 +86,13 @@ const Header = () => {
               <img className="h-12 w-full" src="/logo.png" />
             </Link>
           </div>
-          <div className="col2 w-[52%]">
+          <div className="col2 w-[60%]">
             <Search></Search>
           </div>
-          <div className="col3 w-[40%] pl-45 justify-end">
+          <div className="col3 w-[32%] pl-45 justify-end">
             {context.isLogin === false ? (
-              <ul className="flex items-center gap-3 w-full">
-                <li className="list-none">
+              <ul className="flex items-center justify-end gap-3 w-full pr-6">
+                <li className="list-none border-r pr-5 border-gray-300">
                   <Link
                     to={"/login"}
                     className="link transition-all duration-300 text-[15px] font-[500]"
@@ -147,7 +147,7 @@ const Header = () => {
                 </li>
               </ul>
             ) : (
-              <ul className="flex items-center gap-3 w-full">
+              <ul className="flex items-center gap-3 w-full justify-end pr-6">
                 <li className="list-none">
                   <>
                     <div className="profile flex items-center pr-3 border-r border-gray-300">
@@ -207,7 +207,7 @@ const Header = () => {
                         </MenuItem>
                       </Link>
                       <Divider></Divider>
-                      <Link to={"/my-account"}>
+                      <Link to={"/my-orders"}>
                         <MenuItem
                           onClick={handleClose}
                           className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"
@@ -215,7 +215,7 @@ const Header = () => {
                           <IoBagRemoveOutline></IoBagRemoveOutline> Orders
                         </MenuItem>
                       </Link>
-                      <Link to={"/my-account"}>
+                      <Link to={"/my-wishlist"}>
                         <MenuItem
                           onClick={handleClose}
                           className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"
@@ -223,14 +223,12 @@ const Header = () => {
                           <IoIosHeartEmpty></IoIosHeartEmpty> My Wishlist
                         </MenuItem>
                       </Link>
-                      <Link to={"/my-account"}>
                         <MenuItem
                           onClick={handleClose}
                           className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"
                         >
                           <IoIosLogOut></IoIosLogOut> Log Out
                         </MenuItem>
-                      </Link>
                     </Menu>
                   </>
                 </li>
