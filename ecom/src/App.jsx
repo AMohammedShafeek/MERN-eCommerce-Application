@@ -20,6 +20,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ChangePass from "./Pages/Authentication/ChangePass";
 import Checkout from "./Pages/Checkout/Checkout";
 import MyAccount from "./Pages/MyAccount/MyAccount";
+import Wishlist from "./Pages/Wishlist/Wishlist";
 
 const MyContext = createContext();
 
@@ -105,6 +106,11 @@ function App() {
               path={"/my-account"}
               exact={true}
               element={<MyAccount></MyAccount>}
+            ></Route>
+            <Route
+              path={"/wishlist"}
+              exact={true}
+              element={<Wishlist></Wishlist>}
             ></Route>
           </Routes>
           <Footer></Footer>

@@ -215,7 +215,7 @@ const Header = () => {
                           <IoBagRemoveOutline></IoBagRemoveOutline> Orders
                         </MenuItem>
                       </Link>
-                      <Link to={"/my-wishlist"}>
+                      <Link to={"/wishlist"}>
                         <MenuItem
                           onClick={handleClose}
                           className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"
