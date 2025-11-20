@@ -39,7 +39,7 @@ const WishlistItems = (props) => {
             55% DISCOUNT
           </span>
         </div>
-        <div className="group/price flex items-center w-[23%] gap-3 p-1 mt-3 bg-[#ff5252] hover:bg-black rounded-md justify-center transition-all duration-300">
+        <div className="group/price cursor-pointer flex items-center w-[23%] gap-3 p-1 mt-3 bg-[#ff5252] hover:bg-black rounded-md justify-center transition-all duration-300">
           <span className="oldPrice text-[16px] py-1 font-bold text-white group-hover/price:text-white flex items-center gap-3">
             <IoCartOutline className="text-[25px]"></IoCartOutline>ADD TO CART
           </span>

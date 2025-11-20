@@ -21,6 +21,7 @@ import ChangePass from "./Pages/Authentication/ChangePass";
 import Checkout from "./Pages/Checkout/Checkout";
 import MyAccount from "./Pages/MyAccount/MyAccount";
 import Wishlist from "./Pages/Wishlist/Wishlist";
+import MyOrders from "./Pages/MyOrders/MyOrders";
 
 const MyContext = createContext();
 
@@ -111,6 +112,10 @@ function App() {
               path={"/wishlist"}
               exact={true}
               element={<Wishlist></Wishlist>}
+            ></Route><Route
+              path={"/my-orders"}
+              exact={true}
+              element={<MyOrders></MyOrders>}
             ></Route>
           </Routes>
           <Footer></Footer>
