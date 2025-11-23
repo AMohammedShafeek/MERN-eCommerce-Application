@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import { IoIosLogOut } from "react-icons/io";
 import Sidebar from "../Sidebar/Sidebar";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -34,15 +35,19 @@ const Header = () => {
 
   return (
     <>
-      <Sidebar></Sidebar>
-      <div className="w-full h-[50px] bg-white flex items-center border-b border-gray-300">
+      <div className="bg-white py-2">
         <div className="container flex justify-between">
-          <div className="container part1 pl-67">
-            <Button className="link !w-[40px] !h-[40px] !rounded-full !min-w-[40px] !transition-all !duration-300">
-              <RiMenu2Line className="text-[22px]"></RiMenu2Line>
-            </Button>
+          <div className="part1 w-[20%] flex">
+            <Link to={"/"}>
+              <div className="col2 py-1 flex items-center justify-center fixed left-8 top-1">
+                <img src="./public/logo.png" alt="" className="h-10 w-[33%]" />
+                <h1 className="headText font-bold text-[22px]">
+                  - <span className="primary">Admin</span> Panel
+                </h1>
+              </div>
+            </Link>
           </div>
-          <div className="part2">
+          <div className="part2 w-[80%] flex">
             <ul className="flex items-center gap-3 w-full justify-end pr-6">
               <li className="list-none">
                 <>
@@ -103,7 +108,7 @@ const Header = () => {
                       </MenuItem>
                     </Link>
                     <Divider></Divider>
-                    <Link to={"/my-orders"}>
+                    <Link to={"/logout"}>
                       <MenuItem
                         onClick={handleClose}
                         className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"

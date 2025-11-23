@@ -8,8 +8,16 @@ function App() {
       <BrowserRouter>
         <Header></Header>
         <Routes>
-          <Route path={"/"} exact={true} element={<Dashboard></Dashboard>}></Route>
-          <Route path={"/dashboard"} exact={true} element={<Dashboard></Dashboard>}></Route>
+          <Route
+            path={"/"}
+            exact={true}
+            element={<Dashboard></Dashboard>}
+          ></Route>
+          <Route
+            path={"/dashboard"}
+            exact={true}
+            element={<Dashboard></Dashboard>}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </>
