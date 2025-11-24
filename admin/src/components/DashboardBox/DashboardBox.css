@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.HomeDashSlider .container .item:hover {
+  box-shadow: 2px 2px var(--primary-clr);
+}
+
+.HomeDashSlider .container .item:hover img {
+  transform: scale(1.2);
+}
+
+.dashSlider {
+  overflow: inherit !important;
+}
