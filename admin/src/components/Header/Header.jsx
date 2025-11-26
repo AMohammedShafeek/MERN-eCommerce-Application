@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import { RiMenu2Line } from "react-icons/ri";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
@@ -11,8 +9,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import { IoIosLogOut } from "react-icons/io";
-import Sidebar from "../Sidebar/Sidebar";
-import Dashboard from "../../Pages/Dashboard/Dashboard";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -34,7 +30,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full fixed">
+    <div className="w-full fixed z-50">
       <div className="bg-white py-2 border-b border-b-gray-300">
         <div className="container flex justify-between">
           <div className="part1 w-[20%] flex">

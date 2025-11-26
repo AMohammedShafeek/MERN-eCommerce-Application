@@ -27,7 +27,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="sidebar fixed top-5 left-0 -z-10 bg-white w-[21%] h-full pt-6">
+      <div className="sidebar fixed top-5 left-0 bg-white w-[21%] h-full pt-6">
         <div className="navigations mt-4">
           <Link to={"/"}>
             <div className="adminProfile py-7 mb-3 border-b border-gray-300 flex items-center justify-center">

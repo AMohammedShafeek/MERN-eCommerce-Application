@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import ProductItem from "../../components/ProductItem/ProductItem";

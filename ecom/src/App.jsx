@@ -22,6 +22,7 @@ import Checkout from "./Pages/Checkout/Checkout";
 import MyAccount from "./Pages/MyAccount/MyAccount";
 import Wishlist from "./Pages/Wishlist/Wishlist";
 import MyOrders from "./Pages/MyOrders/MyOrders";
+import TrackOrders from "./Pages/TrackOrders/TrackOrders";
 
 const MyContext = createContext();
 
@@ -112,10 +113,16 @@ function App() {
               path={"/wishlist"}
               exact={true}
               element={<Wishlist></Wishlist>}
-            ></Route><Route
+            ></Route>
+            <Route
               path={"/my-orders"}
               exact={true}
               element={<MyOrders></MyOrders>}
+            ></Route>
+            <Route
+              path={"/track-orders"}
+              exact={true}
+              element={<TrackOrders></TrackOrders>}
             ></Route>
           </Routes>
           <Footer></Footer>

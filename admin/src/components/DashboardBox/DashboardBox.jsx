@@ -3,12 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-import { Link } from "react-router-dom";
 import "./DashboardBox.css";
 import { IoBag } from "react-icons/io5";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { BsBank2 } from "react-icons/bs";
-import Divider from "@mui/material/Divider";
 
 const DashboardBox = () => {
   return (
