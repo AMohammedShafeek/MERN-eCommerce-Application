@@ -5,6 +5,10 @@
   --body-clr: #f5f0f0;
 }
 
+html {
+  overflow-y: scroll; 
+}
+
 .primary {
   color: var(--primary-clr);
 }
