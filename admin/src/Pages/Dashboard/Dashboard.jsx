@@ -13,6 +13,7 @@ import Collapse from "@mui/material/Collapse";
 import { Link } from "react-router-dom";
 import OrderStatus from "../../components/OrderStatus/OrderStatus";
 import ProductsList from "../../components/Products/ProductsList";
+import Pagination from "@mui/material/Pagination";
 
 const Dashboard = () => {
   const [openProduct, setOpenProduct] = useState(null);
@@ -1198,7 +1199,23 @@ const Dashboard = () => {
               </Table>
             </TableContainer>
           </div>
+          <div className="flex mt-5 mb-10 items-center justify-center">
+            <Pagination
+              count={10}
+              variant="outlined"
+              showFirstButton
+              showLastButton
+            />
+          </div>
           <ProductsList></ProductsList>
+          <div className="flex mt-5 mb-10 items-center justify-center">
+            <Pagination
+              count={10}
+              variant="outlined"
+              showFirstButton
+              showLastButton
+            />
+          </div>
         </div>
       </div>
     </section>

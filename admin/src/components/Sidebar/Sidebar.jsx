@@ -13,6 +13,7 @@ import { Collapse } from "react-collapse";
 import { FaCirclePlus } from "react-icons/fa6";
 import { MdViewList } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
+import "./Sidebar.css";
 
 const Sidebar = () => {
   const [submenuIndex, setSubmenuIndex] = useState(null);
@@ -46,7 +47,11 @@ const Sidebar = () => {
           </Link>
           <ul className="list-none myAccountTabs">
             <li className="w-full py-1">
-              <NavLink to={"/dashboard"} exact={"true"} activeclassname="isActive">
+              <NavLink
+                to={"/dashboard"}
+                exact={"true"}
+                activeclassname="isActive"
+              >
                 <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
                   <BiSolidDashboard className="text-[20px] mr-2"></BiSolidDashboard>
                   <span>Dashboard</span>
@@ -54,11 +59,13 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li className="w-full py-1">
-              <NavLink exact={"true"} activeclassname="isActive">
-                <Button
-                  onClick={() => isOpenSubmenu(0)}
-                  className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
-                >
+              <NavLink
+                to={"/home-slides"}
+                exact={"true"}
+                activeclassname="isActive"
+                onClick={() => isOpenSubmenu(0)}
+              >
+                <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
                   <FaImages className="text-[20px] mr-2"></FaImages>
                   <span>Home Slides</span>
                   {submenuIndex === 0 ? (
@@ -72,7 +79,7 @@ const Sidebar = () => {
                 <div>
                   <ul className="w-full">
                     <li className="pt-1">
-                      <Link to={"/home-slides"}>
+                      <Link to={"/home-slides/list"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <MdViewList className="text-[20px] mr-0"></MdViewList>
                           <span>Home Sliders List</span>
@@ -100,7 +107,11 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li className="w-full py-1">
-              <NavLink exact={"true"} activeclassname="isActive">
+              <NavLink
+                to={"/products"}
+                exact={"true"}
+                activeclassname="isActive"
+              >
                 <Button
                   onClick={() => isOpenSubmenu(1)}
                   className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
@@ -118,7 +129,7 @@ const Sidebar = () => {
                 <div>
                   <ul className="w-full">
                     <li className="pt-1">
-                      <Link to={"/products"}>
+                      <Link to={"/products-list"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <MdViewList className="text-[20px] mr-0"></MdViewList>
                           <span>Products List</span>
@@ -126,7 +137,7 @@ const Sidebar = () => {
                       </Link>
                     </li>
                     <li className="pt-1">
-                      <Link to={"/products/new"}>
+                      <Link to={"/products-new"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <FaCirclePlus className="text-[18px] mr-0.5"></FaCirclePlus>
                           <span>Add New Product</span>
@@ -138,7 +149,11 @@ const Sidebar = () => {
               </Collapse>
             </li>
             <li className="w-full py-1">
-              <NavLink exact={"true"} activeclassname="isActive">
+              <NavLink
+                to={"/categories"}
+                exact={"true"}
+                activeclassname="isActive"
+              >
                 <Button
                   onClick={() => isOpenSubmenu(2)}
                   className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
@@ -156,7 +171,7 @@ const Sidebar = () => {
                 <div>
                   <ul className="w-full">
                     <li className="pt-1">
-                      <Link to={"/categories"}>
+                      <Link to={"/categories-list"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <MdViewList className="text-[20px] mr-0"></MdViewList>
                           <span>Category List</span>
@@ -164,7 +179,7 @@ const Sidebar = () => {
                       </Link>
                     </li>
                     <li className="pt-1">
-                      <Link to={"/categories/new"}>
+                      <Link to={"/categories-new"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <FaCirclePlus className="text-[18px] mr-0.5"></FaCirclePlus>
                           <span>Add New Category</span>
@@ -176,7 +191,11 @@ const Sidebar = () => {
               </Collapse>
             </li>
             <li className="w-full py-1">
-              <NavLink exact={"true"} activeclassname="isActive">
+              <NavLink
+                to={"/sub-categories"}
+                exact={"true"}
+                activeclassname="isActive"
+              >
                 <Button
                   onClick={() => isOpenSubmenu(3)}
                   className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
@@ -194,7 +213,7 @@ const Sidebar = () => {
                 <div>
                   <ul className="w-full">
                     <li className="pt-1">
-                      <Link to={"/sub-categories"}>
+                      <Link to={"/sub-categories-list"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <MdViewList className="text-[20px] mr-0"></MdViewList>
                           <span>Sub-Category List</span>
@@ -202,7 +221,7 @@ const Sidebar = () => {
                       </Link>
                     </li>
                     <li className="pt-1">
-                      <Link to={"/sub-categories/new"}>
+                      <Link to={"/sub-categories-new"}>
                         <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
                           <FaCirclePlus className="text-[18px] mr-0.5"></FaCirclePlus>
                           <span>Add New Sub-Category</span>

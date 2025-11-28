@@ -97,7 +97,7 @@ const ProductsList = () => {
                 <p className="text-[13px] font-[500]">
                   <span className="pr-1 font-bold">128</span>Sales
                 </p>
-                <ProgressBar value={50}></ProgressBar>
+                <ProgressBar value={20}></ProgressBar>
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">TAGDO</TableCell>
               <TableCell>

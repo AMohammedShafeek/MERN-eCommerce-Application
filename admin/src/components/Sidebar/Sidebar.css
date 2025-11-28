@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --primary-clr: #ff5252;
+  --body-clr: #f5f0f0;
+}
+
+.primary {
+  color: var(--primary-clr);
+}
+
+.bg-body {
+  background-color: var(--body-clr);
+}
+
+.bg-primary {
+  background-color: var(--primary-clr);
+}
+
+.myAccountTabs li {
+  position: relative;
+}
+
+.myAccountTabs li a::before {
+  content: "";
+  width: 4px;
+  height: 80%;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  background: var(--primary-clr);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.myAccountTabs li a.active::before {
+  height: 80%;
+  opacity: 1;
+  top: 5px;
+}
+
+.myAccountTabs li a.active button svg {
+  color: var(--primary-clr);
+}
+
+.Mui-selected.MuiPaginationItem-page {
+  background: var(--primary-clr) !important;
+  color: white !important;
+}
