@@ -1,7 +1,6 @@
 import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Pagination from "@mui/material/Pagination";
-import { FaCirclePlus } from "react-icons/fa6";
 import Search from "../../components/Search/Search";
 import { useNavigate } from "react-router-dom";
 import UsersList from "../../components/Users/UsersList";
@@ -17,18 +16,7 @@ const Users = () => {
         </div>
         <div className="sidebarWrapper w-[80%] my-7 h-full">
           <div className="flex items-center w-full gap-2">
-            <div
-              onClick={() => {
-                navigate("/users-new");
-              }}
-              className="flex w-[20%] items-center h-[50px] min-h-[50px] add bg-black cursor-pointer gap-2 py-1 justify-center rounded-md"
-            >
-              <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
-              <h1 className="text-white text-[18px] font-bold">
-                Add New User
-              </h1>
-            </div>
-            <div className="w-[80%]">
+            <div className="w-full">
               <Search placeHolder="Search Users by Mobile Number or EMail"></Search>
             </div>
           </div>

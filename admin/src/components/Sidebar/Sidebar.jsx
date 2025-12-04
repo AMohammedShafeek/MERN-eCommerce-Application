@@ -54,7 +54,7 @@ const Sidebar = () => {
             </div>
           </Link>
           <ul className="list-none myAccountTabs">
-            <li className="w-full py-1">
+            <li className="Dashboard w-full py-1">
               <NavLink
                 to={"/dashboard"}
                 exact={"true"}
@@ -66,47 +66,19 @@ const Sidebar = () => {
                 </Button>
               </NavLink>
             </li>
-            <li className="w-full py-1">
+            <li className="HomeSlides w-full py-1">
               <NavLink
                 to={"/home-slides"}
                 exact={"true"}
                 activeclassname="isActive"
-                onClick={() => isOpenSubmenu(0)}
               >
                 <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
                   <FaImages className="text-[20px] mr-2"></FaImages>
                   <span>Home Slides</span>
-                  {submenuIndex === 0 ? (
-                    <FaAngleUp className="ml-auto"></FaAngleUp>
-                  ) : (
-                    <FaAngleDown className="ml-auto"></FaAngleDown>
-                  )}
                 </Button>
               </NavLink>
-              <Collapse isOpened={submenuIndex === 0 ? true : false}>
-                <div>
-                  <ul className="w-full">
-                    <li className="pt-1">
-                      <Link to={"/home-slides/list"}>
-                        <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
-                          <MdViewList className="text-[20px] mr-0"></MdViewList>
-                          <span>Home Sliders List</span>
-                        </Button>
-                      </Link>
-                    </li>
-                    <li className="pt-1">
-                      <Link to={"/home-slides/new"}>
-                        <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !pl-19 !text-[14px] !font-[400] transition-all duration-300">
-                          <FaCirclePlus className="text-[18px] mr-0.5"></FaCirclePlus>
-                          <span>Add Home Banner Slides</span>
-                        </Button>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-              </Collapse>
             </li>
-            <li className="w-full py-1">
+            <li className="Users w-full py-1">
               <NavLink to={"/users"} exact={"true"} activeclassname="isActive">
                 <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
                   <FaUsers className="text-[20px] mr-2"></FaUsers>
@@ -114,7 +86,7 @@ const Sidebar = () => {
                 </Button>
               </NavLink>
             </li>
-            <li className="w-full py-1">
+            <li className="Products w-full py-1">
               <NavLink
                 to={"/products-data"}
                 exact={"true"}
@@ -210,7 +182,7 @@ const Sidebar = () => {
                 </div>
               </Collapse>
             </li>
-            <li className="w-full py-1">
+            <li className="Orders w-full py-1">
               <NavLink to={"/orders"} exact={"true"} activeclassname="isActive">
                 <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
                   <FaBagShopping className="text-[20px] mr-2"></FaBagShopping>
@@ -218,7 +190,7 @@ const Sidebar = () => {
                 </Button>
               </NavLink>
             </li>
-            <li className="w-full py-1">
+            <li className="Logout w-full py-1">
               <NavLink to={"/logout"}>
                 <Button
                   onClick={logout}

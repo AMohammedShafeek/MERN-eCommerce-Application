@@ -3,7 +3,6 @@ import Header from "./components/Header/Header";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Users from "./Pages/Users/Users";
 import HomeSlides from "./Pages/HomeSlides/HomeSlides";
-import HomeSlideList from "./Pages/HomeSlides/HomeSlideList";
 import HomeSlidesNew from "./Pages/HomeSlides/HomeSlidesNew";
 import ProductsItemsNew from "./Pages/ProductsData/ProductsItemsNew";
 import Categories from "./Pages/Category/Categories";
@@ -14,7 +13,6 @@ import SubCategoriesList from "./Pages/SubCategory/SubCategoriesList";
 import SubCategoriesNew from "./Pages/SubCategory/SubCategoriesNew";
 import Orders from "./Pages/Orders/Orders";
 import ProductsData from "./Pages/ProductsData/ProductsData";
-import UsersNew from "./Pages/Users/UsersNew";
 import { createContext, useState } from "react";
 import Login from "./Pages/Authentication/Login";
 
@@ -46,18 +44,10 @@ function App() {
                   element={<HomeSlides></HomeSlides>}
                 ></Route>
                 <Route
-                  path={"/home-slides/list"}
-                  element={<HomeSlideList></HomeSlideList>}
-                ></Route>
-                <Route
-                  path={"/home-slides/new"}
+                  path={"/home-slides-new"}
                   element={<HomeSlidesNew></HomeSlidesNew>}
                 ></Route>
                 <Route path={"/users"} element={<Users></Users>}></Route>
-                <Route
-                  path={"/users-new"}
-                  element={<UsersNew></UsersNew>}
-                ></Route>
                 <Route
                   path={"/products-data"}
                   element={<ProductsData></ProductsData>}
