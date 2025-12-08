@@ -93,7 +93,9 @@ const Dashboard = () => {
   return (
     <section>
       <div className="container flex pt-10">
-        <div className="sidebarWrapper h-full w-[20%] bg-white">
+        <div className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[20%]" : ""
+          } h-full bg-white`}>
           <Sidebar></Sidebar>
         </div>
         <div

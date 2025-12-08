@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Pagination from "@mui/material/Pagination";
 import { FaCirclePlus } from "react-icons/fa6";
 import Search from "../../components/Search/Search";
 import { useNavigate } from "react-router-dom";
 import HomeSliderList from "../../components/HomeSliderList/HomeSliderList";
+import { MyContext } from "../../App";
 
 const HomeSlides = () => {
+  const context = useContext(MyContext);
   const navigate = useNavigate();
   return (
     <section>
       <div className="container flex pt-10">
-        <div className="sidebarWrapper h-full w-[20%] bg-white">
+        <div className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[20%]" : ""
+          } h-full bg-white`}>
           <Sidebar></Sidebar>
         </div>
-        <div className="sidebarWrapper w-[80%] my-7 h-full">
+        <div
+          className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
+          }  my-7 h-full`}
+        >
           <div className="flex items-center w-full gap-2">
             <div
               onClick={() => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -6,18 +6,26 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import { MyContext } from "../../App";
 
 const CategoriesNew = () => {
+  const context = useContext(MyContext);
   return (
     <section>
       <div className="container flex pt-10">
-        <div className="sidebarWrapper h-full w-[20%] bg-white">
+        <div className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[20%]" : ""
+          } h-full bg-white`}>
           <Sidebar></Sidebar>
         </div>
-        <div className="sidebarWrapper w-[80%] my-7 h-full">
+        <div
+          className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
+          }  my-7 h-full`}
+        >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
-              <h2 className="font-bold text-[18px]">ADD NEW SUB-CATEGORY</h2>
+              <h2 className="font-bold text-[18px]">ADD NEW CATEGORY</h2>
             </div>
 
             <form className="w-full container mt-5 pt-3 my-3">
@@ -31,7 +39,7 @@ const CategoriesNew = () => {
                       type="text"
                       id="name"
                       name="name"
-                      label="Enter Slider Name"
+                      label="Enter Category Name"
                       variant="outlined"
                       size="medium"
                       sx={{

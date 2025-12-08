@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -10,8 +10,10 @@ import UploadBox from "../../components/UploadBox/UploadBox";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { IoMdClose } from "react-icons/io";
+import { MyContext } from "../../App";
 
 const ProductsItemsNew = () => {
+  const context = useContext(MyContext);
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
   const [featured, setFeatured] = useState("");
@@ -37,10 +39,16 @@ const ProductsItemsNew = () => {
   return (
     <section>
       <div className="container flex pt-10">
-        <div className="sidebarWrapper h-full w-[20%] bg-white">
+        <div className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[20%]" : ""
+          } h-full bg-white`}>
           <Sidebar></Sidebar>
         </div>
-        <div className="sidebarWrapper w-[80%] my-7 h-full">
+        <div
+          className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
+          }  my-7 h-full`}
+        >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
               <h2 className="font-bold text-[18px]">ADD NEW PRODUCT</h2>

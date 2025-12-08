@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -17,18 +17,26 @@ import Search from "../../components/Search/Search";
 import Tooltip from "@mui/material/Tooltip";
 import Button from "@mui/material/Button";
 import { MdDelete, MdEdit } from "react-icons/md";
+import { MyContext } from "../../App";
 
 const Orders = () => {
+  const context = useContext(MyContext);
   const navigate = useNavigate();
   const [openProduct, setOpenProduct] = useState(null);
 
   return (
     <section>
       <div className="container flex pt-10">
-        <div className="sidebarWrapper h-full w-[20%] bg-white">
+        <div className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[20%]" : ""
+          } h-full bg-white`}>
           <Sidebar></Sidebar>
         </div>
-        <div className="sidebarWrapper w-[80%] my-7 h-full">
+        <div
+          className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
+          }  my-7 h-full`}
+        >
           <div className="flex items-center w-full gap-2">
             <div className="w-[100%]">
               <Search placeHolder="Search Order by OrderID"></Search>

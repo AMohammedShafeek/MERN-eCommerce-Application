@@ -81,6 +81,7 @@ function App() {
                 ></Route>
                 <Route path={"/orders"} element={<Orders></Orders>}></Route>
                 <Route path={"/logout"} element={<Login></Login>}></Route>
+                <Route path={"/login"} element={<Login></Login>}></Route>
               </Routes>
             </>
           ) : (
