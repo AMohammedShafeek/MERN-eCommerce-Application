@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import DashboardBox from "../../components/DashboardBox/DashboardBox";
 import {
@@ -10,8 +10,10 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { MyContext } from "../../App";
 
 const Dashboard = () => {
+  const context = useContext(MyContext);
   const [openProduct, setOpenProduct] = useState(null);
   const [chart1Data, setChart1Data] = useState([
     {
@@ -94,7 +96,11 @@ const Dashboard = () => {
         <div className="sidebarWrapper h-full w-[20%] bg-white">
           <Sidebar></Sidebar>
         </div>
-        <div className="sidebarWrapper w-[80%] my-7 h-full">
+        <div
+          className={`sidebarWrapper ${
+            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
+          }  my-7 h-full`}
+        >
           <div className="bg-white flex items-center gap-7 mb-3 py-3 px-4 rounded-md">
             <div className="w-[20%]">
               <img

@@ -1,3 +1,4 @@
+import "./responsive.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -19,10 +20,13 @@ export const MyContext = createContext();
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
+  const [isOpenSideBar, setIsOpenSideBar] = useState(true);
 
   const values = {
     isLogin,
     setIsLogin,
+    isOpenSideBar,
+    setIsOpenSideBar,
   };
 
   return (
