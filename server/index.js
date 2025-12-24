@@ -1,11 +1,12 @@
-import express, { request, response } from "express";
+import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import cookieParser from "cookie-parser";
-import helmet from "helmet";
 import morgan from "morgan";
+import helmet from "helmet";
 import connectDB from "./config/connectDB.js";
+import userRouter from "./route/user.route.js";
 
 // import mongoose from "mongoose";
 // import bcrypt from "bcrypt";
@@ -15,6 +16,7 @@ import connectDB from "./config/connectDB.js";
 
 const app = express()
 app.use(cors())
+// app.options('*', cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan())
@@ -30,6 +32,8 @@ app.get("/",(request,response)=>{
         message : "Server Is Running at PORT : " + PORT
     })
 })
+
+app.use('/api/user', userRouter)
 
 connectDB().then(()=>{
     app.listen(PORT, ()=>{
