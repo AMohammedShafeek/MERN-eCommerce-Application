@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import sendEmailFun from "../config/sendEmail.js";
 import VerificationEmail from "../utils/verifyEmailTemplate.js";
+import { error } from "console";
 
 export async function registerUserController(request, response) {
   try {
@@ -64,6 +65,58 @@ export async function registerUserController(request, response) {
         message: 'User Registered Successfully! Please Verify Your Email.',
         token: token
     })
+
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function verifyEmailController(request, response) {
+  try {
+    const { email, otp } = request.body
+
+    const user = await userModel.findOne({ email: email })
+
+    if(!user){
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: 'User Not Found'
+      })
+    }
+
+    const isCodeValid = user.otp === otp
+    const isNotExpired = user.otpExpires > Date.now()
+
+    if ( isCodeValid && isNotExpired ){
+      user.verify_email = true,
+      user.otp = null,
+      user.otpExpires = null
+      await user.save()
+      return response.status(200).json({
+        error: false,
+        success: true, 
+        message: 'Email Verified Successfully',
+      })
+    }
+    else if(!isCodeValid){
+      return response.json({
+        error: true,
+        success: false,
+        message: 'Invalid OTP'
+      })
+    }
+    else{
+      return response.json({
+        error: true,
+        success: false,
+        message: 'OTP Expires'
+      })
+    }
 
   } catch (error) {
     return response.status(500).json({
