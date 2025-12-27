@@ -29,6 +29,7 @@ login
 upload avatar
 
 key - avatar
+type - file
 
 -----------------------------------------
 
@@ -37,6 +38,16 @@ delete avatar
 localhost:8000/api/user/deleteImage?img=
 
 -----------------------------------------
+
+update user details
+
+localhost:8000/api/user/694f6e4aac128e3681d109c6
+
+{
+    "name": "Shafeek"
+}
+
+------------------------------------------
 
 forgot-password
 

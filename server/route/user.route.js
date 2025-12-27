@@ -3,7 +3,7 @@ import auth from '../middlewares/auth.js';
 import upload from '../middlewares/multer.js';
 
 // import all controllers
-import { forgotPasswordController, loginUserController, logoutController, registerUserController, removeImageFromCloudinary, resetPassword, updateUserDetails, userAvatarController, verifyEmailController, verifyForgotPasswordOtp } from '../controllers/user.controller.js';
+import { forgotPasswordController, loginUserController, logoutController, refreshToken, registerUserController, removeImageFromCloudinary, resetPassword, updateUserDetails, userAvatarController, verifyEmailController, verifyForgotPasswordOtp } from '../controllers/user.controller.js';
 
 const userRouter = Router();
 
@@ -18,5 +18,6 @@ userRouter.put('/:id', auth, updateUserDetails)
 userRouter.post('/forgot-password', forgotPasswordController)
 userRouter.post('/verify-forgot-password-otp', verifyForgotPasswordOtp)
 userRouter.post('/reset-password', resetPassword)
+userRouter.post('/refresh-token', refreshToken)
 
 export default userRouter

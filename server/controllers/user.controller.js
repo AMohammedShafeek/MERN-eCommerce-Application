@@ -428,7 +428,6 @@ export async function verifyForgotPasswordOtp(request, response) {
   try {
     const { email, otp } = request.body;
 
-    
     if (!email || !otp) {
       return response.status(400).json({
         error: true,
@@ -436,7 +435,7 @@ export async function verifyForgotPasswordOtp(request, response) {
         message: "email or OTP feild Was Empty",
       });
     }
-    
+
     const user = await userModel.findOne({ email: email });
 
     if (!user) {
@@ -486,7 +485,7 @@ export async function verifyForgotPasswordOtp(request, response) {
 
 export async function resetPassword(request, response) {
   try {
-    const { email, newPassword, confirmPassword } = request.body
+    const { email, newPassword, confirmPassword } = request.body;
 
     if (!email || !newPassword || !confirmPassword) {
       return response.status(400).json({
@@ -496,7 +495,7 @@ export async function resetPassword(request, response) {
       });
     }
 
-    const user = await userModel.findOne({email: email})
+    const user = await userModel.findOne({ email: email });
 
     if (!user) {
       return response.status(400).json({
@@ -506,7 +505,7 @@ export async function resetPassword(request, response) {
       });
     }
 
-    if(newPassword !== confirmPassword){
+    if (newPassword !== confirmPassword) {
       return response.status(400).json({
         error: true,
         success: false,
@@ -517,15 +516,69 @@ export async function resetPassword(request, response) {
     const salt = await bcryptjs.genSalt(10);
     const hashPassword = await bcryptjs.hash(newPassword, salt);
 
-    user.password = hashPassword
-    await user.save()
+    user.password = hashPassword;
+    await user.save();
 
     return response.status(400).json({
-        error: false,
-        success: true,
-        message: "Password Updated Successfully.",
-      });
+      error: false,
+      success: true,
+      message: "Password Updated Successfully.",
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
 
+export async function refreshToken(request, response) {
+  try {
+    const refreshToken =
+      request.cookies.refreshToken ||
+      request?.headers?.authorization?.split(" ")[1];
+
+    if (!refreshToken) {
+      return response.status(401).json({
+        error: true,
+        success: false,
+        message: "Invalid Token",
+      });
+    }
+
+    verifyToken = await jwt.verify(
+      refreshToken,
+      process.env.SECRET_KEY_REFRESH_TOKEN
+    );
+
+    if (!verifyToken) {
+      return response.status(401).json({
+        error: true,
+        success: false,
+        message: "Token is Expired",
+      });
+    }
+
+    const userId = verifyToken?._id;
+    const newAccessToken = await generatedAccessToken(userId);
+
+    const cookiesOption = {
+      httpOnly: true,
+      secure: false,
+      sameSite: "None",
+    };
+
+    response.cookie("accessToken", newAccessToken, cookiesOption);
+
+    return response.status(200).json({
+      error: true,
+      success: false,
+      message: "new AccessToken Generated",
+      data: {
+        accessToken: newAccessToken,
+      },
+    });
   } catch (error) {
     return response.status(500).json({
       message: error.message || error,
