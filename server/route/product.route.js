@@ -5,13 +5,17 @@ import upload from "../middlewares/multer.js";
 // import all controllers
 import {
   createProduct,
+  getAllFeaturedProducts,
   getAllProducts,
   getAllProductsByCatId,
   getAllProductsByCatName,
+  getAllProductsByPrice,
+  getAllProductsByRating,
   getAllProductsBySubCatId,
   getAllProductsBySubCatName,
   getAllProductsByThirdSubCatId,
   getAllProductsByThirdSubCatName,
+  getAllProductsCount,
   uploadImages,
 } from "../controllers/product.controller.js";
 
@@ -26,5 +30,9 @@ productRouter.get("/getBySubCategoryId/:id", getAllProductsBySubCatId);
 productRouter.get("/getBySubCategoryName", getAllProductsBySubCatName);
 productRouter.get("/getByThirdSubCategoryId/:id", getAllProductsByThirdSubCatId);
 productRouter.get("/getByThirdSubCategoryName", getAllProductsByThirdSubCatName);
+productRouter.get("/getByPrice", getAllProductsByPrice);
+productRouter.get("/getByRating", getAllProductsByRating);
+productRouter.get("/getProductsCount", getAllProductsCount);
+productRouter.get("/isFeatured", getAllFeaturedProducts);
 
 export default productRouter;

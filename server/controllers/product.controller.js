@@ -447,3 +447,185 @@ export async function getAllProductsByThirdSubCatName(request, response) {
     });
   }
 }
+
+export async function getAllProductsByPrice(request, response) {
+  try {
+    let productList = [];
+
+    const { catId, subCatId, thirdSubCatId, minPrice, maxPrice } =
+      request.query;
+
+    if (catId !== "" && catId !== undefined) {
+      const productListArr = await ProductModel.find({
+        catId: catId,
+      }).populate("category");
+      productList = productListArr;
+    }
+
+    if (subCatId !== "" && subCatId !== undefined) {
+      const productListArr = await ProductModel.find({
+        subCatId: subCatId,
+      }).populate("category");
+      productList = productListArr;
+    }
+
+    if (thirdSubCatId !== "" && thirdSubCatId !== undefined) {
+      const productListArr = await ProductModel.find({
+        thirdSubCatId: thirdSubCatId,
+      }).populate("category");
+      productList = productListArr;
+    }
+
+    const filteredProducts = productList.filter((product) => {
+      if (minPrice && product.price < parseInt(+minPrice)) {
+        return false;
+      }
+      if (maxPrice && product.price > parseInt(+maxPrice)) {
+        return false;
+      }
+      return true;
+    });
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      data: filteredProducts,
+      totalPages: 0,
+      page: 0,
+    });
+  } catch (error) {
+    request.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function getAllProductsByRating(request, response) {
+  try {
+    const { rating, catId, subCatId, thirdSubCatId } = request.query;
+
+    const page = parseInt(request.query.page) || 1;
+    const perPage = parseInt(request.query.perPage || 1000);
+    const totalPosts = await ProductModel.countDocuments();
+    const totalPages = Math.ceil(totalPosts / perPage);
+
+    if (page > totalPages) {
+      return response.status(404).json({
+        error: true,
+        success: false,
+        message: "Page Not Found",
+      });
+    }
+
+    let products = [];
+
+    if (catId !== undefined) {
+      products = await ProductModel.find({
+        rating: rating,
+        catId: catId,
+      })
+        .populate("category")
+        .skip((page - 1) * perPage)
+        .exec();
+    }
+
+    if (subCatId !== undefined) {
+      products = await ProductModel.find({
+        rating: rating,
+        subCatId: subCatId,
+        thirdSubCatId: thirdSubCatId,
+      })
+        .populate("category")
+        .skip((page - 1) * perPage)
+        .exec();
+    }
+
+    if (thirdSubCatId !== undefined) {
+      products = await ProductModel.find({
+        rating: rating,
+        thirdSubCatId: thirdSubCatId,
+      })
+        .populate("category")
+        .skip((page - 1) * perPage)
+        .exec();
+    }
+
+    if (!products) {
+      response.status(500).json({
+        error: true,
+        success: false,
+        message: "No Products Found",
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      data: products,
+      totalPages: totalPages,
+      page: page,
+    });
+  } catch (error) {
+    request.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function getAllProductsCount(request, response) {
+  try {
+    const productsCount = await ProductModel.countDocuments();
+
+    if (!productsCount) {
+      response.status(500).json({
+        error: true,
+        success: false,
+        message: "No Products Found",
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      productsCount: productsCount,
+    });
+  } catch (error) {
+    request.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function getAllFeaturedProducts(request, response) {
+  try {
+    const products = await ProductModel.find({
+      isfeatured: true,
+    }).populate("category");
+
+    if (!products) {
+      response.status(500).json({
+        error: true,
+        success: false,
+        message: "No Products Found",
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      data: products,
+    });
+  } catch (error) {
+    request.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
