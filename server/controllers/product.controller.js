@@ -629,3 +629,186 @@ export async function getAllFeaturedProducts(request, response) {
     });
   }
 }
+
+export async function deleteProduct(request, response) {
+  try {
+    const { id } = request.params;
+
+    const product = await ProductModel.findById(id).populate("category");
+
+    const images = product.images;
+
+    if (!product) {
+      return response.status(404).json({
+        error: true,
+        success: false,
+        message: "Product Not Found",
+      });
+    }
+
+    let img = "";
+
+    for (img of images) {
+      const imgUrl = img;
+      const urlArr = imgUrl.split("/");
+      const image = urlArr[urlArr.length - 1];
+
+      const imageName = image.split(".")[0];
+
+      if (imageName) {
+        cloudinary.uploader.destroy(imageName, function (error, result) {});
+      }
+    }
+
+    const deletedProduct = await ProductModel.findByIdAndDelete(id);
+
+    if (!deletedProduct) {
+      return response.status(500).json({
+        error: true,
+        success: false,
+        message: "Product Not Deleted",
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Product Deleted Successfully.",
+    });
+  } catch (error) {
+    response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function getProduct(request, response) {
+  try {
+    const { id } = request.params;
+
+    const product = await ProductModel.findById(id).populate("category");
+
+    if (!product) {
+      return response.status(404).json({
+        error: true,
+        success: false,
+        message: "Product Not Found",
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      product: product,
+    });
+  } catch (error) {
+    response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function removeImageFromCloudinary(request, response) {
+  try {
+    const { imageUrl } = request.query;
+
+    const urlArr = imageUrl.split("/");
+    const image = urlArr[urlArr.length - 1];
+
+    const imageName = image.split(".")[0];
+
+    if (imageName) {
+      const res = cloudinary.uploader.destroy(imageName, (error, result) => {});
+    }
+
+    if (res) {
+      return response.status(200).send(res);
+    }
+  } catch (error) {
+    response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function updateProduct(request, response) {
+  try {
+    const { id } = request.params;
+    const {
+      name,
+      description,
+      images,
+      brand,
+      price,
+      oldPrice,
+      catId,
+      catName,
+      subCatId,
+      subCatName,
+      thirdSubCatId,
+      thirdSubCatName,
+      category,
+      stock,
+      rating,
+      isFeatured,
+      discount,
+      size,
+      weight,
+    } = request.body;
+
+    const product = await ProductModel.findByIdAndUpdate(
+      id,
+      {
+        name: name,
+        description: description,
+        images: images,
+        brand: brand,
+        price: price,
+        oldPrice: oldPrice,
+        catId: catId,
+        catName: catName,
+        subCatId: subCatId,
+        subCatName: subCatName,
+        thirdSubCatId: thirdSubCatId,
+        thirdSubCatName: thirdSubCatName,
+        category: category,
+        stock: stock,
+        rating: rating,
+        isFeatured: isFeatured,
+        discount: discount,
+        size: size,
+        weight: weight,
+      },
+      { new: true }
+    );
+
+    if (!product) {
+      return response.status(404).json({
+        error: true,
+        success: false,
+        message: "Product Not Found",
+      });
+    }
+
+    imagesArr = []
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Product Updated Successfully.",
+      product: product,
+    });
+  } catch (error) {
+    response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
