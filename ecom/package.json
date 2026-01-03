@@ -17,6 +17,7 @@
     "@mui/styled-engine-sc": "^7.3.3",
     "@mui/x-date-pickers": "^8.18.0",
     "@tailwindcss/vite": "^4.1.14",
+    "axios": "^1.13.2",
     "dayjs": "^1.11.19",
     "react": "^19.1.1",
     "react-collapse": "^5.1.1",

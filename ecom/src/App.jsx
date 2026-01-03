@@ -28,6 +28,8 @@ import TrackOrders from "./Pages/TrackOrders/TrackOrders";
 const MyContext = createContext();
 
 function App() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const [openProductDetailDialog, setOpenProductDetailDialog] = useState(false);
 
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
