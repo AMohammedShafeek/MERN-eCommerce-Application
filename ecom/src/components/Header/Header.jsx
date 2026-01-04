@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "../Search/Search";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
@@ -18,6 +18,7 @@ import Divider from "@mui/material/Divider";
 import { IoBagRemoveOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { IoIosHeartEmpty } from "react-icons/io";
+import { getData } from "../../utils/api";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -30,6 +31,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const Header = () => {
   const context = useContext(MyContext);
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -38,6 +40,19 @@ const Header = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logout = () => {
+    getData(`/api/user/logout?token=${localStorage.getItem("accessToken")}`, {
+      withCredentials: true,
+    }).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.setIsLogin(false);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userEmail");
+      }
+    });
   };
 
   return (
@@ -157,7 +172,9 @@ const Header = () => {
                       >
                         <div className="user flex items-center gap-2 px-2">
                           <FaRegUser className="text-[22px]"></FaRegUser>
-                          <h3 className="text-[16px] font-[600]">Shafeek</h3>
+                          <h3 className="text-[16px] font-[600]">
+                            {context?.userData?.name}
+                          </h3>
                         </div>
                       </Link>
                     </div>
@@ -223,12 +240,12 @@ const Header = () => {
                           <IoIosHeartEmpty></IoIosHeartEmpty> My Wishlist
                         </MenuItem>
                       </Link>
-                        <MenuItem
-                          onClick={handleClose}
-                          className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"
-                        >
-                          <IoIosLogOut></IoIosLogOut> Log Out
-                        </MenuItem>
+                      <MenuItem
+                        onClick={logout}
+                        className="flex gap-2 !text-[16px] !font-[500] hover:!bg-[#ff5252] hover:!text-white transition-all duration-75"
+                      >
+                        <IoIosLogOut></IoIosLogOut> Log Out
+                      </MenuItem>
                     </Menu>
                   </>
                 </li>

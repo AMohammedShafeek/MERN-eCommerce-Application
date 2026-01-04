@@ -9,7 +9,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [formFeilds, setFormFields] = useState({
+  const [formFeilds, setFormFeilds] = useState({
     name: "",
     email: "",
     password: "",
@@ -24,7 +24,7 @@ const Register = () => {
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
-    setFormFields(() => {
+    setFormFeilds(() => {
       return {
         ...formFeilds,
         [name]: value,
@@ -44,13 +44,15 @@ const Register = () => {
     }
 
     if (validPassword) {
-      postData("/api/user/register", formFeilds).then((res) => {
+      postData("/api/user/register", formFeilds, {
+        withCredentials: true,
+      }).then((res) => {
         console.log(res);
         if (res?.error !== true) {
           setIsLoading(false);
           context.openAlertBox("success", res?.message);
           localStorage.setItem("userEmail", formFeilds.email);
-          setFormFields({
+          setFormFeilds({
             name: "",
             email: "",
             password: "",

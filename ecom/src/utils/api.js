@@ -23,3 +23,15 @@ export async function postData(url, formData) {
     console.log(error);
   }
 }
+
+export async function getData(url) {
+  try {
+    const { data } = await axios.get(apiUrl + url, {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

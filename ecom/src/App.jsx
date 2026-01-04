@@ -5,7 +5,7 @@ import Home from "./Pages/Home/Home";
 import ProductList from "./Pages/ProductList/ProductList";
 import Footer from "./components/Footer/Footer";
 import ProductDetail from "./Pages/ProductDetail/ProductDetail";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import MainImage from "./components/MainImage/MainImage";
@@ -24,6 +24,7 @@ import MyAccount from "./Pages/MyAccount/MyAccount";
 import Wishlist from "./Pages/Wishlist/Wishlist";
 import MyOrders from "./Pages/MyOrders/MyOrders";
 import TrackOrders from "./Pages/TrackOrders/TrackOrders";
+import { getData } from "./utils/api";
 
 const MyContext = createContext();
 
@@ -31,10 +32,9 @@ function App() {
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const [openProductDetailDialog, setOpenProductDetailDialog] = useState(false);
-
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
-
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const openAlertBox = (status, msg) => {
     if (status === "success") {
@@ -53,6 +53,22 @@ function App() {
     setOpenCartDrawer(newOpen);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+
+    if (token !== undefined && token !== null && token !== "") {
+      setIsLogin(true);
+      getData(
+        `/api/user/user-details?token=${localStorage.getItem("accessToken")}`
+      ).then((res) => {
+        console.log(res);
+        setUserData(res.data);
+      });
+    } else {
+      setIsLogin(false);
+    }
+  }, [isLogin]);
+
   const values = {
     setOpenProductDetailDialog,
     setOpenCartDrawer,
@@ -61,13 +77,15 @@ function App() {
     openAlertBox,
     isLogin,
     setIsLogin,
+    userData,
+    setUserData,
   };
 
   return (
     <>
       <BrowserRouter>
         <MyContext.Provider value={values}>
-          {isLogin === true ? <Header></Header> : <></>}
+          <Header></Header>
           <CartDrawer></CartDrawer>
           <Routes>
             <Route path={"/"} exact={true} element={<Home></Home>}></Route>
@@ -128,7 +146,7 @@ function App() {
               element={<TrackOrders></TrackOrders>}
             ></Route>
           </Routes>
-          {isLogin === true ? <Footer></Footer> : <></>}
+          <Footer></Footer>
         </MyContext.Provider>
       </BrowserRouter>
 

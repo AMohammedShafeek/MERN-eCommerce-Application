@@ -14,6 +14,7 @@ import BlogItem from "../../components/BlogItem/BlogItem";
 import "../Home/Home.css";
 
 const Home = () => {
+
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
