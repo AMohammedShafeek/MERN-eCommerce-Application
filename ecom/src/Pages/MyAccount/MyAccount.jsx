@@ -10,8 +10,22 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import AccountSideBar from "../../components/AccountSideBar/AccountSideBar";
+import { useContext } from "react";
+import { MyContext } from "../../App";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
+  const context = useContext(MyContext);
+  const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (token === undefined || token === "" || token === null) {
+      navigate("/");
+    }
+  }, [token]);
+
   return (
     <section className="py-10 w-full">
       <div className="container flex gap-5">

@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <section className="section min-h-screen flex justify-center items-center">
       <div className="container flex justify-center">
-        <div className="card shadow-md w-[400px] md:w-[600px] lg:w-[900px] m-auto rounded-md bg-white p-5 px-8">
+        <div className="card shadow-md w-[400px] m-auto rounded-md bg-white p-5 px-8">
           <h3 className="text-center text-[20px] font-[500]">
             Login to your Admin Account
           </h3>

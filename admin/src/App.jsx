@@ -19,7 +19,7 @@ import SubCategoriesList from "./components/Categories/SubCategoriesList";
 export const MyContext = createContext();
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
 
   const values = {
@@ -33,60 +33,55 @@ function App() {
     <>
       <BrowserRouter>
         <MyContext.Provider value={values}>
-          {isLogin === true ? (
-            <>
-              <Header></Header>
-              <Routes>
-                <Route path={"/"} element={<Dashboard></Dashboard>}></Route>
-                <Route
-                  path={"/dashboard"}
-                  element={<Dashboard></Dashboard>}
-                ></Route>
-                <Route
-                  path={"/home-slides"}
-                  element={<HomeSlides></HomeSlides>}
-                ></Route>
-                <Route
-                  path={"/home-slides-new"}
-                  element={<HomeSlidesNew></HomeSlidesNew>}
-                ></Route>
-                <Route path={"/users"} element={<Users></Users>}></Route>
-                <Route
-                  path={"/products-data"}
-                  element={<ProductsData></ProductsData>}
-                ></Route>
-                <Route
-                  path={"/products-new"}
-                  element={<ProductsItemsNew></ProductsItemsNew>}
-                ></Route>
-                <Route
-                  path={"/categories"}
-                  element={<Categories></Categories>}
-                ></Route>
-                <Route
-                  path={"/categories-new"}
-                  element={<CategoriesNew></CategoriesNew>}
-                ></Route>
-                <Route
-                  path={"/sub-categories-new"}
-                  element={<SubCategoriesNew></SubCategoriesNew>}
-                ></Route>
-                <Route
-                  path={"/categories-list"}
-                  element={<CategoriesList></CategoriesList>}
-                ></Route>
-                <Route
-                  path={"/sub-categories-list"}
-                  element={<SubCategoriesList></SubCategoriesList>}
-                ></Route>
-                <Route path={"/orders"} element={<Orders></Orders>}></Route>
-                <Route path={"/logout"} element={<Login></Login>}></Route>
-                <Route path={"/login"} element={<Login></Login>}></Route>
-              </Routes>
-            </>
-          ) : (
-            <Login></Login>
-          )}
+          <>
+            <Header></Header>
+            <Routes>
+              <Route path={"/"} element={<Dashboard></Dashboard>}></Route>
+              <Route path={"/login"} element={<Login></Login>}></Route>
+              <Route
+                path={"/dashboard"}
+                element={<Dashboard></Dashboard>}
+              ></Route>
+              <Route
+                path={"/home-slides"}
+                element={<HomeSlides></HomeSlides>}
+              ></Route>
+              <Route
+                path={"/home-slides-new"}
+                element={<HomeSlidesNew></HomeSlidesNew>}
+              ></Route>
+              <Route path={"/users"} element={<Users></Users>}></Route>
+              <Route
+                path={"/products-data"}
+                element={<ProductsData></ProductsData>}
+              ></Route>
+              <Route
+                path={"/products-new"}
+                element={<ProductsItemsNew></ProductsItemsNew>}
+              ></Route>
+              <Route
+                path={"/categories"}
+                element={<Categories></Categories>}
+              ></Route>
+              <Route
+                path={"/categories-new"}
+                element={<CategoriesNew></CategoriesNew>}
+              ></Route>
+              <Route
+                path={"/sub-categories-new"}
+                element={<SubCategoriesNew></SubCategoriesNew>}
+              ></Route>
+              <Route
+                path={"/categories-list"}
+                element={<CategoriesList></CategoriesList>}
+              ></Route>
+              <Route
+                path={"/sub-categories-list"}
+                element={<SubCategoriesList></SubCategoriesList>}
+              ></Route>
+              <Route path={"/orders"} element={<Orders></Orders>}></Route>
+            </Routes>
+          </>
         </MyContext.Provider>
       </BrowserRouter>
     </>

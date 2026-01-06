@@ -38,18 +38,3 @@ export async function getData(url) {
     console.log(error);
   }
 }
-
-export async function uploadImage(url, updatedData) {
-  try {
-    const params = {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "Content-Type": "multipart/form-data",
-      },
-    };
-    const { data } = await axios.put(apiUrl + url, updatedData, params);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-}

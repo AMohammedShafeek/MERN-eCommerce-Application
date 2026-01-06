@@ -15,8 +15,6 @@ cloudinary.config({
   secure: true,
 });
 
-var imagesArr = [];
-
 export async function registerUserController(request, response) {
   try {
     let user;
@@ -58,7 +56,8 @@ export async function registerUserController(request, response) {
 
     await sendEmailFun({
       sendTo: email,
-      subject: "Email Verification for User Registration from REPIIT eCommerce App",
+      subject:
+        "Email Verification for User Registration from REPIIT eCommerce App",
       text: "",
       html: VerificationEmail(name, verifyCode),
     });
@@ -229,6 +228,8 @@ export async function logoutController(request, response) {
   }
 }
 
+var imagesArr = [];
+
 export async function userAvatarController(request, response) {
   try {
     imagesArr = [];
@@ -236,13 +237,21 @@ export async function userAvatarController(request, response) {
     const userId = request.userId;
     const image = request.files;
 
-    const user = await userModel.findOne({ _id: userId });
-
-    if (!user) {
-      return response.status(500).json({
+    if (!image || image.length === 0) {
+      return response.status(400).json({
         error: true,
         success: false,
-        message: "User Not Found",
+        message: "No image uploaded",
+      });
+    }
+
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return response.status(404).json({
+        error: true,
+        success: false,
+        message: "User not found",
       });
     }
 
@@ -250,38 +259,26 @@ export async function userAvatarController(request, response) {
 
     const imgUrl = user.avatar;
 
-    const urlArr = imgUrl.split("/");
-    const avatar_image = urlArr[urlArr.length - 1];
-
-    const imageName = avatar_image.split(".")[0];
-
-    if (imageName) {
-      const res = await cloudinary.uploader.destroy(
-        imageName,
-        (error, result) => {}
-      );
-      if (res) {
-        response.status(200).send(res);
-      }
+    if (imgUrl) {
+      const imageName = imgUrl.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(imageName);
     }
 
     const options = {
       use_filename: true,
       unique_filename: false,
+      public_id: `img_${request.userId}`,
       overwrite: false,
     };
 
-    for (let i = 0; i < image?.length; i++) {
-      const img = await cloudinary.uploader.upload(
-        image[i].path,
-        options,
-        function (error, result) {
-          imagesArr.push(result.secure_url);
-          fs.unlinkSync(`uploads/${request.files[i].filename}`);
-        }
-      );
+    const img = await cloudinary.uploader.upload(image[0].path, options);
+
+    const filePath = `uploads/${request.files[0].filename}`;
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
     }
 
+    imagesArr.push(img.secure_url);
     user.avatar = imagesArr[0];
     await user.save();
 
@@ -403,7 +400,8 @@ export async function forgotPasswordController(request, response) {
 
       await sendEmailFun({
         sendTo: email,
-        subject: "Email Verification for Change Password from REPIIT eCommerce App",
+        subject:
+          "Email Verification for Change Password from REPIIT eCommerce App",
         text: "",
         html: VerificationEmail(user.name, verifyCode),
       });
@@ -589,15 +587,17 @@ export async function refreshToken(request, response) {
 
 export async function userDetails(request, response) {
   try {
-    const userId = request.userId
+    const userId = request.userId;
 
-    const user = await userModel.findById(userId).select('-password -refresh_token')
+    const user = await userModel
+      .findById(userId)
+      .select("-password -refresh_token");
 
     return response.status(200).json({
       error: false,
       success: true,
       message: "User Details",
-      data: user
+      data: user,
     });
   } catch (error) {
     return response.status(500).json({
