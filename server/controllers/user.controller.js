@@ -317,7 +317,9 @@ export async function removeImageFromCloudinary(request, response) {
 export async function updateUserDetails(request, response) {
   try {
     const userId = request.userId;
-    const { name, email, mobile, password } = request.body;
+
+    const { name, email, mobile, password, gender, dob, address } =
+      request.body;
 
     const userExist = await userModel.findById(userId);
 
@@ -346,6 +348,9 @@ export async function updateUserDetails(request, response) {
         name: name,
         mobile: mobile,
         email: email,
+        dob: new Date(dob),
+        gender: gender,
+        address: address,
         verify_email: email !== userExist.email ? false : true,
         password: hashPassword,
         otp: verifyCode !== "" ? verifyCode : null,
@@ -366,7 +371,15 @@ export async function updateUserDetails(request, response) {
     return response.status(200).json({
       error: false,
       success: true,
-      user: updateUser,
+      user: {
+        name: updateUser?.name,
+        id: updateUser?._id,
+        email: updateUser?.email,
+        mobile: updateUser?.mobile,
+        address: updateUser?.address,
+        gender: updateUser?.gender,
+        dob: updateUser?.dob,
+      },
       message: "user Updated Successfully.",
     });
   } catch (error) {

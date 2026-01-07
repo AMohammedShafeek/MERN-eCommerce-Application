@@ -15,15 +15,18 @@ const AccountSideBar = () => {
 
   useEffect(() => {
     const userAvatar = [];
-    userAvatar.push(context?.userData?.avatar);
-    setPreviews(userAvatar);
+    if (
+      context?.userData?.avatar !== "" &&
+      context?.userData?.avatar !== undefined
+    ) {
+      userAvatar.push(context?.userData?.avatar);
+      setPreviews(userAvatar);
+    }
   }, [context?.userData]);
 
   const [previews, setPreviews] = useState([]);
   const [uploading, setUploading] = useState(false);
 
-  let img_arr = [];
-  let uniqueArray = [];
   let selectedImages = [];
 
   const formdata = new FormData();

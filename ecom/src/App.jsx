@@ -61,6 +61,14 @@ function App() {
       getData(`/api/user/user-details`).then((res) => {
         console.log(res);
         setUserData(res.data);
+        if(res?.response?.data?.error === true){
+          if(res?.response?.data?.message === "You have not Login"){
+            localStorage.removeItem("accessToken")
+            localStorage.removeItem("refreshToken")
+            openAlertBox('error', 'Your Session Is Closed')
+            setIsLogin(false)
+          }
+        }
       });
     } else {
       setIsLogin(false);
