@@ -9,6 +9,10 @@
   color: var(--primary-clr);
 }
 
+.textPrimary {
+  color: var(--primary-clr);
+}
+
 .bg-body {
   background-color: var(--body-clr);
 }

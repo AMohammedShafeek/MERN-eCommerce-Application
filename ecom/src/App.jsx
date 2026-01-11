@@ -25,6 +25,7 @@ import Wishlist from "./Pages/Wishlist/Wishlist";
 import MyOrders from "./Pages/MyOrders/MyOrders";
 import TrackOrders from "./Pages/TrackOrders/TrackOrders";
 import { getData } from "./utils/api";
+import UpdatePass from "./Pages/Authentication/UpdatePass";
 
 const MyContext = createContext();
 
@@ -61,12 +62,12 @@ function App() {
       getData(`/api/user/user-details`).then((res) => {
         console.log(res);
         setUserData(res.data);
-        if(res?.response?.data?.error === true){
-          if(res?.response?.data?.message === "You have not Login"){
-            localStorage.removeItem("accessToken")
-            localStorage.removeItem("refreshToken")
-            openAlertBox('error', 'Your Session Is Closed')
-            setIsLogin(false)
+        if (res?.response?.data?.error === true) {
+          if (res?.response?.data?.message === "You have not Login") {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            openAlertBox("error", "Your Session Is Closed");
+            setIsLogin(false);
           }
         }
       });
@@ -114,6 +115,10 @@ function App() {
             <Route
               path={"/changePassword"}
               element={<ChangePass></ChangePass>}
+            ></Route>
+            <Route
+              path={"/updatePassword"}
+              element={<UpdatePass></UpdatePass>}
             ></Route>
             <Route path={"/checkout"} element={<Checkout></Checkout>}></Route>
             <Route

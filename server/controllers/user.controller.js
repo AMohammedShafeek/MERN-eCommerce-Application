@@ -525,14 +525,69 @@ export async function resetPassword(request, response) {
 
     const salt = await bcryptjs.genSalt(10);
     const hashPassword = await bcryptjs.hash(newPassword, salt);
+    const samePassword = await bcryptjs.compare(newPassword, user.password);
+
+    if(samePassword){
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "Old Password and New Password Are Same.",
+      });
+    }
 
     user.password = hashPassword;
     await user.save();
 
-    return response.status(400).json({
+    return response.status(200).json({
       error: false,
       success: true,
       message: "Password Updated Successfully.",
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function checkPassword(request, response) {
+  try {
+    const { email, password } = request.body;
+
+    if (!email || !password) {
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "email and password feilds are Empty",
+      });
+    }
+
+    const user = await userModel.findOne({ email: email });
+
+    if (!user) {
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "This Email Was Not Registered.",
+      });
+    }
+
+    const checkPassword = await bcryptjs.compare(password, user.password);
+
+    if (!checkPassword) {
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "Password is Wrong. Check Your Password",
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Password Verified Successfully.",
     });
   } catch (error) {
     return response.status(500).json({

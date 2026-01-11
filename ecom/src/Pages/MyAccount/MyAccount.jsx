@@ -123,8 +123,16 @@ const MyAccount = () => {
         <AccountSideBar></AccountSideBar>
         <div className="col2 w-[80%]">
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
-            <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
+            <div className="flex gap-2 justify-between items-center cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
               <h2 className="font-bold text-[18px]">MY PROFILE</h2>
+              <h2
+                onClick={() => {
+                  navigate("/updatePassword");
+                }}
+                className="font-bold mt-0.5 text-[15px] mr-6 text-black link transition-all duration-200 cursor-pointer"
+              >
+                CHANGE PASSWORD
+              </h2>
             </div>
             <form
               className="w-full container mt-5 pt-3 my-3"
@@ -373,7 +381,7 @@ const MyAccount = () => {
                 </Button>
                 <Button
                   onClick={resetFormFeilds}
-                  className="btn-org !w-full !py-3 !font-bold hover:!bg-black hover:!text-white transition-all duration-300"
+                  className="btn-org !bg-[var(--primary-clr)] !w-full !py-2 !font-bold hover:!bg-black hover:!text-white transition-all duration-300 flex gap-2"
                 >
                   CANCEL
                 </Button>
