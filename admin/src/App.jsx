@@ -1,5 +1,5 @@
 import "./responsive.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Users from "./Pages/Users/Users";
@@ -11,22 +11,66 @@ import CategoriesNew from "./Pages/Category/CategoriesNew";
 import SubCategoriesNew from "./Pages/Category/SubCategoriesNew";
 import Orders from "./Pages/Orders/Orders";
 import ProductsData from "./Pages/ProductsData/ProductsData";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Login from "./Pages/Authentication/Login";
 import CategoriesList from "./components/Categories/CategoriesList";
 import SubCategoriesList from "./components/Categories/SubCategoriesList";
+import Register from "./Pages/Authentication/Register";
+import { getData } from "../src/utils/api.js";
+import toast, { Toaster } from "react-hot-toast";
+import Verify from "./Pages/VerifyOtp/VerifyOtp.jsx";
+import ChangePass from "./Pages/Authentication/ChangePass.jsx";
 
 export const MyContext = createContext();
 
 function App() {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const role = "ADMIN";
+
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
+  const [userData, setUserData] = useState(null);
+
+  const openAlertBox = (status, msg) => {
+    if (status === "success") {
+      toast.success(msg);
+    }
+    if (status === "error") {
+      toast.error(msg);
+    }
+  };
+
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (token !== undefined && token !== null && token !== "") {
+      setIsLogin(true);
+      getData(`/api/user/user-details`).then((res) => {
+        // console.log(res);
+        setUserData(res.data);
+        if (res?.response?.data?.error === true) {
+          if (res?.response?.data?.message === "You have not Login") {
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            openAlertBox("error", "Your Session Is Closed");
+            setIsLogin(false);
+          }
+        }
+      });
+    } else {
+      setIsLogin(false);
+    }
+  }, [isLogin]);
 
   const values = {
     isLogin,
     setIsLogin,
     isOpenSideBar,
     setIsOpenSideBar,
+    openAlertBox,
+    userData,
+    setUserData,
+    role,
   };
 
   return (
@@ -38,6 +82,12 @@ function App() {
             <Routes>
               <Route path={"/"} element={<Dashboard></Dashboard>}></Route>
               <Route path={"/login"} element={<Login></Login>}></Route>
+              <Route path={"/register"} element={<Register></Register>}></Route>
+              <Route path={"/verify"} element={<Verify></Verify>}></Route>
+              <Route
+                path={"/changePassword"}
+                element={<ChangePass></ChangePass>}
+              ></Route>
               <Route
                 path={"/dashboard"}
                 element={<Dashboard></Dashboard>}
@@ -84,6 +134,7 @@ function App() {
           </>
         </MyContext.Provider>
       </BrowserRouter>
+      <Toaster></Toaster>
     </>
   );
 }

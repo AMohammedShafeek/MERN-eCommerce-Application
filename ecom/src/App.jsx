@@ -31,6 +31,7 @@ const MyContext = createContext();
 
 function App() {
   const apiUrl = import.meta.env.VITE_API_URL;
+  const role = "USER";
 
   const [openProductDetailDialog, setOpenProductDetailDialog] = useState(false);
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
@@ -86,6 +87,7 @@ function App() {
     setIsLogin,
     userData,
     setUserData,
+    role,
   };
 
   return (

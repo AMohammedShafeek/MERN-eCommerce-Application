@@ -18,9 +18,17 @@ const Sidebar = () => {
   const context = useContext(MyContext);
 
   const logout = () => {
-    context.setIsLogin(false);
-    navigate("/login");
-  };
+      getData(`/api/user/logout?token=${localStorage.getItem("accessToken")}`, {
+        withCredentials: true,
+      }).then((res) => {
+        console.log(res);
+        if (res?.error !== true) {
+          context.setIsLogin(false);
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("userEmail");
+        }
+      });
+    };
 
   const openSideBar = () => {
     context.setIsOpenSideBar(!context.isOpenSideBar);
@@ -129,7 +137,6 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li className="Logout w-full py-1">
-                <NavLink to={"/logout"}>
                   <Button
                     onClick={logout}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
@@ -137,14 +144,13 @@ const Sidebar = () => {
                     <IoIosLogOut className="text-[22px] mr-2"></IoIosLogOut>
                     <span>Logout</span>
                   </Button>
-                </NavLink>
               </li>
             </ul>
           </div>
         </div>
       ) : (
         <div className="relative navigations mt-4">
-          <div className="absolute fixed z-50 flex items-center justify-between top-20 -left-6 py-1 pl-10 px-2 bg-black rounded-r-full">
+          <div className="absolute fixed z-50 flex items-center justify-between top-15 -left-6 py-1 pl-10 px-2 bg-black rounded-r-full">
             <TiThMenu
               className="text-[40px] text-white cursor-pointer p-2 overflow-visible"
               onClick={openSideBar}

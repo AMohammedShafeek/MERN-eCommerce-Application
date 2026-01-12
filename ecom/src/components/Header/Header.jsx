@@ -19,7 +19,6 @@ import { IoBagRemoveOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { getData } from "../../utils/api";
-import { useEffect } from "react";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {

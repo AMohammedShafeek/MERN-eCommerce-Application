@@ -32,7 +32,7 @@ export async function registerUserController(request, response) {
     user = await userModel.findOne({ email: email });
 
     if (user) {
-      return response.json({
+      return response.status(400).json({
         message: "User was Already Registered",
         error: true,
         success: false,
@@ -49,6 +49,7 @@ export async function registerUserController(request, response) {
       password: hashPassword,
       name: name,
       otp: verifyCode,
+      role: role,
       otpExpires: Date.now() + 600000,
     });
 
@@ -133,7 +134,7 @@ export async function verifyEmailController(request, response) {
 }
 
 export async function loginUserController(request, response) {
-  const { email, password } = request.body;
+  const { email, password, role } = request.body;
   const user = await userModel.findOne({ email: email });
 
   try {
@@ -150,6 +151,24 @@ export async function loginUserController(request, response) {
         error: true,
         success: false,
         message: "Email Was Not Verified.",
+      });
+    }
+
+    if (role === "ADMIN") {
+      if (!(role === user.role)) {
+        return response.status(400).json({
+          error: true,
+          success: false,
+          message: "You Are Not Admin.",
+        });
+      }
+    }
+
+    if (!user.verify_email) {
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "Your Email Was Not Verified.",
       });
     }
 
@@ -527,7 +546,7 @@ export async function resetPassword(request, response) {
     const hashPassword = await bcryptjs.hash(newPassword, salt);
     const samePassword = await bcryptjs.compare(newPassword, user.password);
 
-    if(samePassword){
+    if (samePassword) {
       return response.status(400).json({
         error: true,
         success: false,

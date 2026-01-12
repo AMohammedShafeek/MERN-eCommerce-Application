@@ -1,30 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { MyContext } from "../../App";
-import CircularProgress from "@mui/material/CircularProgress";
 import { postData } from "../../utils/api.js";
+import { MyContext } from "../../App.jsx";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const Login = () => {
-  const context = useContext(MyContext);
-
+const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [formFeilds, setFormFields] = useState({
+  const [formFeilds, setFormFeilds] = useState({
+    name: "",
     email: "",
     password: "",
-    role: context.role,
+    cPassword: "",
+    role: "ADMIN",
   });
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const valideValue = Object.values(formFeilds).every((el) => el);
+  const validPassword = formFeilds.password === formFeilds.cPassword;
 
+  const context = useContext(MyContext);
   const navigate = useNavigate();
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
-    setFormFields(() => {
+    setFormFeilds(() => {
       return {
         ...formFeilds,
         [name]: value,
@@ -34,64 +35,73 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    if (!validPassword) {
+      context.openAlertBox("error", "Check Password and Confirm Password");
+      return false;
+    }
 
-    postData("/api/user/login", formFeilds).then((res) => {
-      console.log(res);
-      if (res?.error !== true) {
-        setIsLoading(false);
-        context.openAlertBox("success", res?.message);
-        localStorage.setItem("userEmail", formFeilds.email);
-        setFormFields({
-          email: "",
-          password: "",
-        });
-        localStorage.setItem("accessToken", res?.data?.accessToken);
-        localStorage.setItem("refreshToken", res?.data?.refreshToken);
-        context.setIsLogin(true);
-        navigate("/");
-      } else {
-        context.openAlertBox("error", res?.message);
-        setIsLoading(false);
-      }
-    });
-  };
-
-  const forgotPass = () => {
-    if (formFeilds.email === "") {
-      context.openAlertBox("error", "Email Required to reset Password");
-    } else if (!emailRegex.test(formFeilds.email)) {
-      context.openAlertBox("error", "Enter Valid Email");
-    } else {
+    if (validPassword) {
       setIsLoading(true);
-      context.openAlertBox("success", "OTP send to Your Email");
-      localStorage.setItem("userEmail", formFeilds.email);
-      localStorage.setItem("actionType", "forgot-password");
-
-      postData("/api/user/forgot-password", {
-        email: formFeilds.email,
+      postData("/api/user/register", formFeilds, {
+        withCredentials: true,
       }).then((res) => {
+        console.log(res);
         if (res?.error !== true) {
           setIsLoading(false);
           context.openAlertBox("success", res?.message);
+          localStorage.setItem("userEmail", formFeilds.email);
+          setFormFeilds({
+            name: "",
+            email: "",
+            password: "",
+            cPassword: "",
+          });
           navigate("/verify");
         } else {
-          setIsLoading(false);
           context.openAlertBox("error", res?.message);
+          setIsLoading(false);
         }
       });
     }
   };
-
   return (
     <section className="section min-h-screen flex justify-center items-center">
       <div className="container flex justify-center">
         <div className="card shadow-md w-[400px] m-auto rounded-md bg-white p-5 px-8">
           <h3 className="text-center text-[20px] font-[500]">
-            Login to Admin Panel
+            Register with new Admin Account
           </h3>
           <form className="w-full" onSubmit={handleSubmit}>
             <div className="form-group w-full my-5">
+              <TextField
+                type="text"
+                id="name"
+                name="name"
+                value={formFeilds.name}
+                disabled={isLoading === true ? true : false}
+                label="Full Name"
+                variant="outlined"
+                sx={{
+                  "& label.Mui-focused": {
+                    color: "#ff5252",
+                    transition: "all 0.3s",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#ccc",
+                      transition: "all 0.3s",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#ff5252",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#ff5252",
+                    },
+                  },
+                }}
+                className="w-full !mb-5"
+                onChange={onChangeInput}
+              />
               <TextField
                 type="email"
                 id="email"
@@ -122,7 +132,7 @@ const Login = () => {
                 onChange={onChangeInput}
               />
             </div>
-            <div className="form-group w-full mb-3 relative">
+            <div className="form-group w-full relative">
               <TextField
                 type="password"
                 id="password"
@@ -149,18 +159,42 @@ const Login = () => {
                     },
                   },
                 }}
+                className="w-full !mb-5"
+                onChange={onChangeInput}
+              />
+            </div>
+            <div className="form-group w-full relative">
+              <TextField
+                type="password"
+                id="cPassword"
+                name="cPassword"
+                value={formFeilds.cPassword}
+                disabled={isLoading === true ? true : false}
+                label="Confirm Password"
+                variant="outlined"
+                sx={{
+                  "& label.Mui-focused": {
+                    color: "#ff5252",
+                    transition: "all 0.3s",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#ccc",
+                      transition: "all 0.3s",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#ff5252",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#ff5252",
+                    },
+                  },
+                }}
                 className="w-full"
                 onChange={onChangeInput}
               />
             </div>
-            <a
-              className="transition-all duration-300 !text-[14px] !pl-1 !text-[#ff5252] !cursor-pointer !font-[600]"
-              type="submit"
-              onClick={forgotPass}
-            >
-              Forgot Password?
-            </a>
-            <div className="flex items-center gap-3 justify-center my-3">
+            <div className="flex items-center gap-3 justify-center my-4 mt-5">
               <Button
                 type="submit"
                 disabled={!valideValue}
@@ -176,14 +210,14 @@ const Login = () => {
                     size={24}
                   ></CircularProgress>
                 ) : (
-                  "LOGIN"
+                  "REGISTER"
                 )}
               </Button>
             </div>
             <p className="transition-all duration-300 text-[14px] pl-1 pb-5 pt-[0.8] text-black font-[500]">
-              Not Registered?
-              <Link to={"/register"} className="text-[#ff5252] pl-2">
-                Sign Up Now
+              Already have an Account?
+              <Link to={"/login"} className="text-[#ff5252] pl-2">
+                Log In Now
               </Link>
             </p>
             <hr className="text-gray-300" />
@@ -203,4 +237,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

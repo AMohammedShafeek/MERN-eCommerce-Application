@@ -247,7 +247,6 @@ const UpdatePass = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-
                 <div className="flex items-center gap-3 justify-center my-3">
                   <Button
                     type="submit"

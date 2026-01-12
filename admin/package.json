@@ -16,6 +16,7 @@
     "@mui/material": "^7.3.5",
     "@mui/styled-engine-sc": "^7.3.5",
     "@mui/x-date-pickers": "^8.18.0",
+    "axios": "^1.13.2",
     "dayjs": "^1.11.19",
     "install": "^0.13.0",
     "npm": "^11.6.3",

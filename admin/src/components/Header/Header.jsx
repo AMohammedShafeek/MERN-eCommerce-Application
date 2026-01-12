@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Badge from "@mui/material/Badge";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import { IoIosLogOut } from "react-icons/io";
 import { MyContext } from "../../App";
+import { getData } from "../../utils/api";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -22,6 +23,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const Header = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -34,13 +36,31 @@ const Header = () => {
   const context = useContext(MyContext);
 
   const logout = () => {
-    context.setIsLogin(false);
-    navigate("/login");
+    getData(`/api/user/logout?token=${localStorage.getItem("accessToken")}`, {
+      withCredentials: true,
+    }).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.setIsLogin(false);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userEmail");
+        navigate("/login");
+      }
+    });
   };
+
+  useEffect(() => {
+    if (token === undefined || token === "" || token === null) {
+      navigate("/login");
+    }
+  }, [token]);
 
   return (
     <>
-      {context.isLogin === true ? (
+      {location.pathname === "/login" ||
+      location.pathname === "/register" ||
+      location.pathname === "/verify" ||
+      location.pathname === "/changePassword" ? null : (
         <div className="w-full fixed z-50">
           <div className="bg-white py-2 border-b border-b-gray-300">
             <div className="container flex justify-between">
@@ -63,15 +83,31 @@ const Header = () => {
                   <li className="list-none">
                     <>
                       <div className="profile flex items-center pr-3 border-r border-gray-300">
-                        <Link
-                          className="link transition-all duration-300 text-[15px] font-[500]"
-                          onClick={handleClick}
-                        >
-                          <div className="user flex items-center gap-2 px-2">
-                            <FaRegUser className="text-[22px]"></FaRegUser>
-                            <h3 className="text-[16px] font-[600]">Admin</h3>
-                          </div>
-                        </Link>
+                        {context.isLogin === true ? (
+                          <Link
+                            className="link transition-all duration-300 text-[15px] font-[500]"
+                            onClick={handleClick}
+                          >
+                            <div className="user flex items-center gap-2 px-2">
+                              <FaRegUser className="text-[22px]"></FaRegUser>
+                              <h3 className="text-[16px] font-[600]">
+                                {context?.userData?.name}
+                              </h3>
+                            </div>
+                          </Link>
+                        ) : (
+                          <Link
+                            className="link transition-all duration-300 text-[15px] font-[500]"
+                            onClick={()=>{navigate('/login')}}
+                          >
+                            <div className="user flex items-center gap-2 px-2">
+                              <FaRegUser className="text-[22px]"></FaRegUser>
+                              <h3 className="text-[16px] font-[600]">
+                                Login
+                              </h3>
+                            </div>
+                          </Link>
+                        )}
                       </div>
                       <Menu
                         anchorEl={anchorEl}
@@ -149,7 +185,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </>
   );
 };

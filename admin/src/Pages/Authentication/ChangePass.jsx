@@ -1,25 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
 import { postData } from "../../utils/api.js";
 
-const Login = () => {
-  const context = useContext(MyContext);
-
+const ChangePass = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formFeilds, setFormFields] = useState({
-    email: "",
-    password: "",
-    role: context.role,
+    email: localStorage.getItem("userEmail"),
+    newPassword: "",
+    confirmPassword: "",
   });
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const valideValue = Object.values(formFeilds).every((el) => el);
 
+  const context = useContext(MyContext);
   const navigate = useNavigate();
 
   const onChangeInput = (e) => {
@@ -36,20 +33,25 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    postData("/api/user/login", formFeilds).then((res) => {
+    if (formFeilds.newPassword === "") {
+      context.openAlertBox("error", "Password Can't Be Empty");
+      setIsLoading(false);
+    } else if (formFeilds.newPassword !== formFeilds.confirmPassword) {
+      setIsLoading(false);
+    }
+
+    postData("/api/user/reset-password", formFeilds).then((res) => {
       console.log(res);
       if (res?.error !== true) {
         setIsLoading(false);
         context.openAlertBox("success", res?.message);
-        localStorage.setItem("userEmail", formFeilds.email);
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("actionType");
         setFormFields({
-          email: "",
-          password: "",
+          newPassword: "",
+          confirmPassword: "",
         });
-        localStorage.setItem("accessToken", res?.data?.accessToken);
-        localStorage.setItem("refreshToken", res?.data?.refreshToken);
-        context.setIsLogin(true);
-        navigate("/");
+        navigate("/login");
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);
@@ -57,48 +59,22 @@ const Login = () => {
     });
   };
 
-  const forgotPass = () => {
-    if (formFeilds.email === "") {
-      context.openAlertBox("error", "Email Required to reset Password");
-    } else if (!emailRegex.test(formFeilds.email)) {
-      context.openAlertBox("error", "Enter Valid Email");
-    } else {
-      setIsLoading(true);
-      context.openAlertBox("success", "OTP send to Your Email");
-      localStorage.setItem("userEmail", formFeilds.email);
-      localStorage.setItem("actionType", "forgot-password");
-
-      postData("/api/user/forgot-password", {
-        email: formFeilds.email,
-      }).then((res) => {
-        if (res?.error !== true) {
-          setIsLoading(false);
-          context.openAlertBox("success", res?.message);
-          navigate("/verify");
-        } else {
-          setIsLoading(false);
-          context.openAlertBox("error", res?.message);
-        }
-      });
-    }
-  };
-
   return (
     <section className="section min-h-screen flex justify-center items-center">
       <div className="container flex justify-center">
         <div className="card shadow-md w-[400px] m-auto rounded-md bg-white p-5 px-8">
-          <h3 className="text-center text-[20px] font-[500]">
-            Login to Admin Panel
+          <h3 className="text-center text-[20px] mb-5 font-[500]">
+            Reset Password
           </h3>
           <form className="w-full" onSubmit={handleSubmit}>
-            <div className="form-group w-full my-5">
+            <div className="form-group w-full mb-3 relative">
               <TextField
-                type="email"
-                id="email"
-                name="email"
-                value={formFeilds.email}
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                value={formFeilds.newPassword}
                 disabled={isLoading === true ? true : false}
-                label="Email"
+                label="New Password"
                 variant="outlined"
                 sx={{
                   "& label.Mui-focused": {
@@ -125,11 +101,11 @@ const Login = () => {
             <div className="form-group w-full mb-3 relative">
               <TextField
                 type="password"
-                id="password"
-                name="password"
-                value={formFeilds.password}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formFeilds.confirmPassword}
                 disabled={isLoading === true ? true : false}
-                label="Password"
+                label="Confirm New Password"
                 variant="outlined"
                 sx={{
                   "& label.Mui-focused": {
@@ -153,14 +129,7 @@ const Login = () => {
                 onChange={onChangeInput}
               />
             </div>
-            <a
-              className="transition-all duration-300 !text-[14px] !pl-1 !text-[#ff5252] !cursor-pointer !font-[600]"
-              type="submit"
-              onClick={forgotPass}
-            >
-              Forgot Password?
-            </a>
-            <div className="flex items-center gap-3 justify-center my-3">
+            <div className="flex items-center gap-3 justify-center my-3 mt-7">
               <Button
                 type="submit"
                 disabled={!valideValue}
@@ -176,26 +145,10 @@ const Login = () => {
                     size={24}
                   ></CircularProgress>
                 ) : (
-                  "LOGIN"
+                  "UPDATE PASSWORD"
                 )}
               </Button>
             </div>
-            <p className="transition-all duration-300 text-[14px] pl-1 pb-5 pt-[0.8] text-black font-[500]">
-              Not Registered?
-              <Link to={"/register"} className="text-[#ff5252] pl-2">
-                Sign Up Now
-              </Link>
-            </p>
-            <hr className="text-gray-300" />
-            <p className="text-center transition-all duration-300 text-[14px] py-4 text-gray-600 font-[500]">
-              Or Continue with Social Account
-            </p>
-            <Link to={"/"}>
-              <div className="socialLogin transition-all duration-300 bg-blue-50 flex items-center justify-center p-1 py-2 rounded-sm cursor-pointer hover:bg-[#ffdbdb]">
-                <FcGoogle className="text-[25px] mr-1.5"></FcGoogle>
-                <h3 className="pb-0.5 font-[500]">Sign in With Google</h3>
-              </div>
-            </Link>
           </form>
         </div>
       </div>
@@ -203,4 +156,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ChangePass;
