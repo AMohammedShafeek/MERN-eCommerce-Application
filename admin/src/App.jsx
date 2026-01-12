@@ -43,24 +43,30 @@ function App() {
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (token !== undefined && token !== null && token !== "") {
-      setIsLogin(true);
-      getData(`/api/user/user-details`).then((res) => {
-        // console.log(res);
-        setUserData(res.data);
-        if (res?.response?.data?.error === true) {
-          if (res?.response?.data?.message === "You have not Login") {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            openAlertBox("error", "Your Session Is Closed");
-            setIsLogin(false);
-          }
-        }
-      });
-    } else {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
       setIsLogin(false);
+      return;
     }
-  }, [isLogin]);
+
+    getData("/api/user/user-details").then((res) => {
+      console.log(res);
+
+      if (res?.error === true) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("userEmail");
+
+        openAlertBox("error", "Your session has expired. Please login again");
+        setIsLogin(false);
+        return;
+      }
+
+      setUserData(res.data);
+      setIsLogin(true);
+    });
+  }, []);
 
   const values = {
     isLogin,

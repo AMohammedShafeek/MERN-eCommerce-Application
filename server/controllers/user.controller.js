@@ -676,9 +676,25 @@ export async function userDetails(request, response) {
   try {
     const userId = request.userId;
 
+    if (!userId) {
+      return response.status(401).json({
+        error: true,
+        success: false,
+        message: "Unauthorized access",
+      });
+    }
+
     const user = await userModel
       .findById(userId)
       .select("-password -refresh_token");
+
+    if (!user) {
+      return response.status(404).json({
+        error: true,
+        success: false,
+        message: "User not found",
+      });
+    }
 
     return response.status(200).json({
       error: false,

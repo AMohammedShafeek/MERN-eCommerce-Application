@@ -4,10 +4,6 @@ const auth = async (request, response, next) => {
   try {
     const token = request.cookies.accessToken || request?.headers?.authorization?.split(" ")[1]
 
-    // if(!token){
-    //     token = request.query.token
-    // }
-
     if(!token){
         return response.status(401).json({
             msg: 'provide Token'
@@ -29,10 +25,10 @@ const auth = async (request, response, next) => {
     next()
 
   } catch (error) {
-    return response.status(500).json({
+    return response.status(401).json({
       error: true,
       success: false,
-      message: "You have not Login",
+      message: "Session expired. Please login again",
     });
   }
 };

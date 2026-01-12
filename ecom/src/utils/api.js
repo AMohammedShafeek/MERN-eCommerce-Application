@@ -36,6 +36,13 @@ export async function getData(url) {
     return data;
   } catch (error) {
     console.log(error);
+    return {
+      error: true,
+      status: error.response?.status,
+      message:
+        error.response?.data?.message ||
+        "Session expired. Please login again",
+    };
   }
 }
 
