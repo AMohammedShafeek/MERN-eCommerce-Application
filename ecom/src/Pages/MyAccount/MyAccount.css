@@ -21,24 +21,37 @@
   position: relative;
 }
 
-.myAccountTabs li a::before{
-    content: '';
-    width: 4px;
-    height: 80%;
-    position: absolute;
-    top: 5px;
-    left: 15px;
-    background: var(--primary-clr);
-    transition: all 0.3s ease-in-out;
-    opacity: 0;
+.myAccountTabs li a::before {
+  content: "";
+  width: 4px;
+  height: 80%;
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  background: var(--primary-clr);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
 }
 
-.myAccountTabs li a.active::before{
-    height: 80%;
-    opacity: 1;
-    top: 5px;
+.myAccountTabs li a.active::before {
+  height: 80%;
+  opacity: 1;
+  top: 5px;
 }
 
-.myAccountTabs li a.active button svg{
-    color: var(--primary-clr);
+.myAccountTabs li a.active button svg {
+  color: var(--primary-clr);
+}
+
+.react-international-phone-input {
+  width: 100% !important;
+  height: 40px !important;
+  border: none !important;
+}
+
+.react-international-phone-country-selector-button {
+  width: 80px !important;
+  height: 40px !important;
+  border: none !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.1) !important;
 }

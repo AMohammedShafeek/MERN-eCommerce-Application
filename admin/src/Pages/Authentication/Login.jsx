@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
-import { postData } from "../../utils/api.js";
+import { getData, postData } from "../../utils/api.js";
 
 const Login = () => {
   const context = useContext(MyContext);
@@ -48,7 +48,19 @@ const Login = () => {
         });
         localStorage.setItem("accessToken", res?.data?.accessToken);
         localStorage.setItem("refreshToken", res?.data?.refreshToken);
-        context.setIsLogin(true);
+
+        getData("/api/user/user-details").then((userRes) => {
+          console.log(userRes);
+          if (userRes?.error) {
+            context.openAlertBox("error", userRes.message);
+            setIsLoading(false);
+            return;
+          }
+          context.setUserData(userRes.data);
+          context.setIsLogin(true);
+          setIsLoading(false);
+        });
+
         navigate("/");
       } else {
         context.openAlertBox("error", res?.message);

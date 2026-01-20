@@ -73,11 +73,11 @@ function App() {
 
         openAlertBox("error", "Your session has expired. Please login again");
         setIsLogin(false);
-        return;
+        return res;
+      } else {
+        setUserData(res.data);
+        setIsLogin(true);
       }
-
-      setUserData(res.data);
-      setIsLogin(true);
     });
   }, []);
 

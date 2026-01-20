@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import dayjs from "dayjs";
 import { editData } from "../../utils/api";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 const MyAccount = () => {
   const context = useContext(MyContext);
@@ -206,36 +208,19 @@ const MyAccount = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-                <div className="col2 w-[50%]">
-                  <TextField
-                    type="number"
-                    id="mobile"
-                    name="mobile"
-                    value={formFeilds.mobile}
+                <div className="col2 flex items-center w-[50%]">
+                  <PhoneInput
+                    defaultCountry="in"
+                    value={String(formFeilds.mobile || "")}
                     disabled={isLoading === true ? true : false}
-                    label="Mobile Number"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      "& label.Mui-focused": {
-                        color: "#ff5252",
-                        transition: "all 0.3s",
-                      },
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          borderColor: "#ccc",
-                          transition: "all 0.3s",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "#ff5252",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#ff5252",
-                        },
-                      },
+                    onChange={(value) => {
+                      setFormFields((prev) => ({
+                        ...prev,
+                        mobile: value,
+                      }));
                     }}
-                    className="w-full"
-                    onChange={onChangeInput}
+                    className="w-full border-1 border-gray-300 rounded-sm hover:border-[#ff5252] focus-within:ring-2 focus-within:ring-inset focus-within:ring-[#ff5252] transition-all duration-300"
+                    inputClassName="w-full focus-within:ring-2 focus-within:ring-inset focus-within:ring-[#ff5252] transition-all duration-300"
                   />
                 </div>
               </div>
