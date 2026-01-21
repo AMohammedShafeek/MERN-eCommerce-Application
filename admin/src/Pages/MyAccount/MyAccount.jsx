@@ -80,7 +80,7 @@ const MyAccount = () => {
           address: userData?.address,
         });
         setIsLoading(false);
-        navigate(0);
+        navigate(0)
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);
@@ -120,7 +120,7 @@ const MyAccount = () => {
   }, [context?.userData]);
 
   return (
-    <section className="py-10 w-full">
+    <section className="py-25 w-full">
       <div className="container flex gap-5">
         <AccountSideBar></AccountSideBar>
         <div className="col2 w-[80%]">

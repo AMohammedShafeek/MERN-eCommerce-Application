@@ -8,18 +8,20 @@ import { MyContext } from "../../App.jsx";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Register = () => {
+  const context = useContext(MyContext);
+  
   const [isLoading, setIsLoading] = useState(false);
   const [formFeilds, setFormFeilds] = useState({
     name: "",
     email: "",
     password: "",
     cPassword: "",
+    role: context.role,
   });
 
   const valideValue = Object.values(formFeilds).every((el) => el);
   const validPassword = formFeilds.password === formFeilds.cPassword;
 
-  const context = useContext(MyContext);
   const navigate = useNavigate();
 
   const onChangeInput = (e) => {

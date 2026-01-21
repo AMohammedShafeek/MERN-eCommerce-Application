@@ -20,6 +20,8 @@ import { getData } from "../src/utils/api.js";
 import toast, { Toaster } from "react-hot-toast";
 import Verify from "./Pages/VerifyOtp/VerifyOtp.jsx";
 import ChangePass from "./Pages/Authentication/ChangePass.jsx";
+import MyAccount from "./Pages/MyAccount/MyAccount.jsx";
+import UpdatePass from "./Pages/Authentication/UpdatePass.jsx";
 
 export const MyContext = createContext();
 
@@ -136,6 +138,14 @@ function App() {
                 element={<SubCategoriesList></SubCategoriesList>}
               ></Route>
               <Route path={"/orders"} element={<Orders></Orders>}></Route>
+              <Route
+                path={"/my-account"}
+                element={<MyAccount></MyAccount>}
+              ></Route>
+              <Route
+                path={"/updatePassword"}
+                element={<UpdatePass></UpdatePass>}
+              ></Route>
             </Routes>
           </>
         </MyContext.Provider>

@@ -19,7 +19,7 @@ export async function registerUserController(request, response) {
   try {
     let user;
 
-    const { name, email, password } = request.body;
+    const { name, email, password, role } = request.body;
 
     if (!name || !email || !password) {
       return response.status(400).json({
