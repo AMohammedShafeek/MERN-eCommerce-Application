@@ -11,12 +11,15 @@ import { MyContext } from "../../App";
 const Categories = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
+
   return (
     <section>
       <div className="container flex pt-10">
-        <div className={`sidebarWrapper ${
+        <div
+          className={`sidebarWrapper ${
             context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}>
+          } h-full bg-white`}
+        >
           <Sidebar></Sidebar>
         </div>
         <div
@@ -54,7 +57,7 @@ const Categories = () => {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="w-[50%]">
+            <div className="w-full">
               <div className="categoryWrapper w-full">
                 <CategoriesList></CategoriesList>
                 <div className="flex mt-5 mb-10 items-center justify-center">
@@ -67,7 +70,7 @@ const Categories = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[50%]">
+            {/* <div className="w-[50%]">
               <div className="categoryWrapper w-full">
                 <SubCategoriesList></SubCategoriesList>
                 <div className="flex mt-5 mb-10 items-center justify-center">
@@ -79,7 +82,7 @@ const Categories = () => {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -21,6 +21,9 @@ export async function createCategory(request, response) {
     category = await category.save();
 
     return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Category Created Successfully",
       category: category,
     });
   } catch (error) {
@@ -158,12 +161,12 @@ export async function deleteCategory(request, response) {
 
       for (let i = 0; i < thirdSubCategory.length; i++) {
         const deleteThirdSubCategory = await CategoryModel.findByIdAndDelete(
-          thirdSubCategory[i]._id
+          thirdSubCategory[i]._id,
         );
       }
 
       const deleteSubCategory = await CategoryModel.findByIdAndDelete(
-        subCategory[i]._id
+        subCategory[i]._id,
       );
     }
 
@@ -203,7 +206,7 @@ export async function updateCategory(request, response) {
         parentId: parentId,
         parentCatName: parentCatName,
       },
-      { new: true }
+      { new: true },
     );
 
     if (!category) {
@@ -217,6 +220,7 @@ export async function updateCategory(request, response) {
     response.status(200).json({
       error: false,
       success: true,
+      message: "Category Updated Successfully",
       category: category,
     });
   } catch (error) {

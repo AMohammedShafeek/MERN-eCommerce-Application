@@ -22,6 +22,8 @@ import Verify from "./Pages/VerifyOtp/VerifyOtp.jsx";
 import ChangePass from "./Pages/Authentication/ChangePass.jsx";
 import MyAccount from "./Pages/MyAccount/MyAccount.jsx";
 import UpdatePass from "./Pages/Authentication/UpdatePass.jsx";
+import CategoriesEdit from "./Pages/Category/CategoriesEdit.jsx";
+import Swal from 'sweetalert2'
 
 export const MyContext = createContext();
 
@@ -39,6 +41,29 @@ function App() {
     }
     if (status === "error") {
       toast.error(msg);
+    }
+  };
+
+  const openConfirmBox = ({ type, message, onConfirm }) => {
+    if (type === "delete") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onConfirm()
+          Swal.fire({
+            title: "Deleted!",
+            text: message,
+            icon: "success",
+          });
+        }
+      });
     }
   };
 
@@ -79,6 +104,7 @@ function App() {
     userData,
     setUserData,
     role,
+    openConfirmBox,
   };
 
   return (
@@ -145,6 +171,10 @@ function App() {
               <Route
                 path={"/updatePassword"}
                 element={<UpdatePass></UpdatePass>}
+              ></Route>
+              <Route
+                path={"/edit-category/:id"}
+                element={<CategoriesEdit></CategoriesEdit>}
               ></Route>
             </Routes>
           </>

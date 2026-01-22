@@ -75,3 +75,18 @@ export async function editData(url, updatedData) {
     console.log(error);
   }
 }
+
+export async function deleteData(url) {
+  try {
+    const params = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+    };
+    const { data } = await axios.delete(apiUrl + url, params);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

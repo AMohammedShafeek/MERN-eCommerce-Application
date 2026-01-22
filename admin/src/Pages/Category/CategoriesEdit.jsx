@@ -1,13 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
-import { postData } from "../../utils/api";
+import { editData, getData, postData } from "../../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CategoriesNew = () => {
+const CategoriesEdit = () => {
   const context = useContext(MyContext);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [formFeilds, setFormFeilds] = useState({
@@ -26,6 +29,14 @@ const CategoriesNew = () => {
     });
   };
 
+  useEffect(() => {
+    getData(`/api/category/${id}`).then((res) => {
+      setFormFeilds({
+        name: res?.category?.name
+      })
+    });
+  }, [id]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -36,16 +47,15 @@ const CategoriesNew = () => {
       return;
     }
 
-    postData("/api/category/create", formFeilds, {
-      withCredentials: true,
-    }).then((res) => {
+    editData(`/api/category/${id}`, formFeilds).then((res) => {
       console.log(res);
       if (res?.error !== true) {
         context.openAlertBox("success", res?.message);
+        setIsLoading(false);
         setFormFeilds({
           name: "",
         });
-        setIsLoading(false);
+        navigate("/categories");
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);
@@ -70,7 +80,7 @@ const CategoriesNew = () => {
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
-              <h2 className="font-bold text-[18px]">ADD NEW CATEGORY</h2>
+              <h2 className="font-bold text-[18px]">UPDATE CATEGORY</h2>
             </div>
 
             <form
@@ -78,7 +88,7 @@ const CategoriesNew = () => {
               onSubmit={handleSubmit}
             >
               <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
-                New Category
+                Edit Category name
               </p>
               <div className="flex items-center justify-center gap-3">
                 <div className="name w-full">
@@ -131,7 +141,7 @@ const CategoriesNew = () => {
                       size={24}
                     ></CircularProgress>
                   ) : (
-                    "SUBMIT"
+                    "UPDATE"
                   )}
                 </Button>
               </div>
@@ -143,4 +153,4 @@ const CategoriesNew = () => {
   );
 };
 
-export default CategoriesNew;
+export default CategoriesEdit;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -10,10 +10,52 @@ import Button from "@mui/material/Button";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { deleteData, getData } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../App";
 
 const CategoriesList = () => {
+  const context = useContext(MyContext);
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
+  const [catData, setCatData] = useState([]);
+  const [refresh, setRefresh] = useState(false);
+
+  const navigate = useNavigate();
+
+  const categoryData = () => {
+    getData("/api/category").then((res) => {
+      console.log(res?.data);
+      setCatData(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    categoryData();
+  }, [refresh]);
+
+  const editCat = (id) => {
+    navigate(`/edit-category/${id}`);
+  };
+
+  const deleteCatConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Category deleted successfully",
+      onConfirm: () => deleteCat(id),
+    });
+  };
+
+  const deleteCat = (id) => {
+    deleteData(`/api/category/${id}`).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        categoryData();
+      } else {
+        context.openAlertBox("error", res?.message);
+      }
+    });
+  };
   return (
     <div>
       <div>
@@ -41,206 +83,45 @@ const CategoriesList = () => {
                 <Checkbox {...label} />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                Category ID
-              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Fashion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Electricals
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Accessories
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Bags
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Footwear
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Beauty
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Jewellery
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Wellness
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
+            {catData?.length !== 0 &&
+              catData?.map((item, index) => {
+                return (
+                  <TableRow className="bg-white">
+                    <TableCell>
+                      <Checkbox {...label} />
+                    </TableCell>
+                    <TableCell className="!text-[14px] !font-bold">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell className="ProdductID !text-[14px] !font-bold">
+                      {item.name}
+                    </TableCell>
+                    <TableCell>
+                      <Tooltip title="Edit">
+                        <Button
+                          onClick={() => editCat(item._id)}
+                          className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200"
+                        >
+                          <MdEdit className="text-[30px]"></MdEdit>
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Delete">
+                        <Button
+                          onClick={() => deleteCatConfirm(item._id)}
+                          className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200"
+                        >
+                          <MdDelete className="text-[30px]"></MdDelete>
+                        </Button>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>

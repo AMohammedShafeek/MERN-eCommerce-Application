@@ -14,7 +14,7 @@ import {
 } from "../controllers/category.controller.js";
 
 const categoryRouter = Router();
-categoryRouter.post("/create", auth, createCategory);
+categoryRouter.post("/create", createCategory);
 categoryRouter.get("/", auth, getCategories);
 categoryRouter.get("/get/count", getCategoriesCount);
 categoryRouter.get("/get/count/subCat", getSubCategoriesCount);
