@@ -7,21 +7,79 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { MyContext } from "../../App";
+import CircularProgress from "@mui/material/CircularProgress";
+import { postData } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const SubCategoriesNew = () => {
   const context = useContext(MyContext);
-  const [category, setCategory] = useState("");
+  const navigate = useNavigate()
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [productCat, setProductCat] = useState("");
+  const [formFeilds, setFormFeilds] = useState({
+    name: "",
+    parentCatName: "",
+    parentId: "",
+  });
+
+  const valideValue = Object.values(formFeilds).every((el) => el);
+
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormFeilds({
+      ...formFeilds,
+      [name]: value,
+    });
+  };
+
+  const selectedCatNameFun = (catName) => {
+    formFeilds.parentCatName = catName
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    if (formFeilds.name === "") {
+      context.openAlertBox("error", "Enter Sub-Category Name");
+      setIsLoading(false);
+      return;
+    }
+
+    postData("/api/category/create", formFeilds, {
+      withCredentials: true,
+    }).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.openAlertBox("success", res?.message);
+        setFormFeilds({
+          name: "",
+          parentCatName: "",
+          parentId: "",
+        });
+        setIsLoading(false);
+        navigate('/categories')
+      } else {
+        context.openAlertBox("error", res?.message);
+        setIsLoading(false);
+      }
+    });
+  };
 
   const handleCategory = (event) => {
-    setCategory(event.target.value);
+    setProductCat(event.target.value);
+    formFeilds.parentId = event.target.value;
   };
 
   return (
     <section>
       <div className="container flex pt-10">
-        <div className={`sidebarWrapper ${
+        <div
+          className={`sidebarWrapper ${
             context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}>
+          } h-full bg-white`}
+        >
           <Sidebar></Sidebar>
         </div>
         <div
@@ -34,7 +92,10 @@ const SubCategoriesNew = () => {
               <h2 className="font-bold text-[18px]">ADD NEW SUB-CATEGORY</h2>
             </div>
 
-            <form className="w-full container mt-5 pt-3 my-3">
+            <form
+              className="w-full container mt-5 pt-3 my-3"
+              onSubmit={handleSubmit}
+            >
               <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                 Select Parent and add New Sub-Category
               </p>
@@ -57,7 +118,7 @@ const SubCategoriesNew = () => {
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={category}
+                        value={productCat}
                         label="Product Category"
                         onChange={handleCategory}
                         sx={{
@@ -71,14 +132,18 @@ const SubCategoriesNew = () => {
                           },
                         }}
                       >
-                        <MenuItem value={"Fashion"}>Fashion</MenuItem>
-                        <MenuItem value={"Electronics"}>Electronics</MenuItem>
-                        <MenuItem value={"Accessories"}>Accessories</MenuItem>
-                        <MenuItem value={"Bags"}>Bags</MenuItem>
-                        <MenuItem value={"Footwear"}>Footwear</MenuItem>
-                        <MenuItem value={"Beauty"}>Beauty</MenuItem>
-                        <MenuItem value={"Jewellery"}>Jewellery</MenuItem>
-                        <MenuItem value={"Wellness"}>Wellness</MenuItem>
+                        {context?.catData?.length !== 0 &&
+                          context?.catData?.map((item, index) => {
+                            return (
+                              <MenuItem
+                                key={item?._id}
+                                value={item?._id}
+                                onClick={() => selectedCatNameFun(item?.name)}
+                              >
+                                {item?.name}
+                              </MenuItem>
+                            );
+                          })}
                       </Select>
                     </FormControl>
                   </div>
@@ -89,6 +154,7 @@ const SubCategoriesNew = () => {
                       type="text"
                       id="name"
                       name="name"
+                      value={formFeilds.name}
                       label="Enter Sub-Category Name"
                       variant="outlined"
                       size="medium"
@@ -111,13 +177,29 @@ const SubCategoriesNew = () => {
                         },
                       }}
                       className="w-full"
+                      onChange={onChangeInput}
                     />
                   </div>
                 </div>
               </div>
               <div className="flex w-full items-center gap-3 justify-center pt-3 mb-5">
-                <Button className="btn-org !w-full !py-3 !font-bold hover:!bg-black hover:!text-white transition-all duration-300">
-                  PUBLISH
+                <Button
+                  type="submit"
+                  disabled={!valideValue}
+                  className={`${
+                    !valideValue === true
+                      ? "!bg-gray-200"
+                      : "btn-org !bg-[var(--primary-clr)]"
+                  } !w-full !py-2 !font-bold hover:!bg-black hover:!text-white transition-all duration-300 flex gap-2`}
+                >
+                  {isLoading === true ? (
+                    <CircularProgress
+                      color="inherit"
+                      size={24}
+                    ></CircularProgress>
+                  ) : (
+                    "SUBMIT"
+                  )}
                 </Button>
               </div>
             </form>

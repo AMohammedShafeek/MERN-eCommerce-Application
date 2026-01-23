@@ -23,7 +23,7 @@ import ChangePass from "./Pages/Authentication/ChangePass.jsx";
 import MyAccount from "./Pages/MyAccount/MyAccount.jsx";
 import UpdatePass from "./Pages/Authentication/UpdatePass.jsx";
 import CategoriesEdit from "./Pages/Category/CategoriesEdit.jsx";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export const MyContext = createContext();
 
@@ -34,6 +34,8 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [catData, setCatData] = useState([]);
+  const [subCatData, setSubCatData] = useState([]);
 
   const openAlertBox = (status, msg) => {
     if (status === "success") {
@@ -56,7 +58,7 @@ function App() {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          onConfirm()
+          onConfirm();
           Swal.fire({
             title: "Deleted!",
             text: message,
@@ -95,6 +97,20 @@ function App() {
     });
   }, []);
 
+  const categoryData = () => {
+    getData("/api/category").then((res) => {
+      console.log(res?.data);
+      setCatData(res?.data);
+    });
+  };
+
+  const subCategoryData = () => {
+    getData("/api/category").then((res) => {
+      console.log(res?.data);
+      setCatData(res?.data);
+    });
+  };
+
   const values = {
     isLogin,
     setIsLogin,
@@ -105,6 +121,12 @@ function App() {
     setUserData,
     role,
     openConfirmBox,
+    categoryData,
+    catData,
+    setCatData,
+    subCategoryData,
+    subCatData,
+    setSubCatData,
   };
 
   return (

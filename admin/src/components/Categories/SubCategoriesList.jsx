@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -10,9 +10,63 @@ import Button from "@mui/material/Button";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { deleteData, getData } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../App";
 
 const SubCategoriesList = () => {
+  const context = useContext(MyContext);
+
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+
+  const [refresh, setRefresh] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.subCategoryData();
+  }, [refresh]);
+
+  const editCat = (id) => {
+    navigate(`/edit-category/${id}`);
+  };
+
+  const deleteCatConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Category deleted successfully",
+      onConfirm: () => deleteCat(id),
+    });
+  };
+
+  const deleteCat = (id) => {
+    deleteData(`/api/category/${id}`).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.subCategoryData();
+      } else {
+        context.openAlertBox("error", res?.message);
+      }
+    });
+  };
+
+  const getSubCategoryList = (categories = []) => {
+    let list = [];
+
+    categories.forEach((parent) => {
+      parent.children?.forEach((child) => {
+        list.push({
+          _id: child._id,
+          subCatName: child.name,
+          parentCatName: parent.name,
+        });
+      });
+    });
+
+    return list;
+  };
+
+  const subCategoryList = getSubCategoryList(context?.catData);
 
   return (
     <div>
@@ -41,231 +95,65 @@ const SubCategoriesList = () => {
                 <Checkbox {...label} />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                Category ID
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Parent</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">
+                Parent Category
+              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Fashion
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Men
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Fashion
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Women
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Fashion
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Kids
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Fashion
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Babies
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Electricals
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Charger
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Electricals
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Data Cable
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Electricals
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Adapter
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Electricals
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Pendriver
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
+            {subCategoryList.length > 0 ? (
+              subCategoryList.map((item, index) => (
+                <TableRow key={item._id} className="bg-white">
+                  <TableCell>
+                    <Checkbox {...label} />
+                  </TableCell>
+
+                  <TableCell className="!text-[14px] !font-bold">
+                    {index + 1}
+                  </TableCell>
+
+                  <TableCell className="!text-[14px] !font-bold">
+                    {item.subCatName}
+                  </TableCell>
+
+                  <TableCell className="!text-[14px] !font-bold">
+                    {item.parentCatName}
+                  </TableCell>
+
+                  <TableCell>
+                    <Tooltip title="Edit">
+                      <Button
+                        onClick={() => editCat(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200"
+                      >
+                        <MdEdit className="text-[30px]" />
+                      </Button>
+                    </Tooltip>
+
+                    <Tooltip title="Delete">
+                      <Button
+                        onClick={() => deleteCatConfirm(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200"
+                      >
+                        <MdDelete className="text-[30px]" />
+                      </Button>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  align="center"
+                  className="!py-6 !font-semibold"
+                >
+                  No sub-categories found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

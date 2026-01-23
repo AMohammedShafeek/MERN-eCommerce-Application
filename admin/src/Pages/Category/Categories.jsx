@@ -57,7 +57,7 @@ const Categories = () => {
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="w-full">
+            <div className="w-[50%]">
               <div className="categoryWrapper w-full">
                 <CategoriesList></CategoriesList>
                 <div className="flex mt-5 mb-10 items-center justify-center">
@@ -70,7 +70,7 @@ const Categories = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="w-[50%]">
+            <div className="w-[50%]">
               <div className="categoryWrapper w-full">
                 <SubCategoriesList></SubCategoriesList>
                 <div className="flex mt-5 mb-10 items-center justify-center">
@@ -82,7 +82,7 @@ const Categories = () => {
                   />
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
