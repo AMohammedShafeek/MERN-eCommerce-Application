@@ -29,7 +29,7 @@ export async function uploadImages(request, response) {
         function (error, result) {
           imagesArr.push(result.secure_url);
           fs.unlinkSync(`uploads/${request.files[i].filename}`);
-        }
+        },
       );
     }
 
@@ -49,44 +49,45 @@ export async function createProduct(request, response) {
   try {
     const {
       name,
+      images,
       description,
       brand,
       price,
       oldPrice,
+      category,
       catName,
       catId,
       subCatName,
       subCatId,
-      thirdSubCatName,
-      thirdSubCatId,
       stock,
       rating,
-      isFeatured,
+      isfeatured,
       discount,
       size,
       weight,
+      color,
     } = request.body;
-    const images = imagesArr;
 
     let product = new ProductModel({
       name: name,
+      images: images,
       description: description,
       images: images,
       brand: brand,
       price: price,
       oldPrice: oldPrice,
+      category: category,
       catName: catName,
       catId: catId,
       subCatName: subCatName,
       subCatId: subCatId,
-      thirdSubCatName: thirdSubCatName,
-      thirdSubCatId: thirdSubCatId,
       stock: stock,
       rating: rating,
-      isFeatured: isFeatured,
+      isFeatured: isfeatured,
       discount: discount,
       size: size,
       weight: weight,
+      color: color,
     });
 
     product = await product.save();
@@ -716,18 +717,26 @@ export async function removeImageFromCloudinary(request, response) {
   try {
     const { imageUrl } = request.query;
 
+    if (!imageUrl) {
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "image is required",
+      });
+    }
+
     const urlArr = imageUrl.split("/");
     const image = urlArr[urlArr.length - 1];
 
     const imageName = image.split(".")[0];
 
-    if (imageName) {
-      const res = cloudinary.uploader.destroy(imageName, (error, result) => {});
-    }
+    const result = await cloudinary.uploader.destroy(imageName);
 
-    if (res) {
-      return response.status(200).send(res);
-    }
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Image Removed Successfully",
+    });
   } catch (error) {
     response.status(500).json({
       message: error.message || error,
@@ -756,7 +765,7 @@ export async function updateProduct(request, response) {
       category,
       stock,
       rating,
-      isFeatured,
+      isfeatured,
       discount,
       size,
       weight,
@@ -780,12 +789,12 @@ export async function updateProduct(request, response) {
         category: category,
         stock: stock,
         rating: rating,
-        isFeatured: isFeatured,
+        isfeatured: isfeatured,
         discount: discount,
         size: size,
         weight: weight,
       },
-      { new: true }
+      { new: true },
     );
 
     if (!product) {
@@ -796,7 +805,7 @@ export async function updateProduct(request, response) {
       });
     }
 
-    imagesArr = []
+    imagesArr = [];
 
     return response.status(200).json({
       error: false,

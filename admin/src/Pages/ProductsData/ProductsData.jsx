@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ProductsList from "../../components/Products/ProductsList";
 import Pagination from "@mui/material/Pagination";
@@ -6,6 +6,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import Search from "../../components/Search/Search";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../App";
+import { getData } from "../../utils/api";
 
 const ProductsData = () => {
   const context = useContext(MyContext);
@@ -13,9 +14,11 @@ const ProductsData = () => {
   return (
     <section>
       <div className="container flex pt-10">
-        <div className={`sidebarWrapper ${
+        <div
+          className={`sidebarWrapper ${
             context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}>
+          } h-full bg-white`}
+        >
           <Sidebar></Sidebar>
         </div>
         <div

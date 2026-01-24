@@ -26,7 +26,7 @@ import {
 const productRouter = Router();
 
 productRouter.post("/uploadImages", auth, upload.array("images"), uploadImages);
-productRouter.post("/create", auth, createProduct);
+productRouter.post("/create", createProduct);
 productRouter.get("/getAllProducts", getAllProducts);
 productRouter.get("/getByCategoryId/:id", getAllProductsByCatId);
 productRouter.get("/getByCategoryName", getAllProductsByCatName);
@@ -44,9 +44,9 @@ productRouter.get("/getByPrice", getAllProductsByPrice);
 productRouter.get("/getByRating", getAllProductsByRating);
 productRouter.get("/getProductsCount", getAllProductsCount);
 productRouter.get("/isFeatured", getAllFeaturedProducts);
-productRouter.delete("/:id", deleteProduct);
 productRouter.get("/:id", getProduct);
 productRouter.delete("/deleteImage", auth, removeImageFromCloudinary);
+productRouter.delete("/:id", deleteProduct);
 productRouter.put("/updateProduct/:id", auth, updateProduct);
 
 export default productRouter;

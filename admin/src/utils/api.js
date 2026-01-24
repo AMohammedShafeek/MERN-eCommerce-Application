@@ -90,3 +90,18 @@ export async function deleteData(url) {
     console.log(error);
   }
 }
+
+export async function uploadProductImages(url, formData) {
+  try {
+    const params = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    const { data } = await axios.post(apiUrl + url, formData, params);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

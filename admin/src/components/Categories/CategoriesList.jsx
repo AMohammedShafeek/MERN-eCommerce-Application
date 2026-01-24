@@ -20,13 +20,11 @@ const CategoriesList = () => {
   const context = useContext(MyContext);
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
-  const [refresh, setRefresh] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
     context.categoryData();
-  }, [refresh]);
+  }, []);
 
   const editCat = (id) => {
     navigate(`/edit-category/${id}`);
@@ -102,7 +100,12 @@ const CategoriesList = () => {
 
                   <TableCell className="!text-[14px] !font-bold">
                     {item.children?.length > 0 ? (
-                      <Stack direction="row" spacing={1} rowGap={1} flexWrap="wrap">
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        rowGap={1}
+                        flexWrap="wrap"
+                      >
                         {item.children.map((child) => (
                           <Chip
                             key={child._id}

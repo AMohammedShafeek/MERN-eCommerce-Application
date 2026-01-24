@@ -24,6 +24,7 @@ import MyAccount from "./Pages/MyAccount/MyAccount.jsx";
 import UpdatePass from "./Pages/Authentication/UpdatePass.jsx";
 import CategoriesEdit from "./Pages/Category/CategoriesEdit.jsx";
 import Swal from "sweetalert2";
+import ProductsItemsEdit from "./Pages/ProductsData/ProductsItemsEdit.jsx";
 
 export const MyContext = createContext();
 
@@ -36,6 +37,7 @@ function App() {
   const [userData, setUserData] = useState(null);
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
+  const [prodData, setProdData] = useState([]);
 
   const openAlertBox = (status, msg) => {
     if (status === "success") {
@@ -78,7 +80,13 @@ function App() {
       setIsLogin(false);
       return;
     }
+    userDetails();
+    categoryData();
+    subCategoryData();
+    productsData();
+  }, []);
 
+  const userDetails = () => {
     getData("/api/user/user-details").then((res) => {
       console.log(res);
 
@@ -95,7 +103,7 @@ function App() {
       setUserData(res.data);
       setIsLogin(true);
     });
-  }, []);
+  };
 
   const categoryData = () => {
     getData("/api/category").then((res) => {
@@ -108,6 +116,15 @@ function App() {
     getData("/api/category").then((res) => {
       console.log(res?.data);
       setCatData(res?.data);
+    });
+  };
+
+  const productsData = () => {
+    getData("/api/product/getAllProducts").then((res) => {
+      if (res?.error !== true) {
+        console.log(res?.data);
+        setProdData(res?.data);
+      }
     });
   };
 
@@ -127,6 +144,9 @@ function App() {
     subCategoryData,
     subCatData,
     setSubCatData,
+    prodData,
+    setProdData,
+    productsData,
   };
 
   return (
@@ -197,6 +217,10 @@ function App() {
               <Route
                 path={"/edit-category/:id"}
                 element={<CategoriesEdit></CategoriesEdit>}
+              ></Route>
+              <Route
+                path={"/edit-product/:id"}
+                element={<ProductsItemsEdit></ProductsItemsEdit>}
               ></Route>
             </Routes>
           </>

@@ -44,14 +44,6 @@ const ProductSchema = mongoose.Schema(
       type: String,
       default: "",
     },
-    thirdSubCatName: {
-      type: String,
-      default: "",
-    },
-    thirdSubCatId: {
-      type: String,
-      default: "",
-    },
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "category",
@@ -73,6 +65,10 @@ const ProductSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    sale:{
+      type: Number,
+      default: 0
+    },
     size: {
       type: Array,
       default: null,
@@ -81,10 +77,14 @@ const ProductSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    color: {
+      type: Array,
+      default: null,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const ProductModel = mongoose.model("product", ProductSchema);

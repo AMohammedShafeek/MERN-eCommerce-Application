@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -12,9 +12,42 @@ import Button from "@mui/material/Button";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { MyContext } from "../../App";
+import { useNavigate } from "react-router-dom";
+import { deleteData } from "../../utils/api";
 
 const ProductsList = () => {
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+
+  const context = useContext(MyContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.productsData();
+  }, []);
+
+  const editProduct = (id) => {
+    navigate(`/edit-product/${id}`);
+  };
+
+  const deleteProductConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Product deleted successfully",
+      onConfirm: () => deleteProd(id),
+    });
+  };
+
+  const deleteProd = (id) => {
+    deleteData(`/api/product/${id}`).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.productsData();
+      } else {
+        context.openAlertBox("error", res?.message);
+      }
+    });
+  };
 
   return (
     <div>
@@ -57,116 +90,86 @@ const ProductsList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                TAGDO Gray Shirt | Casual Shirt
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                <img
-                  src="../../../src/assets/Products/p2-2.jpg"
-                  alt=""
-                  className="object-contain w-[60px] h-[60px]"
-                />
-              </TableCell>
-              <TableCell>
-                <Rating
-                  name="size-small"
-                  defaultValue={2}
-                  size="small"
-                  readOnly
-                />
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">120</TableCell>
-              <TableCell>
-                <h1 className="line-through flex items-center justify-center !text-[14px] !font-[500]">
-                  899
-                </h1>
-                <h1 className="text-green-600 px-2 flex items-center justify-center rounded-sm bg-green-200 !text-[16px] !font-black">
-                  399
-                </h1>
-              </TableCell>
-              <TableCell>
-                <p className="text-[13px] font-[500]">
-                  <span className="pr-1 font-bold">128</span>Sales
-                </p>
-                <ProgressBar value={20}></ProgressBar>
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">TAGDO</TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">2</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                TAGDO Gray Shirt | Casual Shirt
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                <img
-                  src="../../../src/assets/Products/p2-2.jpg"
-                  alt=""
-                  className="object-contain w-[60px] h-[60px]"
-                />
-              </TableCell>
-              <TableCell>
-                <Rating
-                  name="size-small"
-                  defaultValue={2}
-                  size="small"
-                  readOnly
-                />
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">120</TableCell>
-              <TableCell>
-                <h1 className="line-through flex items-center justify-center !text-[14px] !font-[500]">
-                  899
-                </h1>
-                <h1 className="text-green-600 px-2 flex items-center justify-center rounded-sm bg-green-200 !text-[16px] !font-black">
-                  399
-                </h1>
-              </TableCell>
-              <TableCell>
-                <p className="text-[13px] font-[500]">
-                  <span className="pr-1 font-bold">254</span>Sales
-                </p>
-                <ProgressBar value={80}></ProgressBar>
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">TAGDO</TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
+            {context?.prodData?.length > 0 ? (
+              context.prodData.map((item, index) => (
+                <TableRow key={index} className="bg-white">
+                  <TableCell>
+                    <Checkbox {...label} />
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
+                    {item?._id}
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.name}
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    <img
+                      src={item?.images[0]}
+                      className="object-contain w-[60px] h-[60px]"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Rating
+                      name="size-small"
+                      defaultValue={item?.Rating}
+                      size="small"
+                      readOnly
+                    />
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.stock}
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="line-through flex items-center justify-center !text-[14px] !font-[500]">
+                      &#x20b9;{item?.oldPrice}
+                    </h1>
+                    <h1 className="text-green-600 px-2 flex items-center justify-center rounded-sm bg-green-200 !text-[16px] !font-black">
+                      &#x20b9;{item?.price}
+                    </h1>
+                  </TableCell>
+                  <TableCell>
+                    <p className="text-[13px] font-[500]">
+                      <span className="pr-1 font-bold">{item?.sale}</span>Sales
+                    </p>
+                    <ProgressBar value={20}></ProgressBar>
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.brand}
+                  </TableCell>
+                  <TableCell>
+                    <Tooltip title="Edit">
+                      <Button
+                        onClick={() => editProduct(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200"
+                      >
+                        <MdEdit className="text-[30px]"></MdEdit>
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <Button
+                        onClick={() => deleteProductConfirm(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200"
+                      >
+                        <MdDelete className="text-[30px]"></MdDelete>
+                      </Button>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={12}
+                  align="center"
+                  className="!py-6 !font-semibold"
+                >
+                  No Products found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

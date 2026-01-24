@@ -12,12 +12,13 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import { IoMdClose } from "react-icons/io";
 import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
-import { deleteData, postData } from "../../utils/api";
-import { useNavigate } from "react-router-dom";
+import { deleteData, editData, getData, postData } from "../../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ProductsItemsNew = () => {
+const ProductsItemsEdit = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
+  const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isRemoveLoading, setIsRemoveLoading] = useState(false);
@@ -44,13 +45,14 @@ const ProductsItemsNew = () => {
     subCatName: "",
     subCatId: "",
     stock: 0,
-    isfeatured: "",
+    isfeatured: false,
     discount: 0,
     size: [],
     color: [],
   });
 
-  const valideValue = Object.values(formFeilds).every((el) => el);
+  // const valideValue = Object.values(formFeilds).every((el) => el);
+  const valideValue = true;
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -62,6 +64,47 @@ const ProductsItemsNew = () => {
       },
     },
   };
+
+  useEffect(() => {
+    getData(`/api/product/${id}`).then((res) => {
+      if (res?.error !== true) {
+        setFormFeilds({
+          name: res?.product?.name,
+          description: res?.product?.description,
+          images: res?.product?.images,
+          brand: res?.product?.brand,
+          price: res?.product?.price,
+          oldPrice: res?.product?.oldPrice,
+          category: res?.product?.category,
+          catName: res?.product?.catName,
+          catId: res?.product?.catId,
+          subCatName: res?.product?.subCatName,
+          subCatId: res?.product?.subCatId,
+          stock: res?.product?.stock,
+          isfeatured: res?.product?.isfeatured,
+          discount: res?.product?.discount,
+          size: res?.product?.size,
+          color: res?.product?.color,
+        });
+        setPreviews(res?.product?.images || []);
+      } else {
+        context.openAlertBox("error", res?.message);
+        navigate("/products-data");
+      }
+    });
+  }, [id]);
+
+  useEffect(() => {
+    if (formFeilds.catId && context.catData && context.catData.length > 0) {
+      const selectedCategory = context.catData.find(
+        (cat) => cat._id === formFeilds.catId,
+      );
+
+      setSubCategories(selectedCategory?.children || []);
+    }
+  }, [formFeilds.catId, context.catData]);
+
+  console.log(formFeilds);
 
   const handleCategory = (event) => {
     setCategory(event.target.value);
@@ -79,6 +122,7 @@ const ProductsItemsNew = () => {
     formFeilds.subCatId = event.target.value;
   };
   const handleFeatured = (event) => {
+    alert(event.target.value);
     setFeatured(event.target.value);
     formFeilds.isfeatured = event.target.value;
   };
@@ -143,7 +187,7 @@ const ProductsItemsNew = () => {
       return;
     }
 
-    postData("/api/product/create", formFeilds, {
+    editData(`/api/product/updateProduct/${id}`, formFeilds, {
       withCredentials: true,
     }).then((res) => {
       console.log(res);
@@ -162,7 +206,7 @@ const ProductsItemsNew = () => {
           subCatName: "",
           subCatId: "",
           stock: 0,
-          isfeatured: "",
+          isfeatured: false,
           discount: 0,
           size: [],
           color: [],
@@ -193,7 +237,7 @@ const ProductsItemsNew = () => {
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
-              <h2 className="font-bold text-[18px]">ADD NEW PRODUCT</h2>
+              <h2 className="font-bold text-[18px]">UPDATE PRODUCT</h2>
             </div>
 
             <form
@@ -375,7 +419,7 @@ const ProductsItemsNew = () => {
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={category}
+                        value={formFeilds.catId}
                         disabled={isUploading}
                         label="Product Category"
                         onChange={handleCategory}
@@ -421,10 +465,12 @@ const ProductsItemsNew = () => {
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={subCategory}
+                        value={
+                          subCategories.length > 0 ? formFeilds.subCatId : ""
+                        }
                         label="Product Category"
                         onChange={handleSubCategory}
-                        disabled={subCategories.length === 0 || isUploading}
+                        disabled={isUploading}
                         sx={{
                           "&:hover .MuiOutlinedInput-notchedOutline": {
                             borderColor: "#ff5252",
@@ -540,7 +586,7 @@ const ProductsItemsNew = () => {
                       <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={featured}
+                        value={formFeilds.isfeatured}
                         disabled={isUploading}
                         label="Featured?"
                         onChange={handleFeatured}
@@ -648,7 +694,7 @@ const ProductsItemsNew = () => {
                         multiple
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={color}
+                        value={formFeilds.color}
                         disabled={isUploading}
                         label="Color"
                         onChange={handleColor}
@@ -751,7 +797,7 @@ const ProductsItemsNew = () => {
                         multiple
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={size}
+                        value={formFeilds.size}
                         disabled={isUploading}
                         label="Size"
                         onChange={handleSize}
@@ -805,4 +851,4 @@ const ProductsItemsNew = () => {
   );
 };
 
-export default ProductsItemsNew;
+export default ProductsItemsEdit;
