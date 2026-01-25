@@ -6,6 +6,7 @@ import upload from "../middlewares/multer.js";
 import {
   checkPassword,
   forgotPasswordController,
+  getUsers,
   loginUserController,
   logoutController,
   refreshToken,
@@ -40,5 +41,6 @@ userRouter.post("/reset-password", resetPassword);
 userRouter.post("/check-password", checkPassword);
 userRouter.post("/refresh-token", refreshToken);
 userRouter.get("/user-details", auth, userDetails);
+userRouter.get("/users", getUsers);
 
 export default userRouter;

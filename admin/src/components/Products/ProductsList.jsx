@@ -15,6 +15,8 @@ import Tooltip from "@mui/material/Tooltip";
 import { MyContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { deleteData } from "../../utils/api";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 const ProductsList = () => {
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
@@ -78,7 +80,12 @@ const ProductsList = () => {
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Category</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">
+                Category
+              </TableCell>
+              <TableCell className=" !text-[14px] !font-bold">
+                Sub Category
+              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Rating</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Stock</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Price</TableCell>
@@ -108,6 +115,9 @@ const ProductsList = () => {
                   </TableCell>
                   <TableCell className=" !text-[14px] !font-bold">
                     {item?.category?.name}
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {item?.subCatNames || "-"}
                   </TableCell>
                   <TableCell>
                     <Rating

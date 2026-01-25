@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableContainer from "@mui/material/TableContainer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TableBody from "@mui/material/TableBody";
 import Rating from "@mui/material/Rating";
 import Checkbox from "@mui/material/Checkbox";
@@ -13,9 +13,43 @@ import Button from "@mui/material/Button";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { MyContext } from "../../App";
+import { deleteData } from "../../utils/api";
 
-const UsersList = () => {
+const UsersList = (props) => {
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+
+  const context = useContext(MyContext);
+  const navigate = useNavigate();
+
+  const formatDate = (uDate) => {
+    if (!uDate) return "-";
+
+    const date = new Date(uDate);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
+
+  const calculateAge = (dob) => {
+    if (!dob) return "-";
+
+    const birthDate = new Date(dob);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+
+    return age;
+  };
 
   return (
     <div>
@@ -44,105 +78,83 @@ const UsersList = () => {
                 <Checkbox {...label} />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                User ID
-              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">Role</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Mobile</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Email</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">Gender</TableCell>
               <TableCell className=" !text-[14px] !font-bold">DOB</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Age</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">
+                Address
+              </TableCell>
+              <TableCell className=" !text-[14px] !font-bold">Last Login</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                UI521
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                Mohammed Shafeek A
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                <img
-                  src="../../../src/assets/Users/shafeek77.png"
-                  alt=""
-                  className="object-contain w-[60px] h-[60px] rounded-full border border-gray-300"
-                />
-              </TableCell>
-              <TableCell>
-                <h1 className="!text-[14px] !font-bold">*******654</h1>
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                amdshafeek7@gmail.com
-              </TableCell>
-              <TableCell>
-                <h1 className="!text-[14px] !font-bold">30/08/2004</h1>
-              </TableCell>
-              <TableCell>
-                <h1 className="!text-[14px] !font-bold">21</h1>
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                UI521
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                Mohammed Shafeek A
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                <img
-                  src="../../../src/assets/Users/shafeek77.png"
-                  alt=""
-                  className="object-contain w-[60px] h-[60px] rounded-full border border-gray-300"
-                />
-              </TableCell>
-              <TableCell>
-                <h1 className="!text-[14px] !font-bold">*******654</h1>
-              </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                amdshafeek7@gmail.com
-              </TableCell>
-              <TableCell>
-                <h1 className="!text-[14px] !font-bold">30/08/2004</h1>
-              </TableCell>
-              <TableCell>
-                <h1 className="!text-[14px] !font-bold">21</h1>
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
+            {context?.allUsersList?.all?.length > 0 ? (
+              props.usersData.map((item, index) => (
+                <TableRow key={index} className="bg-white">
+                  <TableCell>
+                    <Checkbox {...label} />
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.name}
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.role}
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    <img
+                      src={item?.avatar}
+                      alt=""
+                      className="object-contain w-[60px] h-[60px] rounded-full border border-gray-300"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="!text-[14px] !font-bold">{item?.mobile}</h1>
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.email}
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="!text-[14px] !font-bold">{item?.gender}</h1>
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="!text-[14px] !font-bold">
+                      {formatDate(item?.dob)}
+                    </h1>
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="!text-[14px] !font-bold">
+                      {calculateAge(item?.dob)}
+                    </h1>
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="!text-[14px] !font-bold">{item?.address}</h1>
+                  </TableCell>
+                  <TableCell>
+                    <h1 className="!text-[14px] !font-bold">
+                      {formatDate(item?.last_login_date)}
+                    </h1>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={12}
+                  align="center"
+                  className="!py-6 !font-semibold"
+                >
+                  No Users found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

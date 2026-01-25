@@ -35,6 +35,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [allUsersList, setAllUsersList] = useState(null);
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
   const [prodData, setProdData] = useState([]);
@@ -88,7 +89,7 @@ function App() {
 
   const userDetails = () => {
     getData("/api/user/user-details").then((res) => {
-      console.log(res);
+      // console.log(res);
 
       if (res?.error === true) {
         localStorage.removeItem("accessToken");
@@ -107,14 +108,14 @@ function App() {
 
   const categoryData = () => {
     getData("/api/category").then((res) => {
-      console.log(res?.data);
+      // console.log(res?.data);
       setCatData(res?.data);
     });
   };
 
   const subCategoryData = () => {
     getData("/api/category").then((res) => {
-      console.log(res?.data);
+      // console.log(res?.data);
       setCatData(res?.data);
     });
   };
@@ -122,8 +123,17 @@ function App() {
   const productsData = () => {
     getData("/api/product/getAllProducts").then((res) => {
       if (res?.error !== true) {
-        console.log(res?.data);
+        // console.log(res?.data);
         setProdData(res?.data);
+      }
+    });
+  };
+
+  const allUsersData = () => {
+    getData("/api/user/users").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setAllUsersList(res?.data);
       }
     });
   };
@@ -147,6 +157,9 @@ function App() {
     prodData,
     setProdData,
     productsData,
+    allUsersData,
+    allUsersList,
+    setAllUsersList,
   };
 
   return (

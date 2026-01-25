@@ -21,7 +21,7 @@ app.use(morgan());
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
-  })
+  }),
 );
 
 const PORT = process.env.PORT;

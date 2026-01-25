@@ -1,21 +1,51 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Pagination from "@mui/material/Pagination";
 import Search from "../../components/Search/Search";
 import { useNavigate } from "react-router-dom";
 import UsersList from "../../components/Users/UsersList";
 import { MyContext } from "../../App";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const Users = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
 
+  const [role, setRole] = useState("1");
+  const [usersData, setUsersData] = useState([]);
+
+  const handleRole = (event) => {
+    setRole(event.target.value);
+    if (event.target.value === "ADMIN") {
+      setUsersData(context?.allUsersList?.admins);
+      return;
+    }
+    if (event.target.value === "USER") {
+      setUsersData(context?.allUsersList?.users);
+      return;
+    }
+    setUsersData(context?.allUsersList?.all);
+  };
+
+  useEffect(() => {
+    context.allUsersData();
+  }, []);
+
+  useEffect(() => {
+    if (context?.allUsersList?.all?.length > 0) {
+      setUsersData(context?.allUsersList?.all);
+    }
+  }, [context?.allUsersList?.all]);
+
   return (
     <section>
       <div className="container flex pt-10">
-        <div className={`sidebarWrapper ${
+        <div
+          className={`sidebarWrapper ${
             context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}>
+          } h-full bg-white`}
+        >
           <Sidebar></Sidebar>
         </div>
         <div
@@ -24,11 +54,45 @@ const Users = () => {
           }  my-7 h-full`}
         >
           <div className="flex items-center w-full gap-2">
-            <div className="w-full">
+            <div className="w-[30%]">
+              <div className="w-full flex gap-2 items-center justify-between rounded-md h-[50px] flex items-center">
+                <Select
+                  className="!bg-white w-full"
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  sx={{
+                    height: "50px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                  }}
+                  value={role}
+                  onChange={handleRole}
+                  label="role"
+                >
+                  <MenuItem value={"1"}>
+                    <em>Filter by Role</em>
+                  </MenuItem>
+                  <MenuItem value={"USER"}>Users</MenuItem>
+                  <MenuItem value={"ADMIN"}>Admins</MenuItem>
+                </Select>
+              </div>
+            </div>
+            <div className="w-[70%]">
               <Search placeHolder="Search Users by Mobile Number or EMail"></Search>
             </div>
           </div>
-          <UsersList></UsersList>
+          <UsersList
+            usersData={usersData}
+            setUsersData={setUsersData}
+          ></UsersList>
           <div className="flex mt-5 mb-10 items-center justify-center">
             <Pagination
               count={10}

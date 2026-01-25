@@ -68,7 +68,7 @@ export async function registerUserController(request, response) {
         email: newUser.email,
         id: newUser._id,
       },
-      process.env.JSON_WEB_TOKEN_SECRET_KEY
+      process.env.JSON_WEB_TOKEN_SECRET_KEY,
     );
 
     return response.status(200).json({
@@ -104,7 +104,7 @@ export async function verifyEmailController(request, response) {
     const isNotExpired = user.otpExpires > Date.now();
 
     if (isCodeValid && isNotExpired) {
-      (user.verify_email = true), (user.otp = null), (user.otpExpires = null);
+      ((user.verify_email = true), (user.otp = null), (user.otpExpires = null));
       await user.save();
       return response.status(200).json({
         error: false,
@@ -325,7 +325,7 @@ export async function removeImageFromCloudinary(request, response) {
   if (imageName) {
     const res = await cloudinary.uploader.destroy(
       imageName,
-      (error, result) => {}
+      (error, result) => {},
     );
     if (res) {
       return response.status(200).send(res);
@@ -375,7 +375,7 @@ export async function updateUserDetails(request, response) {
         otp: verifyCode !== "" ? verifyCode : null,
         otpExpires: verifyCode !== "" ? Date.now() + 600000 : "",
       },
-      { new: true }
+      { new: true },
     );
 
     if (email !== userExist.email) {
@@ -633,7 +633,7 @@ export async function refreshToken(request, response) {
 
     verifyToken = await jwt.verify(
       refreshToken,
-      process.env.SECRET_KEY_REFRESH_TOKEN
+      process.env.SECRET_KEY_REFRESH_TOKEN,
     );
 
     if (!verifyToken) {
@@ -701,6 +701,45 @@ export async function userDetails(request, response) {
       success: true,
       message: "User Details",
       data: user,
+    });
+  } catch (error) {
+    return response.status(500).json({
+      message: error.message || error,
+      error: true,
+      success: false,
+    });
+  }
+}
+
+export async function getUsers(request, response) {
+  try {
+    const users = await userModel.find();
+
+    if (!users) {
+      return response.status(400).json({
+        error: true,
+        success: false,
+        message: "No Users Found",
+      });
+    }
+    let usersList = [];
+    let adminList = [];
+
+    if (users.length > 0) {
+      users.forEach((user) => {
+        if (user.role === "USER") {
+          usersList.push(user);
+        } else if (user.role === "ADMIN") {
+          adminList.push(user);
+        }
+      });
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Users List",
+      data: { all: users, users: usersList, admins: adminList },
     });
   } catch (error) {
     return response.status(500).json({
