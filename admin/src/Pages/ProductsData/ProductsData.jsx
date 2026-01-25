@@ -7,10 +7,63 @@ import Search from "../../components/Search/Search";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../App";
 import { getData } from "../../utils/api";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
 
 const ProductsData = () => {
   const context = useContext(MyContext);
+
+  const [category, setCategory] = useState("1");
+  const [subCategory, setSubCategory] = useState("1");
+  const [subCategories, setSubCategories] = useState([]);
+
   const navigate = useNavigate();
+
+  const handleCategory = (event) => {
+    setCategory(event.target.value);
+    setSubCategory("1");
+    const selectedCategory = context.catData.find(
+      (cat) => cat._id === event.target.value,
+    );
+
+    setSubCategories(selectedCategory?.children || []);
+  };
+
+  const handleSubCategory = (event) => {
+    setSubCategory(event.target.value);
+    getData(`/api/product/getBySubCategoryId/${event.target.value}`).then(
+      (res) => {
+        if (res?.error !== true) {
+          context.setProdData(res?.data);
+        } else {
+          context.openAlertBox("error", res?.message);
+        }
+      },
+    );
+  };
+
+  useEffect(() => {
+    if (subCategory === "1") {
+      if (category === "1") {
+        context.productsData();
+      } else {
+        getData(`/api/product/getByCategoryId/${category}`).then((res) => {
+          if (res?.error !== true) {
+            context.setProdData(res?.data);
+          } else {
+            context.openAlertBox("error", res?.message);
+          }
+        });
+      }
+    }
+  }, [subCategory, category]);
+
+  useEffect(() => {
+    context.categoryData();
+    context.subCategoryData();
+    context.productsData();
+  }, []);
   return (
     <section>
       <div className="container flex pt-10">
@@ -38,8 +91,73 @@ const ProductsData = () => {
                 Add New Product
               </h1>
             </div>
-            <div className="w-[80%]">
-              <Search placeHolder="Search Products by ProductID or Name or Category"></Search>
+            <div className="w-[40%]">
+              <div className="w-full flex gap-2 items-center justify-between rounded-md h-[50px] flex items-center px-2">
+                <Select
+                  className="!bg-white w-full"
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  sx={{
+                    height: "50px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                  }}
+                  value={category}
+                  onChange={handleCategory}
+                  label="Category"
+                >
+                  <MenuItem value={"1"}>
+                    <em>Filter by Category</em>
+                  </MenuItem>
+                  {context?.catData?.map((item) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <Select
+                  className="!bg-white w-full"
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  sx={{
+                    height: "50px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.15)",
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      borderColor: "transparent",
+                    },
+                  }}
+                  value={subCategory}
+                  onChange={handleSubCategory}
+                  disabled={subCategories.length === 0}
+                  label="Sub Category"
+                >
+                  <MenuItem value={"1"}>
+                    <em>Filter by Sub Category</em>
+                  </MenuItem>
+                  {subCategories.map((item) => (
+                    <MenuItem key={item._id} value={item._id}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
+            </div>
+            <div className="w-[40%]">
+              <Search placeHolder="Search Products by Name"></Search>
             </div>
           </div>
           <ProductsList></ProductsList>

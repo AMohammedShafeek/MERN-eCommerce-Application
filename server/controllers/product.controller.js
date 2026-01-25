@@ -174,7 +174,7 @@ export async function getAllProductsByCatId(request, response) {
       return response.status(404).json({
         error: true,
         success: false,
-        message: "Page Not Found",
+        message: "No Products Found",
       });
     }
 
@@ -818,6 +818,50 @@ export async function updateProduct(request, response) {
       message: error.message || error,
       error: true,
       success: false,
+    });
+  }
+}
+
+export async function deleteMultipleProduct(request, response) {
+  const { ids } = request.body;
+
+  if (!ids || !Array.isArray(ids)) {
+    return response.status(400).json({
+      error: true,
+      success: false,
+      message: "product IDs Are Missing",
+    });
+  }
+
+  for (let i = 0; i < ids.length; i++) {
+    const product = await ProductModel.findById(ids[i]);
+    const images = product.images;
+
+    let img = "";
+    for (img of images) {
+      const imgUrl = img;
+      const urlArr = imgUrl.split("/");
+      const image = urlArr[urlArr.length - 1];
+      const imageName = image.split(".")[0];
+
+      if (imageName) {
+        cloudinary.uploader.destroy(imageName, (error, result) => {});
+      }
+    }
+  }
+  try {
+    await ProductModel.deleteMany({ _id: { $in: ids } });
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Products Deleted Successfully.",
+    });
+  } catch (error) {
+    response.status(500).json({
+      error: true,
+      success: false,
+      message: error.message || error,
     });
   }
 }

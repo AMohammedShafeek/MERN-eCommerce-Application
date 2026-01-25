@@ -76,11 +76,9 @@ const ProductsList = () => {
                 <Checkbox {...label} />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                Product ID
-              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">Category</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Rating</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Stock</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Price</TableCell>
@@ -99,9 +97,6 @@ const ProductsList = () => {
                   <TableCell className="!text-[14px] !font-bold">
                     {index + 1}
                   </TableCell>
-                  <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                    {item?._id}
-                  </TableCell>
                   <TableCell className=" !text-[14px] !font-bold">
                     {item?.name}
                   </TableCell>
@@ -110,6 +105,9 @@ const ProductsList = () => {
                       src={item?.images[0]}
                       className="object-contain w-[60px] h-[60px]"
                     />
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.category?.name}
                   </TableCell>
                   <TableCell>
                     <Rating
