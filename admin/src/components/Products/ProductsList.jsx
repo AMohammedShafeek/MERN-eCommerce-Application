@@ -15,8 +15,6 @@ import Tooltip from "@mui/material/Tooltip";
 import { MyContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { deleteData } from "../../utils/api";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
 
 const ProductsList = () => {
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
@@ -25,11 +23,20 @@ const ProductsList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    context.setSortedIds([])
     context.productsData();
   }, []);
 
   const editProduct = (id) => {
     navigate(`/edit-product/${id}`);
+  };
+
+  const deleteMultiProductConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Category deleted successfully",
+      onConfirm: () => context.deleteMultiple("/api/product/delete-multiple"),
+    });
   };
 
   const deleteProductConfirm = (id) => {
@@ -53,9 +60,15 @@ const ProductsList = () => {
 
   return (
     <div>
-      <div>
-        <h1 className="text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
+      <div className="flex items-center">
+        <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
           PRODUCTS{" "}
+        </h1>
+        <h1
+          onClick={() => deleteMultiProductConfirm()}
+          className={`"w-[20%] transition-all duration-200 ml-2 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+        >
+          DELETE
         </h1>
       </div>
       <TableContainer
@@ -75,7 +88,20 @@ const ProductsList = () => {
           <TableHead className="bg-white">
             <TableRow>
               <TableCell>
-                <Checkbox {...label} />
+                <Checkbox
+                  checked={
+                    context.prodData.length > 0 &&
+                    context.sortedIds.length === context.prodData.length
+                  }
+                  indeterminate={
+                    context.sortedIds.length > 0 &&
+                    context.sortedIds.length < context.prodData.length
+                  }
+                  onChange={(e) =>
+                    context.addAllIds(e.target.checked, context?.prodData)
+                  }
+                  {...label}
+                />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
@@ -99,7 +125,11 @@ const ProductsList = () => {
               context.prodData.map((item, index) => (
                 <TableRow key={index} className="bg-white">
                   <TableCell>
-                    <Checkbox {...label} />
+                    <Checkbox
+                      {...label}
+                      checked={context.sortedIds.includes(item?._id)}
+                      onClick={() => context.handleSortedIds(item?._id)}
+                    />
                   </TableCell>
                   <TableCell className="!text-[14px] !font-bold">
                     {index + 1}
@@ -117,7 +147,7 @@ const ProductsList = () => {
                     {item?.category?.name}
                   </TableCell>
                   <TableCell className="!text-[14px] !font-bold">
-                    {item?.subCatNames || "-"}
+                    {item?.subCatName || "-"}
                   </TableCell>
                   <TableCell>
                     <Rating

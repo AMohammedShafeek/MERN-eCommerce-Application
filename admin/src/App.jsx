@@ -16,7 +16,7 @@ import Login from "./Pages/Authentication/Login";
 import CategoriesList from "./components/Categories/CategoriesList";
 import SubCategoriesList from "./components/Categories/SubCategoriesList";
 import Register from "./Pages/Authentication/Register";
-import { getData } from "../src/utils/api.js";
+import { deleteMultiData, getData } from "../src/utils/api.js";
 import toast, { Toaster } from "react-hot-toast";
 import Verify from "./Pages/VerifyOtp/VerifyOtp.jsx";
 import ChangePass from "./Pages/Authentication/ChangePass.jsx";
@@ -39,6 +39,7 @@ function App() {
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
   const [prodData, setProdData] = useState([]);
+  const [sortedIds, setSortedIds] = useState([]);
 
   const openAlertBox = (status, msg) => {
     if (status === "success") {
@@ -109,7 +110,7 @@ function App() {
   const categoryData = () => {
     getData("/api/category").then((res) => {
       // console.log(res?.data);
-      setCatData(res?.data);
+      setCatData(res?.data?.data || []);
     });
   };
 
@@ -122,8 +123,10 @@ function App() {
 
   const productsData = () => {
     getData("/api/product/getAllProducts").then((res) => {
+      let productArr = [];
       if (res?.error !== true) {
         // console.log(res?.data);
+        for (let i = 0; i < res?.products?.length; i++) {}
         setProdData(res?.data);
       }
     });
@@ -136,6 +139,48 @@ function App() {
         setAllUsersList(res?.data);
       }
     });
+  };
+
+  const handleSortedIds = (id) => {
+    setSortedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    );
+  };
+
+  const addAllIds = (checked, itemState) => {
+    if (checked) {
+      const filterIds = itemState.map((item) => item._id);
+      setSortedIds(filterIds);
+    } else {
+      setSortedIds([]);
+    }
+  };
+
+  const deleteMultiple = (controllerUrl) => {
+    if (!sortedIds || sortedIds.length === 0) {
+      openAlertBox("error", "Please Select Items to Delete");
+      return;
+    }
+
+    try {
+      deleteMultiData(controllerUrl, {
+        ids: sortedIds,
+      }).then((res) => {
+        if (res?.error !== true) {
+          console.log("here", res);
+
+          productsData();
+          categoryData();
+          subCategoryData();
+          setSortedIds([]);
+          return;
+        }
+        openAlertBox("error", res?.message);
+        return;
+      });
+    } catch (error) {
+      openAlertBox("error", "Error in Deleting Items");
+    }
   };
 
   const values = {
@@ -160,6 +205,11 @@ function App() {
     allUsersData,
     allUsersList,
     setAllUsersList,
+    sortedIds,
+    setSortedIds,
+    handleSortedIds,
+    addAllIds,
+    deleteMultiple,
   };
 
   return (

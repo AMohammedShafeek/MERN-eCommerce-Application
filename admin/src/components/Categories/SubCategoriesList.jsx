@@ -19,13 +19,11 @@ const SubCategoriesList = () => {
 
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
-  const [refresh, setRefresh] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
     context.subCategoryData();
-  }, [refresh]);
+  }, []);
 
   const editCat = (id) => {
     navigate(`/edit-category/${id}`);
@@ -50,6 +48,14 @@ const SubCategoriesList = () => {
     });
   };
 
+  const deleteMultiCatConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Category deleted successfully",
+      onConfirm: () => context.deleteMultiple("/api/category/delete-multiple"),
+    });
+  };
+
   const getSubCategoryList = (categories = []) => {
     let list = [];
 
@@ -70,9 +76,15 @@ const SubCategoriesList = () => {
 
   return (
     <div>
-      <div>
-        <h1 className="text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
-          Sub-Categories
+      <div className="flex items-center">
+        <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
+          SUB-CATEGORIES{" "}
+        </h1>
+        <h1
+          onClick={() => deleteMultiCatConfirm()}
+          className={`"w-[20%] transition-all duration-200 ml-2 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+        >
+          DELETE
         </h1>
       </div>
       <TableContainer
@@ -92,7 +104,20 @@ const SubCategoriesList = () => {
           <TableHead className="bg-white">
             <TableRow>
               <TableCell>
-                <Checkbox {...label} />
+                <Checkbox
+                  checked={
+                    subCategoryList.length > 0 &&
+                    context.sortedIds.length === subCategoryList.length
+                  }
+                  indeterminate={
+                    context.sortedIds.length > 0 &&
+                    context.sortedIds.length < subCategoryList.length
+                  }
+                  onChange={(e) =>
+                    context.addAllIds(e.target.checked, context?.catData)
+                  }
+                  {...label}
+                />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
@@ -107,7 +132,11 @@ const SubCategoriesList = () => {
               subCategoryList.map((item, index) => (
                 <TableRow key={item._id} className="bg-white">
                   <TableCell>
-                    <Checkbox {...label} />
+                    <Checkbox
+                      {...label}
+                      checked={context.sortedIds.includes(item?._id)}
+                      onClick={() => context.handleSortedIds(item?._id)}
+                    />
                   </TableCell>
 
                   <TableCell className="!text-[14px] !font-bold">

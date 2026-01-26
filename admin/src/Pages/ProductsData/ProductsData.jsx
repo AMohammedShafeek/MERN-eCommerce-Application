@@ -21,49 +21,65 @@ const ProductsData = () => {
   const navigate = useNavigate();
 
   const handleCategory = (event) => {
-    setCategory(event.target.value);
+    const catId = event.target.value;
+
+    setCategory(catId);
     setSubCategory("1");
-    const selectedCategory = context.catData.find(
-      (cat) => cat._id === event.target.value,
-    );
+    context.setSortedIds([]);
+
+    if (!context?.catData?.length) {
+      setSubCategories([]);
+      return;
+    }
+
+    if (catId === "1") {
+      setSubCategories([]);
+    }
+
+    const selectedCategory = context.catData.find((cat) => cat._id === catId);
 
     setSubCategories(selectedCategory?.children || []);
   };
 
   const handleSubCategory = (event) => {
     setSubCategory(event.target.value);
-    getData(`/api/product/getBySubCategoryId/${event.target.value}`).then(
-      (res) => {
+    context.setSortedIds([]);
+  };
+
+  useEffect(() => {
+    if (category === "1" && subCategory === "1") {
+      context.productsData();
+      return;
+    }
+
+    if (category !== "1" && subCategory === "1") {
+      getData(`/api/product/getByCategoryId/${category}`).then((res) => {
         if (res?.error !== true) {
           context.setProdData(res?.data);
         } else {
           context.openAlertBox("error", res?.message);
         }
-      },
-    );
-  };
-
-  useEffect(() => {
-    if (subCategory === "1") {
-      if (category === "1") {
-        context.productsData();
-      } else {
-        getData(`/api/product/getByCategoryId/${category}`).then((res) => {
-          if (res?.error !== true) {
-            context.setProdData(res?.data);
-          } else {
-            context.openAlertBox("error", res?.message);
-          }
-        });
-      }
+      });
+      return;
     }
-  }, [subCategory, category]);
+
+    if (subCategory !== "1") {
+      getData(`/api/product/getBySubCategoryId/${subCategory}`).then((res) => {
+        if (res?.error !== true) {
+          context.setProdData(res?.data);
+        } else {
+          context.openAlertBox("error", res?.message);
+        }
+      });
+    }
+  }, [category, subCategory]);
 
   useEffect(() => {
     context.categoryData();
     context.subCategoryData();
     context.productsData();
   }, []);
+
   return (
     <section>
       <div className="container flex pt-10">
@@ -117,11 +133,12 @@ const ProductsData = () => {
                   <MenuItem value={"1"}>
                     <em>Filter by Category</em>
                   </MenuItem>
-                  {context?.catData?.map((item) => (
-                    <MenuItem key={item._id} value={item._id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
+                  {context?.catData?.length > 0 &&
+                    context?.catData?.map((item) => (
+                      <MenuItem key={item._id} value={item._id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <Select
                   className="!bg-white w-full"

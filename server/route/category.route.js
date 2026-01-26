@@ -6,6 +6,7 @@ import upload from "../middlewares/multer.js";
 import {
   createCategory,
   deleteCategory,
+  deleteMultipleData,
   getCategories,
   getCategoriesCount,
   getCategory,
@@ -19,6 +20,7 @@ categoryRouter.get("/", auth, getCategories);
 categoryRouter.get("/get/count", getCategoriesCount);
 categoryRouter.get("/get/count/subCat", getSubCategoriesCount);
 categoryRouter.get("/:id", getCategory);
+categoryRouter.delete("/delete-multiple", deleteMultipleData);
 categoryRouter.delete("/:id", deleteCategory);
 categoryRouter.put("/:id", updateCategory);
 

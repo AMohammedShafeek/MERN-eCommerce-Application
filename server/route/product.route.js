@@ -5,7 +5,7 @@ import upload from "../middlewares/multer.js";
 // import all controllers
 import {
   createProduct,
-  deleteMultipleProduct,
+  deleteMultipleData,
   deleteProduct,
   getAllFeaturedProducts,
   getAllProducts,
@@ -47,7 +47,7 @@ productRouter.get("/getProductsCount", getAllProductsCount);
 productRouter.get("/isFeatured", getAllFeaturedProducts);
 productRouter.get("/:id", getProduct);
 productRouter.delete("/deleteImage", auth, removeImageFromCloudinary);
-productRouter.delete("/deleteMultiple", deleteMultipleProduct);
+productRouter.delete("/delete-multiple", deleteMultipleData);
 productRouter.delete("/:id", deleteProduct);
 productRouter.put("/updateProduct/:id", auth, updateProduct);
 

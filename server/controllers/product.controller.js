@@ -822,7 +822,7 @@ export async function updateProduct(request, response) {
   }
 }
 
-export async function deleteMultipleProduct(request, response) {
+export async function deleteMultipleData(request, response) {
   const { ids } = request.body;
 
   if (!ids || !Array.isArray(ids)) {

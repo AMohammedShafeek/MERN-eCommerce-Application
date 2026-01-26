@@ -53,9 +53,9 @@ const UsersList = (props) => {
 
   return (
     <div>
-      <div>
-        <h1 className="text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
-          Users{" "}
+      <div className="flex items-center">
+        <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
+          USERS{" "}
         </h1>
       </div>
       <TableContainer
@@ -74,9 +74,6 @@ const UsersList = (props) => {
         >
           <TableHead className="bg-white">
             <TableRow>
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Role</TableCell>
@@ -89,16 +86,15 @@ const UsersList = (props) => {
               <TableCell className=" !text-[14px] !font-bold">
                 Address
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Last Login</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">
+                Last Login
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {context?.allUsersList?.all?.length > 0 ? (
               props.usersData.map((item, index) => (
                 <TableRow key={index} className="bg-white">
-                  <TableCell>
-                    <Checkbox {...label} />
-                  </TableCell>
                   <TableCell className="!text-[14px] !font-bold">
                     {index + 1}
                   </TableCell>

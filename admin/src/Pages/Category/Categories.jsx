@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Pagination from "@mui/material/Pagination";
 import { FaCirclePlus } from "react-icons/fa6";
@@ -11,6 +11,10 @@ import { MyContext } from "../../App";
 const Categories = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    context.setSortedIds([]);
+  }, []);
 
   return (
     <section>

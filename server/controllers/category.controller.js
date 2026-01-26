@@ -231,3 +231,36 @@ export async function updateCategory(request, response) {
     });
   }
 }
+
+export async function deleteMultipleData(request, response) {
+  const { ids } = request.body;
+
+  if (!ids || !Array.isArray(ids)) {
+    return response.status(400).json({
+      error: true,
+      success: false,
+      message: "Category IDs Are Missing",
+    });
+  }
+  try {
+    for (const id of ids) {
+      const subCategories = await CategoryModel.find({ parentId: id });
+      for (const sub of subCategories) {
+        await CategoryModel.findByIdAndDelete(sub._id);
+      }
+      await CategoryModel.findByIdAndDelete(id);
+    }
+
+    return response.status(200).json({
+      error: false,
+      success: true,
+      message: "Categories Deleted Successfully.",
+    });
+  } catch (error) {
+    response.status(500).json({
+      error: true,
+      success: false,
+      message: error.message || error,
+    });
+  }
+}

@@ -40,8 +40,7 @@ export async function getData(url) {
       error: true,
       status: error.response?.status,
       message:
-        error.response?.data?.message ||
-        "Session expired. Please login again",
+        error.response?.data?.message || "Session expired. Please login again",
     };
   }
 }
@@ -83,6 +82,22 @@ export async function deleteData(url) {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         "Content-Type": "application/json",
       },
+    };
+    const { data } = await axios.delete(apiUrl + url, params);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteMultiData(url, body) {
+  try {
+    const params = {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+      data: body,
     };
     const { data } = await axios.delete(apiUrl + url, params);
     return data;
