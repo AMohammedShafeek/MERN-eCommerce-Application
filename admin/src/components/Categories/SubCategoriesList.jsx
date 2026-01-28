@@ -14,16 +14,12 @@ import { deleteData, getData } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../App";
 
-const SubCategoriesList = () => {
+const SubCategoriesList = (props) => {
   const context = useContext(MyContext);
 
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    context.subCategoryData();
-  }, []);
 
   const editCat = (id) => {
     navigate(`/edit-category/${id}`);
@@ -33,18 +29,7 @@ const SubCategoriesList = () => {
     context.openConfirmBox({
       type: "delete",
       message: "Category deleted successfully",
-      onConfirm: () => deleteCat(id),
-    });
-  };
-
-  const deleteCat = (id) => {
-    deleteData(`/api/category/${id}`).then((res) => {
-      console.log(res);
-      if (res?.error !== true) {
-        context.subCategoryData();
-      } else {
-        context.openAlertBox("error", res?.message);
-      }
+      onConfirm: () => context.deleteCat(id),
     });
   };
 
@@ -80,12 +65,16 @@ const SubCategoriesList = () => {
         <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
           SUB-CATEGORIES{" "}
         </h1>
-        <h1
+        <Button
+          disabled={context.sortedIds.length === 0}
           onClick={() => deleteMultiCatConfirm()}
-          className={`"w-[20%] transition-all duration-200 ml-2 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
         >
-          DELETE
-        </h1>
+          <h1
+            className={`"w-[20%] h-[35px] flex items-center transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+          >
+            DELETE
+          </h1>
+        </Button>
       </div>
       <TableContainer
         sx={{
@@ -135,7 +124,9 @@ const SubCategoriesList = () => {
                     <Checkbox
                       {...label}
                       checked={context.sortedIds.includes(item?._id)}
-                      onClick={() => context.handleSortedIds(item?._id)}
+                      onClick={() => 
+                        context.handleSortedIds(item?._id)
+                      }
                     />
                   </TableCell>
 

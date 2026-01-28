@@ -66,7 +66,7 @@ const ProductsList = () => {
         </h1>
         <h1
           onClick={() => deleteMultiProductConfirm()}
-          className={`"w-[20%] transition-all duration-200 ml-2 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+          className={`"w-[20%] transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
         >
           DELETE
         </h1>

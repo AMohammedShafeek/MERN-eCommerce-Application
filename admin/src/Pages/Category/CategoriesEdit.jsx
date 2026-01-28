@@ -55,6 +55,7 @@ const CategoriesEdit = () => {
         setFormFeilds({
           name: "",
         });
+        context.categoryData();
         navigate("/categories");
       } else {
         context.openAlertBox("error", res?.message);

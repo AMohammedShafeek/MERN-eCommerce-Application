@@ -80,6 +80,7 @@ const UsersList = (props) => {
               <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Mobile</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Email</TableCell>
+              <TableCell className=" !text-[14px] !font-bold">Status</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Gender</TableCell>
               <TableCell className=" !text-[14px] !font-bold">DOB</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Age</TableCell>
@@ -105,17 +106,29 @@ const UsersList = (props) => {
                     {item?.role}
                   </TableCell>
                   <TableCell className="!text-[14px] !font-bold">
-                    <img
-                      src={item?.avatar}
-                      alt=""
-                      className="object-contain w-[60px] h-[60px] rounded-full border border-gray-300"
-                    />
+                    <div className="w-[60px] h-[60px] overflow-hidden rounded-full border border-gray-300">
+                      <img
+                        src={item?.avatar}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </TableCell>
                   <TableCell>
                     <h1 className="!text-[14px] !font-bold">{item?.mobile}</h1>
                   </TableCell>
                   <TableCell className=" !text-[14px] !font-bold">
                     {item?.email}
+                  </TableCell>
+                  <TableCell className=" !text-[14px] !font-bold">
+                    {item?.verify_email === true ? (
+                      <h1 className="text-white bg-green-600 rounded-md px-3 py-1">
+                        Verified
+                      </h1>
+                    ) : (
+                      <h1 className="text-white bg-red-600 rounded-md px-3 py-1">
+                        Unverified
+                      </h1>
+                    )}
                   </TableCell>
                   <TableCell>
                     <h1 className="!text-[14px] !font-bold">{item?.gender}</h1>

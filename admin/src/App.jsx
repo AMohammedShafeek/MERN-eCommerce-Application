@@ -16,7 +16,7 @@ import Login from "./Pages/Authentication/Login";
 import CategoriesList from "./components/Categories/CategoriesList";
 import SubCategoriesList from "./components/Categories/SubCategoriesList";
 import Register from "./Pages/Authentication/Register";
-import { deleteMultiData, getData } from "../src/utils/api.js";
+import { deleteData, deleteMultiData, getData } from "../src/utils/api.js";
 import toast, { Toaster } from "react-hot-toast";
 import Verify from "./Pages/VerifyOtp/VerifyOtp.jsx";
 import ChangePass from "./Pages/Authentication/ChangePass.jsx";
@@ -25,6 +25,7 @@ import UpdatePass from "./Pages/Authentication/UpdatePass.jsx";
 import CategoriesEdit from "./Pages/Category/CategoriesEdit.jsx";
 import Swal from "sweetalert2";
 import ProductsItemsEdit from "./Pages/ProductsData/ProductsItemsEdit.jsx";
+import SubCategories from "./Pages/Category/SubCategories.jsx";
 
 export const MyContext = createContext();
 
@@ -35,6 +36,7 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenSideBar, setIsOpenSideBar] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [refresh, setRefresh] = useState(true);
   const [allUsersList, setAllUsersList] = useState(null);
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
@@ -73,8 +75,6 @@ function App() {
     }
   };
 
-  const token = localStorage.getItem("accessToken");
-
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
@@ -109,8 +109,8 @@ function App() {
 
   const categoryData = () => {
     getData("/api/category").then((res) => {
-      // console.log(res?.data);
-      setCatData(res?.data?.data || []);
+      // console.log("res", res?.data);
+      setCatData(res?.data || []);
     });
   };
 
@@ -157,11 +157,6 @@ function App() {
   };
 
   const deleteMultiple = (controllerUrl) => {
-    if (!sortedIds || sortedIds.length === 0) {
-      openAlertBox("error", "Please Select Items to Delete");
-      return;
-    }
-
     try {
       deleteMultiData(controllerUrl, {
         ids: sortedIds,
@@ -181,6 +176,18 @@ function App() {
     } catch (error) {
       openAlertBox("error", "Error in Deleting Items");
     }
+  };
+
+  const deleteCat = (id) => {
+    deleteData(`/api/category/${id}`).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        categoryData();
+        subCategoryData();
+      } else {
+        openAlertBox("error", res?.message);
+      }
+    });
   };
 
   const values = {
@@ -210,6 +217,9 @@ function App() {
     handleSortedIds,
     addAllIds,
     deleteMultiple,
+    refresh,
+    setRefresh,
+    deleteCat,
   };
 
   return (
@@ -251,6 +261,10 @@ function App() {
               <Route
                 path={"/categories"}
                 element={<Categories></Categories>}
+              ></Route>
+              <Route
+                path={"/sub-categories"}
+                element={<SubCategories></SubCategories>}
               ></Route>
               <Route
                 path={"/categories-new"}

@@ -18,17 +18,17 @@ const Sidebar = () => {
   const context = useContext(MyContext);
 
   const logout = () => {
-      getData(`/api/user/logout?token=${localStorage.getItem("accessToken")}`, {
-        withCredentials: true,
-      }).then((res) => {
-        console.log(res);
-        if (res?.error !== true) {
-          context.setIsLogin(false);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("userEmail");
-        }
-      });
-    };
+    getData(`/api/user/logout?token=${localStorage.getItem("accessToken")}`, {
+      withCredentials: true,
+    }).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.setIsLogin(false);
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userEmail");
+      }
+    });
+  };
 
   const openSideBar = () => {
     context.setIsOpenSideBar(!context.isOpenSideBar);
@@ -51,14 +51,20 @@ const Sidebar = () => {
             <Link to={"/"}>
               <div className="adminProfile py-7 mb-3 border-b border-gray-300 flex items-center justify-center">
                 <div className="profile pr-5 border-r border-[#ff5252]">
-                  <FaUserCircle className="text-[70px] text-[#ff5252]"></FaUserCircle>
+                  {context?.userData?.avatar !== null ? (
+                    <div className="w-[100px] h-[100px] overflow-hidden rounded-full border-3 border-[#ff5252] cursor-not-allowed">
+                      <img className="w-full h-full object-cover" src={context?.userData?.avatar} />
+                    </div>
+                  ) : (
+                    <FaUserCircle className="text-[70px] text-[#ff5252]"></FaUserCircle>
+                  )}
                 </div>
                 <div className="data pl-5 flex flex-col justify-start">
                   <span className="font-bold text-[16px] mb-2">
-                    Mohammed Shafeek. A
+                    {context?.userData?.name}
                   </span>
-                  <h1 className="font-black bg-[#ffdede] flex items-center justify-center py-1 rounded-sm text-[14px] primary">
-                    PRIMARY ADMIN
+                  <h1 className="font-black bg-[#ffdede] flex items-center justify-center py-1 px-3 rounded-sm text-[14px] primary">
+                    {context?.userData?.role}
                   </h1>
                 </div>
               </div>
@@ -124,6 +130,18 @@ const Sidebar = () => {
                   </Button>
                 </NavLink>
               </li>
+              <li className="Category w-full py-1">
+                <NavLink
+                  to={"/sub-categories"}
+                  exact={"true"}
+                  activeclassname="isActive"
+                >
+                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                    <TbCategoryFilled className="text-[20px] mr-2"></TbCategoryFilled>
+                    <span>Sub-Categories</span>
+                  </Button>
+                </NavLink>
+              </li>
               <li className="Orders w-full py-1">
                 <NavLink
                   to={"/orders"}
@@ -137,13 +155,13 @@ const Sidebar = () => {
                 </NavLink>
               </li>
               <li className="Logout w-full py-1">
-                  <Button
-                    onClick={logout}
-                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
-                  >
-                    <IoIosLogOut className="text-[22px] mr-2"></IoIosLogOut>
-                    <span>Logout</span>
-                  </Button>
+                <Button
+                  onClick={logout}
+                  className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                >
+                  <IoIosLogOut className="text-[22px] mr-2"></IoIosLogOut>
+                  <span>Logout</span>
+                </Button>
               </li>
             </ul>
           </div>

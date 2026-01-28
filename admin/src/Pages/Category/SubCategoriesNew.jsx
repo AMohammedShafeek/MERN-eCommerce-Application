@@ -59,7 +59,9 @@ const SubCategoriesNew = () => {
           parentId: "",
         });
         setIsLoading(false);
-        navigate('/categories')
+        context.categoryData()
+        context.subCategoryData();
+        navigate('/sub-categories')
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);

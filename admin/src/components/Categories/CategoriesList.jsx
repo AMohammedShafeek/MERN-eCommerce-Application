@@ -16,15 +16,11 @@ import { MyContext } from "../../App";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 
-const CategoriesList = () => {
+const CategoriesList = (props) => {
   const context = useContext(MyContext);
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    context.categoryData();
-  }, []);
 
   const editCat = (id) => {
     navigate(`/edit-category/${id}`);
@@ -40,16 +36,21 @@ const CategoriesList = () => {
 
   const deleteCat = (id) => {
     deleteData(`/api/category/${id}`).then((res) => {
-      console.log(res);
+      // console.log("test", res);
       if (res?.error !== true) {
         context.categoryData();
+       
       } else {
         context.openAlertBox("error", res?.message);
       }
     });
   };
 
-  const deleteMultiCatConfirm = (id) => {
+  const deleteMultiCatConfirm = () => {
+    if (!context.sortedIds || context.sortedIds.length === 0) {
+      context.openAlertBox("error", "Please Select Items to Delete");
+      return;
+    }
     context.openConfirmBox({
       type: "delete",
       message: "Category deleted successfully",
@@ -63,12 +64,16 @@ const CategoriesList = () => {
         <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
           CATEGORIES{" "}
         </h1>
-        <h1
+        <Button
+          disabled={context.sortedIds.length === 0}
           onClick={() => deleteMultiCatConfirm()}
-          className={`"w-[20%] transition-all duration-200 ml-2 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
         >
-          DELETE
-        </h1>
+          <h1
+            className={`"w-[20%] h-[35px] flex items-center transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+          >
+            DELETE
+          </h1>
+        </Button>
       </div>
       <TableContainer
         sx={{
@@ -121,7 +126,6 @@ const CategoriesList = () => {
                       onClick={() => context.handleSortedIds(item?._id)}
                     />
                   </TableCell>
-
                   <TableCell className="!text-[14px] !font-bold">
                     {index + 1}
                   </TableCell>

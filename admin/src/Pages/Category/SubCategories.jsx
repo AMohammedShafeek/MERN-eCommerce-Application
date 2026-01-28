@@ -8,7 +8,7 @@ import CategoriesList from "../../components/Categories/CategoriesList";
 import SubCategoriesList from "../../components/Categories/SubCategoriesList";
 import { MyContext } from "../../App";
 
-const Categories = () => {
+const SubCategories = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
 
@@ -35,13 +35,13 @@ const Categories = () => {
             <div className="flex gap-2 w-[30%]">
               <div
                 onClick={() => {
-                  navigate("/categories-new");
+                  navigate("/sub-categories-new");
                 }}
                 className="flex w-full items-center h-[50px] min-h-[50px] add bg-black cursor-pointer gap-2 py-1 justify-center rounded-md"
               >
                 <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
                 <h1 className="text-white text-[18px] font-bold">
-                  Add New Category
+                  Add New Sub-Category
                 </h1>
               </div>
             </div>
@@ -49,24 +49,23 @@ const Categories = () => {
               <Search placeHolder="Search Category by Name"></Search>
             </div>
           </div>
-            <div className="w-full">
-              <div className="categoryWrapper w-full">
-                <CategoriesList
-                ></CategoriesList>
-                <div className="flex mt-5 mb-10 items-center justify-center">
-                  <Pagination
-                    count={10}
-                    variant="outlined"
-                    showFirstButton
-                    showLastButton
-                  />
-                </div>
+          <div className="w-full">
+            <div className="categoryWrapper w-full">
+              <SubCategoriesList></SubCategoriesList>
+              <div className="flex mt-5 mb-10 items-center justify-center">
+                <Pagination
+                  count={10}
+                  variant="outlined"
+                  showFirstButton
+                  showLastButton
+                />
               </div>
             </div>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-export default Categories;
+export default SubCategories;

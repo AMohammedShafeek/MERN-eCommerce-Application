@@ -5,9 +5,11 @@ import TextField from "@mui/material/TextField";
 import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
 import { postData } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const CategoriesNew = () => {
   const context = useContext(MyContext);
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [formFeilds, setFormFeilds] = useState({
@@ -46,6 +48,9 @@ const CategoriesNew = () => {
           name: "",
         });
         setIsLoading(false);
+        context.categoryData();
+        context.subCategoryData();
+        navigate("/categories");
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);
