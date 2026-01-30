@@ -81,7 +81,7 @@ const ProductsData = () => {
   }, []);
 
   return (
-    <section>
+    <section className="min-h-dvh">
       <div className="container flex pt-10">
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
@@ -90,23 +90,29 @@ const ProductsData = () => {
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+                ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
         >
-          <div className="flex items-center w-full gap-2">
-            <div
-              onClick={() => {
-                navigate("/products-new");
-              }}
-              className="flex w-[20%] items-center h-[50px] min-h-[50px] add bg-black cursor-pointer gap-2 py-1 justify-center rounded-md"
-            >
-              <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
-              <h1 className="text-white text-[18px] font-bold">
-                Add New Product
-              </h1>
+          <div className="flex flex-col items-center w-full gap-2">
+            <div className="w-full flex gap-2 items-center">
+              <div
+                onClick={() => {
+                  navigate("/products-new");
+                }}
+                className="flex w-[30%] items-center h-[50px] min-h-[50px] add bg-black cursor-pointer gap-2 py-1 justify-center rounded-md"
+              >
+                <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
+                <h1 className="hidden md:block text-white text-[18px] font-bold">
+                  Add New Product
+                </h1>
+              </div>
+              <div className="w-[70%]">
+                <Search placeHolder="Search Products by Name"></Search>
+              </div>
             </div>
-            <div className="w-[40%]">
-              <div className="w-full flex gap-2 items-center justify-between rounded-md h-[50px] flex items-center px-2">
+
+            <div className="w-full flex gap-2 items-center rounded-md h-[50px] flex items-center">
+              <div className="w-full">
                 <Select
                   className="!bg-white w-full"
                   labelId="demo-simple-select-standard-label"
@@ -129,7 +135,7 @@ const ProductsData = () => {
                   label="Category"
                 >
                   <MenuItem value={"1"}>
-                    <em>Filter by Category</em>
+                    <em>Category</em>
                   </MenuItem>
                   {context?.catData?.length > 0 &&
                     context?.catData?.map((item) => (
@@ -138,6 +144,8 @@ const ProductsData = () => {
                       </MenuItem>
                     ))}
                 </Select>
+              </div>
+              <div className="w-full">
                 <Select
                   className="!bg-white w-full"
                   labelId="demo-simple-select-standard-label"
@@ -161,7 +169,7 @@ const ProductsData = () => {
                   label="Sub Category"
                 >
                   <MenuItem value={"1"}>
-                    <em>Filter by Sub Category</em>
+                    <em>Sub Category</em>
                   </MenuItem>
                   {subCategories.map((item) => (
                     <MenuItem key={item._id} value={item._id}>
@@ -171,15 +179,15 @@ const ProductsData = () => {
                 </Select>
               </div>
             </div>
-            <div className="w-[40%]">
-              <Search placeHolder="Search Products by Name"></Search>
-            </div>
           </div>
           <ProductsList></ProductsList>
           <div className="flex mt-5 mb-10 items-center justify-center">
             <Pagination
               count={10}
               variant="outlined"
+              size="small"
+              siblingCount={0}
+              boundaryCount={1}
               showFirstButton
               showLastButton
             />

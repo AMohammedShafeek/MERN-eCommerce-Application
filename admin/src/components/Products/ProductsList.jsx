@@ -23,7 +23,7 @@ const ProductsList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    context.setSortedIds([])
+    context.setSortedIds([]);
     context.productsData();
   }, []);
 
@@ -103,21 +103,39 @@ const ProductsList = () => {
                   {...label}
                 />
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                S.I
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Name
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Image
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
                 Category
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
+              <TableCell align="center" className=" !text-[14px] !font-bold">
                 Sub Category
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Rating</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Stock</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Price</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Sales</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Brand</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Rating
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Stock
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Price
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Sales
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Brand
+              </TableCell>
+              <TableCell align="center" className=" !text-[14px] !font-bold">
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -131,25 +149,31 @@ const ProductsList = () => {
                       onClick={() => context.handleSortedIds(item?._id)}
                     />
                   </TableCell>
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {index + 1}
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item?.name}
                   </TableCell>
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     <img
                       src={item?.images[0]}
                       className="object-contain w-[60px] h-[60px]"
                     />
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell
+                    align="center"
+                    className=" !text-[14px] !font-bold"
+                  >
                     {item?.category?.name}
                   </TableCell>
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell
+                    align="center"
+                    className="!text-[14px] !font-bold !min-w-[150px]"
+                  >
                     {item?.subCatName || "-"}
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <Rating
                       name="size-small"
                       defaultValue={item?.Rating}
@@ -157,10 +181,10 @@ const ProductsList = () => {
                       readOnly
                     />
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item?.stock}
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <h1 className="line-through flex items-center justify-center !text-[14px] !font-[500]">
                       &#x20b9;{item?.oldPrice}
                     </h1>
@@ -168,16 +192,16 @@ const ProductsList = () => {
                       &#x20b9;{item?.price}
                     </h1>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <p className="text-[13px] font-[500]">
                       <span className="pr-1 font-bold">{item?.sale}</span>Sales
                     </p>
                     <ProgressBar value={20}></ProgressBar>
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item?.brand}
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center" className="!min-w-[120px]">
                     <Tooltip title="Edit">
                       <Button
                         onClick={() => editProduct(item._id)}

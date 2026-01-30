@@ -221,17 +221,18 @@ const ProductsItemsEdit = () => {
   };
 
   return (
-    <section>
-      <div className="container flex pt-10">
+    <section className="min-h-dvh">
+      <div className="container lg:flex pt-10">
         <div
-          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
+          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
         >
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+          ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}
+        `}
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
@@ -247,7 +248,7 @@ const ProductsItemsEdit = () => {
                   <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                     Image & Gallery
                   </p>
-                  <div className="flex items-center gap-5">
+                  <div className="flex flex-wrap items-center gap-5">
                     {previews?.length !== 0 &&
                       previews?.map((image, index) => {
                         return (
@@ -292,8 +293,8 @@ const ProductsItemsEdit = () => {
               <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                 Product Name and Brand
               </p>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="col1 w-[70%]">
+              <div className="flex flex-col md:flex-row items-center gap-3 mb-5">
+                <div className="col1 w-full md:w-[70%]">
                   <TextField
                     type="text"
                     id="name"
@@ -325,7 +326,7 @@ const ProductsItemsEdit = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-                <div className="col2 w-[30%]">
+                <div className="col2 w-full md:w-[30%]">
                   <TextField
                     type="text"
                     id="brand"
@@ -398,7 +399,7 @@ const ProductsItemsEdit = () => {
               <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                 Product Category & Price
               </p>
-              <div className="flex items-center justify-center gap-3">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-3">
                 <div className="Category w-full">
                   <div className="Category mb-2">
                     <FormControl
@@ -565,7 +566,7 @@ const ProductsItemsEdit = () => {
               <p className="transition-all mt-2 duration-300 text-[14px] text-black font-bold mb-2">
                 Product Details
               </p>
-              <div className="flex items-center justify-center gap-3">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-3">
                 <div className="Featured w-full">
                   <div className="Featured mb-2">
                     <FormControl
