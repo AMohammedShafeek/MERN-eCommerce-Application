@@ -45,12 +45,12 @@ function App() {
   const [sortedIds, setSortedIds] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const openAlertBox = (status, msg) => {
+  const openAlertBox = (status, msg, id) => {
     if (status === "success") {
-      toast.success(msg, { id: "success-toast" });
+      toast.success(msg, { id });
     }
     if (status === "error") {
-      toast.error(msg, { id: "error-toast" });
+      toast.error(msg, { id });
     }
   };
 

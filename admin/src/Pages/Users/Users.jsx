@@ -48,8 +48,8 @@ const Users = () => {
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+                ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
         >
           <div className="flex items-center w-full gap-2">
             <div className="w-[30%]">
@@ -84,7 +84,7 @@ const Users = () => {
               </div>
             </div>
             <div className="w-[70%]">
-              <Search placeHolder="Search Users by Mobile Number or EMail"></Search>
+              <Search placeHolder="Search By Mobile"></Search>
             </div>
           </div>
           <UsersList
@@ -95,6 +95,9 @@ const Users = () => {
             <Pagination
               count={10}
               variant="outlined"
+              size="small"
+              siblingCount={0}
+              boundaryCount={1}
               showFirstButton
               showLastButton
             />

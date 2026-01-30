@@ -62,7 +62,7 @@ const Header = () => {
       location.pathname === "/verify" ||
       location.pathname === "/changePassword" ? null : (
         <div className="w-full fixed z-1000">
-          <div className="bg-white py-2 border-b border-b-gray-300">
+          <div className="bg-red-500 md:bg-yellow-500 lg:bg-green-500 py-2 border-b border-b-gray-300">
             <div className="container flex justify-between">
               <div className="part1 w-[20%] flex">
                 <Link to={"/"}>
