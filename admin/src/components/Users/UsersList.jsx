@@ -74,20 +74,20 @@ const UsersList = (props) => {
         >
           <TableHead className="bg-white">
             <TableRow>
-              <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Role</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Mobile</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Email</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Status</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Gender</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">DOB</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Age</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
+              <TableCell align="center" className="!text-[14px] !font-bold">S.I</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Name</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Role</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Image</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Mobile</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Email</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Status</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Gender</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">DOB</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">Age</TableCell>
+              <TableCell align="center" className="!text-[14px] !font-bold">
                 Address
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
+              <TableCell align="center" className="!text-[14px] !font-bold">
                 Last Login
               </TableCell>
             </TableRow>
@@ -96,16 +96,16 @@ const UsersList = (props) => {
             {context?.allUsersList?.all?.length > 0 ? (
               props.usersData.map((item, index) => (
                 <TableRow key={index} className="bg-white">
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {index + 1}
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell className="!text-[14px] !font-bold">
                     {item?.name}
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item?.role}
                   </TableCell>
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     <div className="w-[60px] h-[60px] overflow-hidden rounded-full border border-gray-300">
                       <img
                         src={item?.avatar || "/src/assets/defaultAssets/userAvatar.jpg"}
@@ -113,13 +113,13 @@ const UsersList = (props) => {
                       />
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <h1 className="!text-[14px] !font-bold">{item?.mobile}</h1>
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item?.email}
                   </TableCell>
-                  <TableCell className=" !text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item?.verify_email === true ? (
                       <h1 className="text-white bg-green-600 rounded-md px-3 py-1">
                         Verified
@@ -130,23 +130,23 @@ const UsersList = (props) => {
                       </h1>
                     )}
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <h1 className="!text-[14px] !font-bold">{item?.gender}</h1>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <h1 className="!text-[14px] !font-bold">
                       {formatDate(item?.dob)}
                     </h1>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <h1 className="!text-[14px] !font-bold">
                       {calculateAge(item?.dob)}
                     </h1>
                   </TableCell>
                   <TableCell>
-                    <h1 className="!text-[14px] !font-bold">{item?.address}</h1>
+                    <h1 className="!text-[14px] !font-bold !min-w-[200px]">{item?.address}</h1>
                   </TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <h1 className="!text-[14px] !font-bold">
                       {formatDate(item?.last_login_date)}
                     </h1>
@@ -155,9 +155,8 @@ const UsersList = (props) => {
               ))
             ) : (
               <TableRow>
-                <TableCell
+                <TableCell align="center"
                   colSpan={12}
-                  align="center"
                   className="!py-6 !font-semibold"
                 >
                   No Users found

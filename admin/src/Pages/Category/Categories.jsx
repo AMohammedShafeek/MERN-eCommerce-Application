@@ -17,7 +17,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <section>
+    <section className="min-h-dvh">
       <div className="container flex pt-10">
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
@@ -26,10 +26,10 @@ const Categories = () => {
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+                ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
         >
-          <div className="flex items-center w-full gap-3">
+          <div className="flex flex-row items-center w-full gap-3">
             <div className="flex gap-2 w-[30%]">
               <div
                 onClick={() => {
@@ -38,7 +38,7 @@ const Categories = () => {
                 className="flex w-full items-center h-[50px] min-h-[50px] add bg-black cursor-pointer gap-2 py-1 justify-center rounded-md"
               >
                 <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
-                <h1 className="text-white text-[18px] font-bold">
+                <h1 className="hidden md:block text-white text-[18px] font-bold">
                   Add New Category
                 </h1>
               </div>
@@ -54,6 +54,9 @@ const Categories = () => {
                 <Pagination
                   count={10}
                   variant="outlined"
+                  size="small"
+                  siblingCount={0}
+                  boundaryCount={1}
                   showFirstButton
                   showLastButton
                 />

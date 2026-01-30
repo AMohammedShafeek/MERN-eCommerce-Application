@@ -134,7 +134,7 @@ const CategoriesList = (props) => {
                     {item.name}
                   </TableCell>
 
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell className="!text-[14px] !font-bold !min-w-[250px] md:!min-w-[410px]">
                     {item.children?.length > 0 ? (
                       <Stack
                         direction="row"
@@ -159,7 +159,7 @@ const CategoriesList = (props) => {
                     )}
                   </TableCell>
 
-                  <TableCell>
+                  <TableCell className="!min-w-[150px]">
                     <Tooltip title="Edit">
                       <Button
                         onClick={() => editCat(item._id)}

@@ -59,8 +59,8 @@ const CategoriesNew = () => {
   };
 
   return (
-    <section>
-      <div className="container flex pt-10">
+    <section className="min-h-dvh">
+      <div className="container lg:flex pt-10">
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
@@ -68,8 +68,8 @@ const CategoriesNew = () => {
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+                ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
