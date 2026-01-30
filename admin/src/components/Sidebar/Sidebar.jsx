@@ -12,6 +12,7 @@ import { FaUserCircle } from "react-icons/fa";
 import "./Sidebar.css";
 import { MyContext } from "../../App";
 import { TiThMenu } from "react-icons/ti";
+import Slide from "@mui/material/Slide";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -36,8 +37,14 @@ const Sidebar = () => {
 
   return (
     <>
-      {context.isOpenSideBar === true ? (
-        <div className="sidebar fixed top-5 left-0 bg-white w-[21%] h-full pt-6">
+      <Slide
+        direction="right"
+        in={context.isOpenSideBar}
+        mountOnEnter
+        unmountOnExit
+        timeout={300}
+      >
+        <div className="sidebar fixed top-5 left-0 bg-white sm:w-[80%] md:w-[40%] lg:w-[21%] h-full pt-6">
           <div className="navigations mt-4">
             <div className="sideHeader border-b border-gray-300 py-2 bg-black px-5">
               <div className="flex items-center justify-between">
@@ -53,7 +60,10 @@ const Sidebar = () => {
                 <div className="profile pr-5 border-r border-[#ff5252]">
                   {context?.userData?.avatar !== null ? (
                     <div className="w-[100px] h-[100px] overflow-hidden rounded-full border-3 border-[#ff5252] cursor-not-allowed">
-                      <img className="w-full h-full object-cover" src={context?.userData?.avatar} />
+                      <img
+                        className="w-full h-full object-cover"
+                        src={context?.userData?.avatar}
+                      />
                     </div>
                   ) : (
                     <FaUserCircle className="text-[70px] text-[#ff5252]"></FaUserCircle>
@@ -166,14 +176,13 @@ const Sidebar = () => {
             </ul>
           </div>
         </div>
-      ) : (
-        <div className="relative navigations mt-4">
-          <div className="absolute fixed z-50 flex items-center justify-between top-15 -left-6 py-1 pl-10 px-2 bg-black rounded-r-full">
-            <TiThMenu
-              className="text-[40px] text-white cursor-pointer p-2 overflow-visible"
-              onClick={openSideBar}
-            ></TiThMenu>
-          </div>
+      </Slide>
+      {context.isOpenSideBar === false && (
+        <div className="fixed z-50 top-15 left-0 bg-black rounded-r-full pl-5 pr-2 py-2">
+          <TiThMenu
+            className="text-[35px] text-black bg-white cursor-pointer p-2 overflow-visible rounded-full"
+            onClick={openSideBar}
+          ></TiThMenu>
         </div>
       )}
     </>

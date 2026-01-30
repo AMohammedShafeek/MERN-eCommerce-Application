@@ -23,15 +23,15 @@ const HomeSlidesNew = () => {
   return (
     <section>
       <div className="container flex pt-10">
-        <div className={`sidebarWrapper ${
-            context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}>
+        <div
+          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
+        >
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper ${
-            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
-          }  my-7 h-full`}
+          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">

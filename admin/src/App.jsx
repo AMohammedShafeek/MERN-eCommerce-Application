@@ -42,13 +42,14 @@ function App() {
   const [subCatData, setSubCatData] = useState([]);
   const [prodData, setProdData] = useState([]);
   const [sortedIds, setSortedIds] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const openAlertBox = (status, msg) => {
     if (status === "success") {
-      toast.success(msg);
+      toast.success(msg, { id: "success-toast" });
     }
     if (status === "error") {
-      toast.error(msg);
+      toast.error(msg, { id: "error-toast" });
     }
   };
 
@@ -76,16 +77,27 @@ function App() {
   };
 
   useEffect(() => {
+    if (windowWidth < 992) {
+      setIsOpenSideBar(false);
+    }
+
     const token = localStorage.getItem("accessToken");
+    console.log(token);
 
     if (!token) {
       setIsLogin(false);
       return;
     }
+
     userDetails();
     categoryData();
     subCategoryData();
     productsData();
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const userDetails = () => {
@@ -105,6 +117,10 @@ function App() {
       setUserData(res.data);
       setIsLogin(true);
     });
+  };
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
   };
 
   const categoryData = () => {
@@ -220,6 +236,7 @@ function App() {
     refresh,
     setRefresh,
     deleteCat,
+    windowWidth,
   };
 
   return (

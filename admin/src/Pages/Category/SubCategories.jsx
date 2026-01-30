@@ -20,16 +20,14 @@ const SubCategories = () => {
     <section>
       <div className="container flex pt-10">
         <div
-          className={`sidebarWrapper ${
-            context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}
+          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
         >
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper ${
-            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
-          }  my-7 h-full`}
+          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
         >
           <div className="flex items-center w-full gap-3">
             <div className="flex gap-2 w-[30%]">

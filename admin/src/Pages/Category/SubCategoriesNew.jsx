@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const SubCategoriesNew = () => {
   const context = useContext(MyContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [productCat, setProductCat] = useState("");
@@ -34,7 +34,7 @@ const SubCategoriesNew = () => {
   };
 
   const selectedCatNameFun = (catName) => {
-    formFeilds.parentCatName = catName
+    formFeilds.parentCatName = catName;
   };
 
   const handleSubmit = (e) => {
@@ -59,9 +59,9 @@ const SubCategoriesNew = () => {
           parentId: "",
         });
         setIsLoading(false);
-        context.categoryData()
+        context.categoryData();
         context.subCategoryData();
-        navigate('/sub-categories')
+        navigate("/sub-categories");
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);
@@ -78,16 +78,14 @@ const SubCategoriesNew = () => {
     <section>
       <div className="container flex pt-10">
         <div
-          className={`sidebarWrapper ${
-            context.isOpenSideBar === true ? "w-[20%]" : ""
-          } h-full bg-white`}
+          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
         >
           <Sidebar></Sidebar>
         </div>
         <div
-          className={`sidebarWrapper ${
-            context.isOpenSideBar === true ? "w-[80%]" : "w-full"
-          }  my-7 h-full`}
+          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
