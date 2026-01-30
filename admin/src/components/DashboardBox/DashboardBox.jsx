@@ -10,12 +10,22 @@ import { BsBank2 } from "react-icons/bs";
 
 const DashboardBox = () => {
   return (
-    <div className=" overflow-hidden ">
+    <div className=" overflow-hidden">
       <Swiper
-        slidesPerView={3}
         spaceBetween={20}
         pagination={{
           dynamicBullets: true,
+        }}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
         }}
         modules={[Pagination]}
         className="dashSlider"

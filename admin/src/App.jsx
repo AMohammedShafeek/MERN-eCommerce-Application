@@ -26,6 +26,7 @@ import CategoriesEdit from "./Pages/Category/CategoriesEdit.jsx";
 import Swal from "sweetalert2";
 import ProductsItemsEdit from "./Pages/ProductsData/ProductsItemsEdit.jsx";
 import SubCategories from "./Pages/Category/SubCategories.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 export const MyContext = createContext();
 
@@ -77,12 +78,20 @@ function App() {
   };
 
   useEffect(() => {
-    if (windowWidth < 992) {
-      setIsOpenSideBar(false);
-    }
+    const handleResize = () => {
+      if (window.innerWidth < 992) {
+        setIsOpenSideBar(false);
+      }
+    };
 
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    console.log(token);
 
     if (!token) {
       setIsLogin(false);
@@ -93,11 +102,6 @@ function App() {
     categoryData();
     subCategoryData();
     productsData();
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
 
   const userDetails = () => {
@@ -317,6 +321,7 @@ function App() {
                 element={<ProductsItemsEdit></ProductsItemsEdit>}
               ></Route>
             </Routes>
+            {/* <Footer></Footer> */}
           </>
         </MyContext.Provider>
       </BrowserRouter>

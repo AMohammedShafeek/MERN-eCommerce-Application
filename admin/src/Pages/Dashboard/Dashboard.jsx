@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 import { MyContext } from "../../App";
 import { useNavigate } from "react-router-dom";
@@ -95,7 +96,7 @@ const Dashboard = () => {
   return (
     <>
       {context.isLogin === true ? (
-        <section>
+        <section className="min-h-dvh">
           <div className="container flex pt-10">
             <div
               className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
@@ -104,37 +105,37 @@ const Dashboard = () => {
               <Sidebar></Sidebar>
             </div>
             <div
-              className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+              className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+                ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
             >
-              <div className="bg-white flex items-center gap-7 mb-3 py-3 px-4 rounded-md">
-                <div className="w-[20%]">
+              <div className="bg-white flex items-center gap-7 mb-3 py-3 px-1 pl-12 md:px-4 rounded-md">
+                <div className="w-[20%] hidden md:block">
                   <img
                     src="./src/assets/svg/dashSVG.png"
                     alt=""
                     className="w-[200px] pl-8"
                   />
                 </div>
-                <div className="info leading-none w-[80%] px-18 border-l border-gray-300">
+                <div className="info leading-none w-full md:w-[80%] px-0 md:px-10 lg:px:18 md:border-l md:border-gray-300">
                   <h1 className="text-[18px] font-bold">Good Morning,</h1>
                   <h1 className="text-[24px] primary font-bold mb-3 my-1.5 border-b pb-4 border-gray-300">
                     {context?.userData?.name}
                   </h1>
-                  <p className="text-[14px] text-gray-500 py-0.5 font-[500]">
+                  <p className="text-[14px] text-gray-500 py-0.5 font-[500] leading-4.5">
                     Here's What Happening on your Store today. See the
                     Statistics at Once.
                   </p>
                 </div>
               </div>
               <DashboardBox></DashboardBox>
-              <div>
-                <h1 className="text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
-                  Reports
-                </h1>
-              </div>
-              <div className="gap-4 charts w-full my-2">
-                <div className="bg-white p-5 rounded-md w-full shadow shadow-md">
-                  <div>
+              <div className="report1 w-full">
+                <div>
+                  <h1 className="text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
+                    Reports
+                  </h1>
+                </div>
+                <div className="gap-4 charts w-full my-2">
+                  <div className="bg-white p-5 rounded-md w-full shadow shadow-md">
                     <h1 className="text-[21px] font-bold">
                       Total Users & Total Sales
                     </h1>

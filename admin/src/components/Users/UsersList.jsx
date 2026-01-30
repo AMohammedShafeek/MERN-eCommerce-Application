@@ -108,7 +108,7 @@ const UsersList = (props) => {
                   <TableCell className="!text-[14px] !font-bold">
                     <div className="w-[60px] h-[60px] overflow-hidden rounded-full border border-gray-300">
                       <img
-                        src={item?.avatar}
+                        src={item?.avatar || "/src/assets/defaultAssets/userAvatar.jpg"}
                         className="w-full h-full object-cover"
                       />
                     </div>

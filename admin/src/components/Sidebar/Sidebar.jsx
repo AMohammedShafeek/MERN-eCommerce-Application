@@ -18,19 +18,6 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const context = useContext(MyContext);
 
-  const logout = () => {
-    getData(`/api/user/logout?token=${localStorage.getItem("accessToken")}`, {
-      withCredentials: true,
-    }).then((res) => {
-      console.log(res);
-      if (res?.error !== true) {
-        context.setIsLogin(false);
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userEmail");
-      }
-    });
-  };
-
   const openSideBar = () => {
     context.setIsOpenSideBar(!context.isOpenSideBar);
   };
@@ -44,7 +31,7 @@ const Sidebar = () => {
         unmountOnExit
         timeout={300}
       >
-        <div className="sidebar fixed top-5 left-0 bg-white sm:w-[80%] md:w-[40%] lg:w-[21%] h-full pt-6">
+        <div className="sidebar z-50 fixed top-5 left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-full pt-6">
           <div className="navigations mt-4">
             <div className="sideHeader border-b border-gray-300 py-2 bg-black px-5">
               <div className="flex items-center justify-between">
@@ -164,21 +151,12 @@ const Sidebar = () => {
                   </Button>
                 </NavLink>
               </li>
-              <li className="Logout w-full py-1">
-                <Button
-                  onClick={logout}
-                  className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
-                >
-                  <IoIosLogOut className="text-[22px] mr-2"></IoIosLogOut>
-                  <span>Logout</span>
-                </Button>
-              </li>
             </ul>
           </div>
         </div>
       </Slide>
       {context.isOpenSideBar === false && (
-        <div className="fixed z-50 top-15 left-0 bg-black rounded-r-full pl-5 pr-2 py-2">
+        <div className="fixed z-50 top-15 -left-4 lg:left-0 bg-black rounded-r-full pl-5 pr-2 py-2">
           <TiThMenu
             className="text-[35px] text-black bg-white cursor-pointer p-2 overflow-visible rounded-full"
             onClick={openSideBar}

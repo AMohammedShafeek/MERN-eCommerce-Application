@@ -61,7 +61,7 @@ const Header = () => {
       location.pathname === "/register" ||
       location.pathname === "/verify" ||
       location.pathname === "/changePassword" ? null : (
-        <div className="w-full fixed z-50">
+        <div className="w-full fixed z-1000">
           <div className="bg-white py-2 border-b border-b-gray-300">
             <div className="container flex justify-between">
               <div className="part1 w-[20%] flex">
@@ -70,9 +70,9 @@ const Header = () => {
                     <img
                       src="./public/logo.png"
                       alt=""
-                      className="h-10 w-[33%]"
+                      className="h-10 w-full md:w-[33%]"
                     />
-                    <h1 className="headText font-bold text-[22px]">
+                    <h1 className="hidden md:block headText font-bold text-[22px]">
                       - <span className="primary">Admin</span> Panel
                     </h1>
                   </div>

@@ -70,6 +70,8 @@ const MyAccount = () => {
     editData(`/api/user/${userId}`, formFeilds).then((res) => {
       console.log(res);
       if (res?.error !== true) {
+        console.log(res);
+
         context.openAlertBox("success", res?.message);
         setFormFields({
           name: userData?.name,
@@ -80,7 +82,7 @@ const MyAccount = () => {
           address: userData?.address,
         });
         setIsLoading(false);
-        navigate(0)
+        navigate(0);
       } else {
         context.openAlertBox("error", res?.message);
         setIsLoading(false);

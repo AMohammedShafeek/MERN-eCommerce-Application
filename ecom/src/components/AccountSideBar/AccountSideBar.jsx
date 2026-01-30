@@ -71,31 +71,23 @@ const AccountSideBar = () => {
       <div className="card bg-white shadow-md rounded-md py-5 px-2 sticky top-[50px]">
         <div className="w-full p-3 flex items-center justify-center border-b border-gray-300 mb-3 flex-col">
           <div className="edit relative">
-            <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-[#ff5252] bg-gray-200">
-              {uploading === true ? (
-                <div className="flex items-center mt-7 justify-center">
-                  <CircularProgress
-                    color="inherit"
-                    size={35}
-                    sx={{ color: "#ff5252" }}
-                  ></CircularProgress>
-                </div>
+            <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-[#ff5252] bg-gray-200 flex items-center justify-center">
+              {uploading ? (
+                <CircularProgress
+                  color="inherit"
+                  size={35}
+                  sx={{ color: "#ff5252" }}
+                />
               ) : (
-                <>
-                  {previews?.length !== 0 &&
-                    previews?.map((img, index) => {
-                      return (
-                        <img
-                          src={
-                            img ||
-                            "../../../src/assets/defaultAssets/userAvatar.jpg"
-                          }
-                          key={index}
-                          className="w-full h-full object-cover"
-                        />
-                      );
-                    })}
-                </>
+                <img
+                  src={
+                    previews?.length > 0
+                      ? previews[previews.length - 1]
+                      : "/src/assets/defaultAssets/userAvatar.jpg"
+                  }
+                  alt="User Avatar"
+                  className="w-full h-full object-cover"
+                />
               )}
             </div>
             <div className="overlayEdit absolute w-[100%] h-[100%] top-7 left-9 z-50 flex items-center justify-center">
