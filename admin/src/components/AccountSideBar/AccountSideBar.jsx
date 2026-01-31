@@ -118,57 +118,6 @@ const AccountSideBar = () => {
             </h3>
           </div>
         </div>
-
-        <ul className="list-none py-5 myAccountTabs">
-          <li className="w-full py-1">
-            <NavLink
-              to={"/my-account"}
-              exact={"true"}
-              activeclassname="isActive"
-            >
-              <Button className="w-full !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
-                <FaUser className="text-[16px]"></FaUser>User Profile
-              </Button>
-            </NavLink>
-          </li>
-          <li className="w-full py-1">
-            <NavLink to={"/"} exact={"true"} activeclassname="isActive">
-              <Button className="w-full !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
-                <FaHome className="text-[16px]"></FaHome>Admin Home
-              </Button>
-            </NavLink>
-          </li>
-          <li className="w-full py-1">
-            <NavLink
-              to={"/tickets"}
-              exact={"true"}
-              activeclassname="isActive"
-            >
-              <Button className="w-full !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
-                <FaTicketAlt className="text-[16px]"></FaTicketAlt>Tickets
-              </Button>
-            </NavLink>
-          </li>
-          <li className="w-full py-1">
-            <NavLink
-              to={"/track-orders"}
-              exact={"true"}
-              activeclassname="isActive"
-            >
-              <Button className="w-full !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
-                <FaTruckMoving className="text-[16px]"></FaTruckMoving>
-                Track Orders
-              </Button>
-            </NavLink>
-          </li>
-          <li className="w-full py-1">
-            <NavLink to={"/logout"} exact={"true"} activeclassname="isActive">
-              <Button className="w-full !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
-                <IoIosLogOut className="text-[16px]"></IoIosLogOut>Logout
-              </Button>
-            </NavLink>
-          </li>
-        </ul>
       </div>
     </div>
   );

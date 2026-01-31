@@ -40,22 +40,21 @@ const UpdatePass = () => {
   const checkPassword = (e) => {
     e.preventDefault();
 
-    // context.openAlertBox("success", "Here.");
     if (!verified) {
       if (formFeilds.password !== "") {
         postData("/api/user/check-password", formFeilds).then((res) => {
           console.log(res);
           if (res?.error !== true) {
-            context.openAlertBox("success", res?.message);
+            context.openAlertBox("success", res?.message, "checkPass-success");
             setVerified(true);
           } else {
-            context.openAlertBox("error", res?.message);
+            context.openAlertBox("error", res?.message, "checkPass-error");
           }
         });
       } else {
         context.openAlertBox(
           "error",
-          "If You forgot Old Password. Please Choose Forgot Password.",
+          "If You forgot Old Password. Please Choose Forgot Password.", "checkPass-error"
         );
       }
     }
@@ -68,7 +67,7 @@ const UpdatePass = () => {
     if (formFeilds.newPassword !== formFeilds.confirmPassword) {
       context.openAlertBox(
         "error",
-        "Password and Confirm Password are Not Matched",
+        "Password and Confirm Password are Not Matched", "missingFeild-error"
       );
       setIsLoading(false);
     } else {
@@ -76,7 +75,7 @@ const UpdatePass = () => {
         console.log(res);
         if (res?.error !== true) {
           setIsLoading(false);
-          context.openAlertBox("success", res?.message);
+          context.openAlertBox("success", res?.message, "resetPass-success");
           setFormFields({
             password: "",
             newPassword: "",
@@ -85,7 +84,7 @@ const UpdatePass = () => {
           setVerified(false);
           navigate("/my-account");
         } else {
-          context.openAlertBox("error", res?.message);
+          context.openAlertBox("error", res?.message, "resetPass-error");
           setIsLoading(false);
         }
       });
@@ -94,12 +93,12 @@ const UpdatePass = () => {
 
   const forgotPass = () => {
     if (userEmail === null || userEmail === undefined) {
-      context.openAlertBox("error", "You Need to Login");
+      context.openAlertBox("error", "You Need to Login", "forgotPass-error");
     } else {
       setIsLoading(true);
       console.log(userEmail);
 
-      context.openAlertBox("success", "OTP send to Your Email");
+      context.openAlertBox("success", "OTP send to Your Email", "forgotPass-success");
       localStorage.setItem("actionType", "forgot-password");
 
       postData("/api/user/forgot-password", {
@@ -107,11 +106,11 @@ const UpdatePass = () => {
       }).then((res) => {
         if (res?.error !== true) {
           setIsLoading(false);
-          context.openAlertBox("success", res?.message);
+          context.openAlertBox("success", res?.message, "updatePass-success");
           navigate("/verify");
         } else {
           setIsLoading(false);
-          context.openAlertBox("error", res?.message);
+          context.openAlertBox("error", res?.message, "updatePass-error");
         }
       });
     }
@@ -249,7 +248,7 @@ const UpdatePass = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-                <div className="flex items-center gap-3 justify-center my-3">
+                <div className="flex items-center h-[50px] gap-3 justify-center my-3">
                   <Button
                     type="submit"
                     onClick={handleSubmit}
@@ -258,7 +257,7 @@ const UpdatePass = () => {
                       !validValue2 === true
                         ? "!bg-gray-200"
                         : "btn-org !bg-[var(--primary-clr)]"
-                    } !w-full !py-2 !font-bold hover:!bg-black hover:!text-white transition-all duration-300 flex gap-2`}
+                    } !w-full !h-full !py-2 !font-bold hover:!bg-black hover:!text-white transition-all duration-300 flex gap-2`}
                   >
                     {isLoading === true ? (
                       <CircularProgress

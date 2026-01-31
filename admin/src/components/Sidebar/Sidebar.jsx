@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { Link, NavLink, useNavigate } from "react-router";
 import { IoIosLogOut } from "react-icons/io";
 import { BiSolidDashboard } from "react-icons/bi";
-import { FaImages } from "react-icons/fa";
+import { FaImages, FaTicketAlt, FaTruckMoving, FaUser } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 import { FaProductHunt } from "react-icons/fa";
 import { TbCategoryFilled } from "react-icons/tb";
@@ -31,8 +31,8 @@ const Sidebar = () => {
         unmountOnExit
         timeout={300}
       >
-        <div className="sidebar z-50 fixed top-5 left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-full pt-6">
-          <div className="navigations mt-4">
+        <div className="sidebar z-50 fixed top-5 left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
+          <div className="flex flex-col h-full navigations mt-4">
             <div className="sideHeader border-b border-gray-300 py-2 bg-black px-5">
               <div className="flex items-center justify-between">
                 <h1 className="font-bold text-[18px] text-white">MENU BAR</h1>
@@ -66,7 +66,19 @@ const Sidebar = () => {
                 </div>
               </div>
             </Link>
-            <ul className="list-none myAccountTabs">
+            <ul className="list-none myAccountTabs flex-1 overflow-y-auto">
+              <li className="Dashboard w-full py-1">
+                <NavLink
+                  to={"/my-account"}
+                  exact={"true"}
+                  activeclassname="isActive"
+                >
+                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                    <FaUser className="text-[20px] mr-2"></FaUser>
+                    <span>Admin Profile</span>
+                  </Button>
+                </NavLink>
+              </li>
               <li className="Dashboard w-full py-1">
                 <NavLink
                   to={"/dashboard"}
@@ -148,6 +160,31 @@ const Sidebar = () => {
                   <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
                     <FaBagShopping className="text-[20px] mr-2"></FaBagShopping>
                     <span>Orders</span>
+                  </Button>
+                </NavLink>
+              </li>
+
+              <li className="Orders w-full py-1">
+                <NavLink
+                  to={"/tickets"}
+                  exact={"true"}
+                  activeclassname="isActive"
+                >
+                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                    <FaTicketAlt className="text-[20px] mr-2"></FaTicketAlt>
+                    <span>Tickets</span>
+                  </Button>
+                </NavLink>
+              </li>
+              <li className="Orders w-full py-1">
+                <NavLink
+                  to={"/track-orders"}
+                  exact={"true"}
+                  activeclassname="isActive"
+                >
+                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                    <FaTruckMoving className="text-[20px] mr-2"></FaTruckMoving>
+                    <span>Track Orders</span>
                   </Button>
                 </NavLink>
               </li>

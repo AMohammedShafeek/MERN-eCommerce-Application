@@ -16,9 +16,11 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import dayjs from "dayjs";
-import { editData } from "../../utils/api";
+import { editData, uploadImage } from "../../utils/api";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { FaPen } from "react-icons/fa";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const MyAccount = () => {
   const context = useContext(MyContext);
@@ -72,7 +74,11 @@ const MyAccount = () => {
       if (res?.error !== true) {
         console.log(res);
 
-        context.openAlertBox("success", res?.message);
+        context.openAlertBox(
+          "success",
+          res?.message,
+          "updateUserDetails-success",
+        );
         setFormFields({
           name: userData?.name,
           email: userData?.email,
@@ -84,7 +90,7 @@ const MyAccount = () => {
         setIsLoading(false);
         navigate(0);
       } else {
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "updateUserDetails-error");
         setIsLoading(false);
       }
     });
@@ -121,13 +127,78 @@ const MyAccount = () => {
     });
   }, [context?.userData]);
 
+  useEffect(() => {
+    const userAvatar = [];
+    if (
+      context?.userData?.avatar !== "" &&
+      context?.userData?.avatar !== undefined
+    ) {
+      userAvatar.push(context?.userData?.avatar);
+      setPreviews(userAvatar);
+    }
+  }, [context?.userData]);
+
+  const [previews, setPreviews] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  let selectedImages = [];
+
+  const formdata = new FormData();
+
+  const onChangeFile = async (e, apiEndPoint) => {
+    try {
+      setPreviews([]);
+      const files = e.target.files;
+      setUploading(true);
+
+      for (var i = 0; i < files.length; i++) {
+        if (
+          (files[i] && files[i].type === "image/jpeg") ||
+          files[i].type === "image/png" ||
+          files[i].type === "image/jpg" ||
+          files[i].type === "image/webp"
+        ) {
+          const file = files[i];
+          selectedImages.push(file);
+          formdata.append("avatar", file);
+
+          uploadImage("/api/user/user-avatar", formdata).then((res) => {
+            setUploading(false);
+            let avatar = [];
+            avatar.push(res?.avatar);
+            setPreviews(avatar);
+            console.log(res);
+          });
+        } else {
+          context.openAlertBox(
+            "error",
+            "Select PNG, JPG, JPEG or WEBP Files",
+            "updateProfile-error",
+          );
+          setUploading(false);
+          return false;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <section className="py-25 w-full">
-      <div className="container flex gap-5">
-        <AccountSideBar></AccountSideBar>
-        <div className="col2 w-[80%]">
-          <div className="shadow-md rounded-md p-3 bg-white mt-5">
-            <div className="flex gap-2 justify-between items-center cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
+    <section className="py-10 w-full">
+      <div className="container flex">
+        <div
+          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
+                ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
+        >
+          <Sidebar></Sidebar>
+        </div>
+        <div
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+                ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
+        >
+          <div className="shadow-md rounded-md p-3 bg-white mt-2">
+            <div className="flex gap-2 justify-between items-center cartHead p-2 pb-4 border-b border-[#ff5252]">
               <h2 className="font-bold text-[18px]">MY PROFILE</h2>
               <h2
                 onClick={() => {
@@ -138,15 +209,71 @@ const MyAccount = () => {
                 CHANGE PASSWORD
               </h2>
             </div>
+
+            <div className="w-full p-3 flex flex-col md:flex-row gap-2 md:gap-10 items-center md:items-start justify-center border-b border-gray-300 mb-3">
+              <div className="edit relative border-none md:border-r-1 px-2 md:px-10 border-[#ff5252]">
+                <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-[#ff5252] bg-gray-200">
+                  {uploading === true ? (
+                    <div className="flex items-center mt-7 justify-center">
+                      <CircularProgress
+                        color="inherit"
+                        size={35}
+                        sx={{ color: "#ff5252" }}
+                      ></CircularProgress>
+                    </div>
+                  ) : (
+                    <>
+                      {previews?.length !== 0 &&
+                        previews?.map((img, index) => {
+                          return (
+                            <img
+                              src={
+                                img ||
+                                "../../../src/assets/defaultAssets/userAvatar.jpg"
+                              }
+                              key={index}
+                              className="w-full h-full object-cover"
+                            />
+                          );
+                        })}
+                    </>
+                  )}
+                </div>
+                <div className="overlayEdit absolute inset-0 top-17 left-17 z-50 flex items-center justify-center">
+                  <div className="relative w-[35px] h-[35px]">
+                    <FaPen className="text-[20px] w-full h-full p-2 rounded-full border-2 border-[#ff5252] text-[#ff5252] bg-white cursor-pointer overflow-visible" />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      name="avatar"
+                      onChange={(e) => onChangeFile(e, "/api/user/user-avatar")}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="info flex flex-col items-center md:items-start my-2">
+                <h3 className="text-[18px] font-[500]">
+                  {context?.userData?.name}
+                </h3>
+                <h3 className="text-[14px] font-[500] text-gray-500">
+                  {context?.userData?.email}
+                </h3>
+                <h3 className="text-[14px] font-[500] text-white bg-[#ff5252] rounded-sm px-2 py-1 mt-1">
+                  {context?.userData?.role}
+                </h3>
+              </div>
+            </div>
+
             <form
               className="w-full container mt-5 pt-3 my-3"
               onSubmit={handleSubmit}
             >
-              <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
+              <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2 pb-3">
                 Your Details
               </p>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="col1 w-[50%]">
+              <div className="flex flex-col md:flex-row items-center gap-3 mb-5">
+                <div className="col1 w-full md:w-[50%]">
                   <TextField
                     type="text"
                     id="name"
@@ -178,7 +305,7 @@ const MyAccount = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-                <div className="col2 w-[50%]">
+                <div className="col2 w-full md:w-[50%]">
                   <TextField
                     type="email"
                     id="email"
@@ -210,7 +337,7 @@ const MyAccount = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-                <div className="col2 flex items-center w-[50%]">
+                <div className="col2 flex items-center w-full md:w-[50%]">
                   <PhoneInput
                     defaultCountry="in"
                     value={String(formFeilds.mobile || "")}
@@ -226,12 +353,12 @@ const MyAccount = () => {
                   />
                 </div>
               </div>
-              <div className="flex items-center gap-3 border-b border-gray-300 mb-7">
-                <div className="Street mb-4 w-[33%]">
+              <div className="flex flex-col lg:flex-row items-center gap-3 border-b border-gray-300 mb-7">
+                <div className="Street mb-1 lg:mb-4 w-full lg:w-[33%]">
                   <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                     Gender
                   </p>
-                  <div className="street mb-2">
+                  <div className="gender mb-2">
                     <RadioGroup
                       row
                       aria-labelledby="demo-radio-buttons-group-label"
@@ -286,7 +413,7 @@ const MyAccount = () => {
                     </RadioGroup>
                   </div>
                 </div>
-                <div className="Street mb-4 w-[67%]">
+                <div className="dob mb-4 w-full lg:w-[67%]">
                   <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                     Date of Birth
                   </p>
@@ -310,7 +437,7 @@ const MyAccount = () => {
                   </div>
                 </div>
               </div>
-              <div className="Street w-full mb-4">
+              <div className="Adress w-full mb-4">
                 <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                   Address
                 </p>
