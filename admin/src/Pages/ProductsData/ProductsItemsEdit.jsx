@@ -172,7 +172,7 @@ const ProductsItemsEdit = () => {
         }, 100);
       } else {
         setIsRemoveLoading(false);
-        context.openAlertBox("error", res?.message,"removeProuctImage-error");
+        context.openAlertBox("error", res?.message, "removeProuctImage-error");
       }
     });
   };
@@ -182,7 +182,11 @@ const ProductsItemsEdit = () => {
     setIsLoading(true);
 
     if (formFeilds.name === "") {
-      context.openAlertBox("error", "Enter Category Name", "MissingCatName-error");
+      context.openAlertBox(
+        "error",
+        "Enter Category Name",
+        "MissingCatName-error",
+      );
       setIsLoading(false);
       return;
     }
@@ -222,6 +226,12 @@ const ProductsItemsEdit = () => {
 
   return (
     <section className="min-h-dvh">
+      {context.isOpenSideBar && (
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden`}
+          onClick={() => context.setIsOpenSideBar(false)}
+        />
+      )}
       <div className="container lg:flex pt-10">
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out

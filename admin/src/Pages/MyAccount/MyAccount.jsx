@@ -186,6 +186,12 @@ const MyAccount = () => {
 
   return (
     <section className="py-10 w-full">
+      {context.isOpenSideBar && (
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden`}
+          onClick={() => context.setIsOpenSideBar(false)}
+        />
+      )}
       <div className="container flex">
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
@@ -239,7 +245,7 @@ const MyAccount = () => {
                     </>
                   )}
                 </div>
-                <div className="overlayEdit absolute inset-0 top-17 left-17 z-50 flex items-center justify-center">
+                <div className="overlayEdit absolute inset-0 top-17 left-17 z-30 flex items-center justify-center">
                   <div className="relative w-[35px] h-[35px]">
                     <FaPen className="text-[20px] w-full h-full p-2 rounded-full border-2 border-[#ff5252] text-[#ff5252] bg-white cursor-pointer overflow-visible" />
                     <input

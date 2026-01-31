@@ -31,7 +31,7 @@ const Sidebar = () => {
         unmountOnExit
         timeout={300}
       >
-        <div className="sidebar z-50 fixed top-5 left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
+        <div className="sidebar z-50 fixed top-4 left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
           <div className="flex flex-col h-full navigations mt-4">
             <div className="sideHeader border-b border-gray-300 py-2 bg-black px-5">
               <div className="flex items-center justify-between">
@@ -73,7 +73,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaUser className="text-[20px] mr-2"></FaUser>
                     <span>Admin Profile</span>
                   </Button>
@@ -85,7 +88,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <BiSolidDashboard className="text-[20px] mr-2"></BiSolidDashboard>
                     <span>Dashboard</span>
                   </Button>
@@ -97,7 +103,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaImages className="text-[20px] mr-2"></FaImages>
                     <span>Home Slides</span>
                   </Button>
@@ -109,7 +118,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaUsers className="text-[20px] mr-2"></FaUsers>
                     <span>Users</span>
                   </Button>
@@ -121,7 +133,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaProductHunt className="text-[20px] mr-2"></FaProductHunt>
                     <span>Products</span>
                   </Button>
@@ -133,7 +148,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <TbCategoryFilled className="text-[20px] mr-2"></TbCategoryFilled>
                     <span>Categories</span>
                   </Button>
@@ -145,7 +163,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <TbCategoryFilled className="text-[20px] mr-2"></TbCategoryFilled>
                     <span>Sub-Categories</span>
                   </Button>
@@ -157,7 +178,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaBagShopping className="text-[20px] mr-2"></FaBagShopping>
                     <span>Orders</span>
                   </Button>
@@ -170,7 +194,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaTicketAlt className="text-[20px] mr-2"></FaTicketAlt>
                     <span>Tickets</span>
                   </Button>
@@ -182,7 +209,10 @@ const Sidebar = () => {
                   exact={"true"}
                   activeclassname="isActive"
                 >
-                  <Button className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300">
+                  <Button
+                    onClick={openSideBar}
+                    className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                  >
                     <FaTruckMoving className="text-[20px] mr-2"></FaTruckMoving>
                     <span>Track Orders</span>
                   </Button>
@@ -193,7 +223,7 @@ const Sidebar = () => {
         </div>
       </Slide>
       {context.isOpenSideBar === false && (
-        <div className="fixed z-50 top-15 -left-4 lg:left-0 bg-black rounded-r-full pl-5 pr-2 py-2">
+        <div className="fixed z-50 top-14 -left-4 lg:left-0 bg-black rounded-r-full pl-5 pr-2 py-2">
           <TiThMenu
             className="text-[35px] text-black bg-white cursor-pointer p-2 overflow-visible rounded-full"
             onClick={openSideBar}

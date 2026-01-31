@@ -33,7 +33,11 @@ const CategoriesNew = () => {
     setIsLoading(true);
 
     if (formFeilds.name === "") {
-      context.openAlertBox("error", "Enter Category Name", "missingCatName-error");
+      context.openAlertBox(
+        "error",
+        "Enter Category Name",
+        "missingCatName-error",
+      );
       setIsLoading(false);
       return;
     }
@@ -60,6 +64,12 @@ const CategoriesNew = () => {
 
   return (
     <section className="min-h-dvh">
+      {context.isOpenSideBar && (
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden`}
+          onClick={() => context.setIsOpenSideBar(false)}
+        />
+      )}
       <div className="container lg:flex pt-10">
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
