@@ -88,7 +88,7 @@ const ProductsItemsEdit = () => {
         });
         setPreviews(res?.product?.images || []);
       } else {
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "getProductByID-error");
         navigate("/products-data");
       }
     });
@@ -172,7 +172,7 @@ const ProductsItemsEdit = () => {
         }, 100);
       } else {
         setIsRemoveLoading(false);
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message,"removeProuctImage-error");
       }
     });
   };
@@ -182,7 +182,7 @@ const ProductsItemsEdit = () => {
     setIsLoading(true);
 
     if (formFeilds.name === "") {
-      context.openAlertBox("error", "Enter Category Name");
+      context.openAlertBox("error", "Enter Category Name", "MissingCatName-error");
       setIsLoading(false);
       return;
     }
@@ -192,7 +192,7 @@ const ProductsItemsEdit = () => {
     }).then((res) => {
       console.log(res);
       if (res?.error !== true) {
-        context.openAlertBox("success", res?.message);
+        context.openAlertBox("success", res?.message, "updateProduct-success");
         setFormFeilds({
           name: "",
           description: "",
@@ -214,7 +214,7 @@ const ProductsItemsEdit = () => {
         setIsLoading(false);
         navigate("/products-data");
       } else {
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "updateProduct-error");
         setIsLoading(false);
       }
     });

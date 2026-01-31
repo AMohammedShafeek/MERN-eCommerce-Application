@@ -5,12 +5,15 @@ import TextField from "@mui/material/TextField";
 import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
 import { editData, getData, postData } from "../../utils/api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const CategoriesEdit = () => {
   const context = useContext(MyContext);
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectUrl = location?.state?.redirectUrl || "/"
 
   const [isLoading, setIsLoading] = useState(false);
   const [formFeilds, setFormFeilds] = useState({
@@ -42,7 +45,11 @@ const CategoriesEdit = () => {
     setIsLoading(true);
 
     if (formFeilds.name === "") {
-      context.openAlertBox("error", "Enter Category Name");
+      context.openAlertBox(
+        "error",
+        "Enter Category Name",
+        "missingCatName-error",
+      );
       setIsLoading(false);
       return;
     }
@@ -50,15 +57,15 @@ const CategoriesEdit = () => {
     editData(`/api/category/${id}`, formFeilds).then((res) => {
       console.log(res);
       if (res?.error !== true) {
-        context.openAlertBox("success", res?.message);
+        context.openAlertBox("success", res?.message, "updateCat-success");
         setIsLoading(false);
         setFormFeilds({
           name: "",
         });
         context.categoryData();
-        navigate("/categories");
+        navigate(redirectUrl);
       } else {
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "updateCat-error");
         setIsLoading(false);
       }
     });

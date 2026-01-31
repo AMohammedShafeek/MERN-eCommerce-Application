@@ -128,7 +128,7 @@ const ProductsItemsNew = () => {
         }, 100);
       } else {
         setIsRemoveLoading(false);
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "deleteProductImage-error");
       }
     });
   };
@@ -138,7 +138,7 @@ const ProductsItemsNew = () => {
     setIsLoading(true);
 
     if (formFeilds.name === "") {
-      context.openAlertBox("error", "Enter Category Name");
+      context.openAlertBox("error", "Enter Category Name", "MissingCatName-error");
       setIsLoading(false);
       return;
     }
@@ -148,7 +148,7 @@ const ProductsItemsNew = () => {
     }).then((res) => {
       console.log(res);
       if (res?.error !== true) {
-        context.openAlertBox("success", res?.message);
+        context.openAlertBox("success", res?.message, "createProduct-success");
         setFormFeilds({
           name: "",
           description: "",
@@ -170,7 +170,7 @@ const ProductsItemsNew = () => {
         setIsLoading(false);
         navigate("/products-data");
       } else {
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "createProduct-error");
         setIsLoading(false);
       }
     });

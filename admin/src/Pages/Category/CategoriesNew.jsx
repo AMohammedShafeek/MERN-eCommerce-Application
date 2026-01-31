@@ -33,7 +33,7 @@ const CategoriesNew = () => {
     setIsLoading(true);
 
     if (formFeilds.name === "") {
-      context.openAlertBox("error", "Enter Category Name");
+      context.openAlertBox("error", "Enter Category Name", "missingCatName-error");
       setIsLoading(false);
       return;
     }
@@ -43,7 +43,7 @@ const CategoriesNew = () => {
     }).then((res) => {
       console.log(res);
       if (res?.error !== true) {
-        context.openAlertBox("success", res?.message);
+        context.openAlertBox("success", res?.message, "createCat-success");
         setFormFeilds({
           name: "",
         });
@@ -52,7 +52,7 @@ const CategoriesNew = () => {
         context.subCategoryData();
         navigate("/categories");
       } else {
-        context.openAlertBox("error", res?.message);
+        context.openAlertBox("error", res?.message, "createCat-error");
         setIsLoading(false);
       }
     });

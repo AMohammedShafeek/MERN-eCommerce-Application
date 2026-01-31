@@ -23,7 +23,9 @@ const CategoriesList = (props) => {
   const navigate = useNavigate();
 
   const editCat = (id) => {
-    navigate(`/edit-category/${id}`);
+    navigate(`/edit-category/${id}`, {
+      state: { redirecturl: "/categories"}
+    });
   };
 
   const deleteCatConfirm = (id) => {

@@ -113,7 +113,7 @@ function App() {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("userEmail");
 
-        openAlertBox("error", "Your session has expired. Please login again");
+        openAlertBox("error", "Your session has expired. Please login again", "userDetails-error");
         setIsLogin(false);
         return;
       }
@@ -190,11 +190,11 @@ function App() {
           setSortedIds([]);
           return;
         }
-        openAlertBox("error", res?.message);
+        openAlertBox("error", res?.message, "deleteMultiple-success");
         return;
       });
     } catch (error) {
-      openAlertBox("error", "Error in Deleting Items");
+      openAlertBox("error", "Error in Deleting Items", "deleteMultiple-error");
     }
   };
 
@@ -205,7 +205,7 @@ function App() {
         categoryData();
         subCategoryData();
       } else {
-        openAlertBox("error", res?.message);
+        openAlertBox("error", res?.message, "deleteCat-error");
       }
     });
   };

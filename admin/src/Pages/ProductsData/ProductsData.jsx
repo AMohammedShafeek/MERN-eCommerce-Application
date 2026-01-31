@@ -57,7 +57,7 @@ const ProductsData = () => {
         if (res?.error !== true) {
           context.setProdData(res?.data);
         } else {
-          context.openAlertBox("error", res?.message);
+          context.openAlertBox("error", res?.message, "getProductByCatID-error");
         }
       });
       return;
@@ -68,7 +68,7 @@ const ProductsData = () => {
         if (res?.error !== true) {
           context.setProdData(res?.data);
         } else {
-          context.openAlertBox("error", res?.message);
+          context.openAlertBox("error", res?.message, "getProductBySubcatID-error");
         }
       });
     }

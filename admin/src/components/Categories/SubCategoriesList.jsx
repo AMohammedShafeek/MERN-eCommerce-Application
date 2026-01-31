@@ -22,7 +22,9 @@ const SubCategoriesList = (props) => {
   const navigate = useNavigate();
 
   const editCat = (id) => {
-    navigate(`/edit-category/${id}`);
+    navigate(`/edit-category/${id}`, {
+      state: { redirectUrl: "/sub-categories" }
+    });
   };
 
   const deleteCatConfirm = (id) => {
