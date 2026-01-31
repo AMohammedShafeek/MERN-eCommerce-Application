@@ -110,10 +110,10 @@ const SubCategoriesList = (props) => {
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
+              <TableCell  align="center" className=" !text-[14px] !font-bold !min-w-[140px]">
                 Parent Category
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
+              <TableCell  align="center" className=" !text-[14px] !font-bold">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -138,11 +138,11 @@ const SubCategoriesList = (props) => {
                     {item.subCatName}
                   </TableCell>
 
-                  <TableCell className="!text-[14px] !font-bold">
+                  <TableCell align="center" className="!text-[14px] !font-bold">
                     {item.parentCatName}
                   </TableCell>
 
-                  <TableCell>
+                  <TableCell align="center" className="!min-w-[150px]">
                     <Tooltip title="Edit">
                       <Button
                         onClick={() => editCat(item._id)}

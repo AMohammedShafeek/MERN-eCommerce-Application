@@ -256,7 +256,7 @@ const ProductsItemsEdit = () => {
                             <div>
                               <IoMdClose
                                 onClick={() => removeImg(image, index)}
-                                className="text-white cursor-pointer hover:bg-black bg-red-500 transition-all duration-300 rounded-full z-50 text-[25px] absolute -top-2 -right-2"
+                                className="text-white cursor-pointer hover:bg-black bg-red-500 transition-all duration-300 rounded-full z-10 text-[25px] absolute -top-2 -right-2"
                               ></IoMdClose>
                               <div
                                 className="relative group cursor-pointer mb-5 bg-[#fff8f8] transition-all duration-300 flex flex-col items-center hover:bg-[#fcc9c9] justify-center rounded-md overflow-hidden border border-dashed border-[#ff5252]

@@ -39,7 +39,7 @@ const Categories = () => {
               >
                 <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
                 <h1 className="hidden md:block text-white text-[18px] font-bold">
-                  Add New Category
+                  Add Category
                 </h1>
               </div>
             </div>
