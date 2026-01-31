@@ -211,7 +211,7 @@ const MyAccount = () => {
             </div>
 
             <div className="w-full p-3 flex flex-col md:flex-row gap-2 md:gap-10 items-center md:items-start justify-center border-b border-gray-300 mb-3">
-              <div className="edit relative border-none md:border-r-1 px-2 md:px-10 border-[#ff5252]">
+              <div className="edit relative md:border-r-1 px-2 md:px-10 border-[#ff5252]">
                 <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-[#ff5252] bg-gray-200">
                   {uploading === true ? (
                     <div className="flex items-center mt-7 justify-center">
@@ -337,7 +337,7 @@ const MyAccount = () => {
                     onChange={onChangeInput}
                   />
                 </div>
-                <div className="col2 flex items-center w-full md:w-[50%]">
+                <div className="col2 flex items-center w-full z-10 md:w-[50%]">
                   <PhoneInput
                     defaultCountry="in"
                     value={String(formFeilds.mobile || "")}
