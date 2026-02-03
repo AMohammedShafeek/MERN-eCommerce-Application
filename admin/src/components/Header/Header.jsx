@@ -61,12 +61,12 @@ const Header = () => {
       location.pathname === "/register" ||
       location.pathname === "/verify" ||
       location.pathname === "/changePassword" ? null : (
-        <div className="w-full fixed z-1000">
+        <div className="w-full fixed z-100">
           <div className="bg-white py-2 border-b border-b-gray-300">
             <div className="container flex justify-between">
               <div className="part1 w-[20%] flex">
                 <Link to={"/"}>
-                  <div className="col2 py-1 flex items-center justify-center fixed left-8 top-1">
+                  <div className={`col2 py-1 px-3 flex items-center transition-all duration-300 justify-center fixed left-10 ${context.isOpenSideBar ? "lg:left-91" : "lg:left-15"} top-1`}>
                     <img
                       src="./public/logo.png"
                       alt=""
@@ -90,7 +90,7 @@ const Header = () => {
                           >
                             <div className="user flex items-center gap-2 px-2">
                               <FaRegUser className="text-[22px]"></FaRegUser>
-                              <h3 className="text-[16px] font-[600]">
+                              <h3 className="hidden md:block text-[16px] font-[600]">
                                 {context?.userData?.name}
                               </h3>
                             </div>
@@ -98,13 +98,13 @@ const Header = () => {
                         ) : (
                           <Link
                             className="link transition-all duration-300 text-[15px] font-[500]"
-                            onClick={()=>{navigate('/login')}}
+                            onClick={() => {
+                              navigate("/login");
+                            }}
                           >
                             <div className="user flex items-center gap-2 px-2">
                               <FaRegUser className="text-[22px]"></FaRegUser>
-                              <h3 className="text-[16px] font-[600]">
-                                Login
-                              </h3>
+                              <h3 className="text-[16px] font-[600]">Login</h3>
                             </div>
                           </Link>
                         )}

@@ -31,9 +31,9 @@ const Sidebar = () => {
         unmountOnExit
         timeout={300}
       >
-        <div className="sidebar z-50 fixed top-4 left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
-          <div className="flex flex-col h-full navigations mt-4">
-            <div className="sideHeader border-b border-gray-300 py-2 bg-black px-5">
+        <div className="sidebar z-500 fixed left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
+          <div className="flex flex-col h-full navigations -mt-16">
+            <div className="sideHeader border-b border-gray-300 py-2.5 bg-black px-5">
               <div className="flex items-center justify-between">
                 <h1 className="font-bold text-[18px] text-white">MENU BAR</h1>
                 <TiThMenu
@@ -223,7 +223,7 @@ const Sidebar = () => {
         </div>
       </Slide>
       {context.isOpenSideBar === false && (
-        <div className="fixed z-50 top-14 -left-4 lg:left-0 bg-black rounded-r-full pl-5 pr-2 py-2">
+        <div className="fixed z-450 top-0 left-0 lg:left-3 lg:left-0 shadow-[#ff5252]/50 shadow-md rounded-full mt-2 mx-2">
           <TiThMenu
             className="text-[35px] text-black bg-white cursor-pointer p-2 overflow-visible rounded-full"
             onClick={openSideBar}

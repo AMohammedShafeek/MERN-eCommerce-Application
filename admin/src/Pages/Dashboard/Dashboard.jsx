@@ -114,7 +114,7 @@ const Dashboard = () => {
               className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
                 ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
             >
-              <div className="bg-white flex items-center gap-7 mb-3 py-3 px-1 pl-12 md:px-4 rounded-md">
+              <div className="bg-white flex items-center gap-7 mb-3 py-3 px-1 pl-5 md:px-4 rounded-md">
                 <div className="w-[20%] hidden md:block">
                   <img
                     src="./src/assets/svg/dashSVG.png"
