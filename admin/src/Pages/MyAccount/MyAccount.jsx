@@ -197,7 +197,6 @@ const MyAccount = () => {
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
         >
-          <Sidebar></Sidebar>
         </div>
         <div
           className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0

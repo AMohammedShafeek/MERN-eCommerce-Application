@@ -16,9 +16,7 @@ const HomeSlides = () => {
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
-        >
-          <Sidebar></Sidebar>
-        </div>
+        ></div>
         <div
           className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
@@ -31,8 +29,8 @@ const HomeSlides = () => {
               className="flex w-[20%] items-center h-[50px] min-h-[50px] add bg-black cursor-pointer gap-2 py-1 justify-center rounded-md"
             >
               <FaCirclePlus className="text-white text-[28px]"></FaCirclePlus>
-              <h1 className="text-white text-[18px] font-bold">
-                Add New Slider
+              <h1 className="hidden md:block text-white text-[18px] font-bold">
+                Add Slider
               </h1>
             </div>
             <div className="w-[80%]">
@@ -44,6 +42,9 @@ const HomeSlides = () => {
             <Pagination
               count={10}
               variant="outlined"
+              size="small"
+              siblingCount={0}
+              boundaryCount={1}
               showFirstButton
               showLastButton
             />

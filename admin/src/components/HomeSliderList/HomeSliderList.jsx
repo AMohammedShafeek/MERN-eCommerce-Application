@@ -41,9 +41,6 @@ const HomeSliderList = () => {
                 <Checkbox {...label} />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
-                Slider ID
-              </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
               <TableCell className=" !text-[14px] !font-bold">
@@ -58,185 +55,12 @@ const HomeSliderList = () => {
                 <Checkbox {...label} />
               </TableCell>
               <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
               <TableCell className="ProdductID !text-[14px] !font-bold">
                 Every wear
               </TableCell>
               <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
                 <img
                   src="../../../src/assets/Sliders/Slider-1.png"
-                  alt=""
-                  className="object-contain h-[80px]"
-                />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                Women Fasion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Every wear
-              </TableCell>
-              <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
-                <img
-                  src="../../../src/assets/Sliders/Slider-2.png"
-                  alt=""
-                  className="object-contain h-[80px]"
-                />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                Women Fasion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Every wear
-              </TableCell>
-              <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
-                <img
-                  src="../../../src/assets/Sliders/Slider-3.png"
-                  alt=""
-                  className="object-contain h-[80px]"
-                />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                Women Fasion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Every wear
-              </TableCell>
-              <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
-                <img
-                  src="../../../src/assets/Sliders/Slider-4.png"
-                  alt=""
-                  className="object-contain h-[80px]"
-                />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                Women Fasion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Every wear
-              </TableCell>
-              <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
-                <img
-                  src="../../../src/assets/Sliders/Slider-5.png"
-                  alt=""
-                  className="object-contain h-[80px]"
-                />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                Women Fasion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[#ff5252] !text-[14px] !font-bold">
-                PP652357
-              </TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Every wear
-              </TableCell>
-              <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
-                <img
-                  src="../../../src/assets/Sliders/Slider-6.png"
                   alt=""
                   className="object-contain h-[80px]"
                 />

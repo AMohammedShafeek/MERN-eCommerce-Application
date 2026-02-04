@@ -54,7 +54,8 @@ const UpdatePass = () => {
       } else {
         context.openAlertBox(
           "error",
-          "If You forgot Old Password. Please Choose Forgot Password.", "checkPass-error"
+          "If You forgot Old Password. Please Choose Forgot Password.",
+          "checkPass-error",
         );
       }
     }
@@ -67,7 +68,8 @@ const UpdatePass = () => {
     if (formFeilds.newPassword !== formFeilds.confirmPassword) {
       context.openAlertBox(
         "error",
-        "Password and Confirm Password are Not Matched", "missingFeild-error"
+        "Password and Confirm Password are Not Matched",
+        "missingFeild-error",
       );
       setIsLoading(false);
     } else {
@@ -98,7 +100,11 @@ const UpdatePass = () => {
       setIsLoading(true);
       console.log(userEmail);
 
-      context.openAlertBox("success", "OTP send to Your Email", "forgotPass-success");
+      context.openAlertBox(
+        "success",
+        "OTP send to Your Email",
+        "forgotPass-success",
+      );
       localStorage.setItem("actionType", "forgot-password");
 
       postData("/api/user/forgot-password", {
@@ -124,6 +130,12 @@ const UpdatePass = () => {
 
   return (
     <section className="section min-h-screen flex justify-center items-center">
+      {context.isOpenSideBar && (
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden`}
+          onClick={() => context.setIsOpenSideBar(false)}
+        />
+      )}
       <div className="container flex justify-center">
         <div className="card shadow-md w-[400px] m-auto rounded-md bg-white p-5 px-8">
           <h3 className="text-center text-[20px] mb-5 font-[500]">

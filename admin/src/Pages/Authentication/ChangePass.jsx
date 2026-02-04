@@ -61,6 +61,12 @@ const ChangePass = () => {
 
   return (
     <section className="section min-h-screen flex justify-center items-center">
+      {context.isOpenSideBar && (
+        <div
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden`}
+          onClick={() => context.setIsOpenSideBar(false)}
+        />
+      )}
       <div className="container flex justify-center">
         <div className="card shadow-md w-[400px] m-auto rounded-md bg-white p-5 px-8">
           <h3 className="text-center text-[20px] mb-5 font-[500]">

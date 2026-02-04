@@ -31,8 +31,8 @@ const Sidebar = () => {
         unmountOnExit
         timeout={300}
       >
-        <div className="sidebar z-500 fixed left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
-          <div className="flex flex-col h-full navigations -mt-16">
+        <div className="sidebar z-1000 fixed left-0 bg-white sm:w-[70%] md:w-[40%] lg:w-[21%] h-dvh pt-6">
+          <div className="flex flex-col h-full navigations -mt-6">
             <div className="sideHeader border-b border-gray-300 py-2.5 bg-black px-5">
               <div className="flex items-center justify-between">
                 <h1 className="font-bold text-[18px] text-white">MENU BAR</h1>
@@ -74,7 +74,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaUser className="text-[20px] mr-2"></FaUser>
@@ -89,7 +93,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <BiSolidDashboard className="text-[20px] mr-2"></BiSolidDashboard>
@@ -104,7 +112,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaImages className="text-[20px] mr-2"></FaImages>
@@ -119,7 +131,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaUsers className="text-[20px] mr-2"></FaUsers>
@@ -134,7 +150,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaProductHunt className="text-[20px] mr-2"></FaProductHunt>
@@ -149,7 +169,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <TbCategoryFilled className="text-[20px] mr-2"></TbCategoryFilled>
@@ -164,7 +188,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <TbCategoryFilled className="text-[20px] mr-2"></TbCategoryFilled>
@@ -179,7 +207,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaBagShopping className="text-[20px] mr-2"></FaBagShopping>
@@ -195,7 +227,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaTicketAlt className="text-[20px] mr-2"></FaTicketAlt>
@@ -210,7 +246,11 @@ const Sidebar = () => {
                   activeclassname="isActive"
                 >
                   <Button
-                    onClick={openSideBar}
+                    onClick={() => {
+                      if (context.windowWidth < 1024) {
+                        context.setIsOpenSideBar(!context.isOpenSideBar);
+                      }
+                    }}
                     className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                   >
                     <FaTruckMoving className="text-[20px] mr-2"></FaTruckMoving>

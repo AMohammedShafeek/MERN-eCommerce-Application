@@ -31,7 +31,6 @@ const Orders = () => {
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
         >
-          <Sidebar></Sidebar>
         </div>
         <div
           className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 

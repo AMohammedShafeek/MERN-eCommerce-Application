@@ -27,6 +27,7 @@ import Swal from "sweetalert2";
 import ProductsItemsEdit from "./Pages/ProductsData/ProductsItemsEdit.jsx";
 import SubCategories from "./Pages/Category/SubCategories.jsx";
 import Footer from "./components/Footer/Footer.jsx";
+import Sidebar from "./components/Sidebar/Sidebar.jsx";
 
 export const MyContext = createContext();
 
@@ -102,6 +103,7 @@ function App() {
     categoryData();
     subCategoryData();
     productsData();
+    handleResize();
   }, []);
 
   const userDetails = () => {
@@ -113,7 +115,11 @@ function App() {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("userEmail");
 
-        openAlertBox("error", "Your session has expired. Please login again", "userDetails-error");
+        openAlertBox(
+          "error",
+          "Your session has expired. Please login again",
+          "userDetails-error",
+        );
         setIsLogin(false);
         return;
       }
@@ -249,6 +255,7 @@ function App() {
         <MyContext.Provider value={values}>
           <>
             <Header></Header>
+            <Sidebar></Sidebar>
             <Routes>
               <Route path={"/"} element={<Dashboard></Dashboard>}></Route>
               <Route path={"/login"} element={<Login></Login>}></Route>
