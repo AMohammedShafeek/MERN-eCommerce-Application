@@ -749,4 +749,3 @@ export async function getUsers(request, response) {
     });
   }
 }
-

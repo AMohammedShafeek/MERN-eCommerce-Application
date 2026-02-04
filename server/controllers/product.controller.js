@@ -93,7 +93,7 @@ export async function createProduct(request, response) {
     product = await product.save();
 
     if (!product) {
-      response.status(500).json({
+      response.status(400).json({
         error: true,
         success: false,
         message: "Product Not Created",
