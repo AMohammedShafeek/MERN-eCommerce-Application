@@ -210,12 +210,12 @@ export async function deleteSlider(request, response) {
       });
     }
 
-    const urlArr = slider.image.split("/");
-    const image = urlArr[urlArr.length - 1];
-    const imageName = image.split(".")[0];
+    if (slider.image) {
+      const urlArr = slider.image[0].split("/");
+      const image = urlArr[urlArr.length - 1];
+      const imageName = image.split(".")[0];
 
-    if (imageName) {
-      cloudinary.uploader.destroy(imageName, function (error, result) {});
+      await cloudinary.uploader.destroy(imageName);
     }
 
     const deletedSlider = await SliderModel.findByIdAndDelete(id);
@@ -287,7 +287,7 @@ export async function deleteMultipleData(request, response) {
 
   for (let i = 0; i < ids.length; i++) {
     const slider = await SliderModel.findById(ids[i]);
-    const imageUrl = slider.image;
+    const imageUrl = slider.image[0];
 
     const urlArr = imageUrl.split("/");
     const image = urlArr[urlArr.length - 1];

@@ -64,12 +64,16 @@ const ProductsList = () => {
         <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
           PRODUCTS{" "}
         </h1>
-        <h1
+        <Button
+          disabled={context.sortedIds.length === 0}
           onClick={() => deleteMultiProductConfirm()}
-          className={`"w-[20%] transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
         >
-          DELETE
-        </h1>
+          <h1
+            className={`"w-[20%] h-[35px] flex items-center transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+          >
+            DELETE
+          </h1>
+        </Button>
       </div>
       <TableContainer
         sx={{

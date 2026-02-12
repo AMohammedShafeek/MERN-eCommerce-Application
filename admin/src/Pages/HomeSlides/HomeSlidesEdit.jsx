@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -11,13 +11,14 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { IoMdClose } from "react-icons/io";
 import { MyContext } from "../../App";
-import { deleteData, postData } from "../../utils/api";
+import { deleteData, editData, getData, postData } from "../../utils/api";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const HomeSlidesNew = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
+  const { id } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isRemoveLoading, setIsRemoveLoading] = useState(false);
@@ -26,6 +27,21 @@ const HomeSlidesNew = () => {
     name: "",
     image: [],
   });
+
+  useEffect(() => {
+    getData(`/api/slider/${id}`).then((res) => {
+      if (res?.error !== true) {
+        setFormFeilds({
+          name: res?.slider?.name,
+          image: res?.slider?.image,
+        });
+        setPreviews(res?.slider?.image || []);
+      } else {
+        context.openAlertBox("error", res?.message, "getSliderByID-error");
+        navigate("/home-slides");
+      }
+    });
+  }, [id]);
 
   const valideValue = Object.values(formFeilds).every((el) => el);
 
@@ -77,12 +93,12 @@ const HomeSlidesNew = () => {
       return;
     }
 
-    postData("/api/slider/create", formFeilds, {
+    editData(`/api/slider/updateSlider/${id}`, formFeilds, {
       withCredentials: true,
     }).then((res) => {
       console.log(res);
       if (res?.error !== true) {
-        context.openAlertBox("success", res?.message, "createSlider-success");
+        context.openAlertBox("success", res?.message, "updateSlider-success");
         setFormFeilds({
           name: "",
           images: [],
@@ -90,7 +106,7 @@ const HomeSlidesNew = () => {
         setIsLoading(false);
         navigate("/home-slides");
       } else {
-        context.openAlertBox("error", res?.message, "createSlider-error");
+        context.openAlertBox("error", res?.message, "updateSlider-error");
         setIsLoading(false);
       }
     });
@@ -116,7 +132,7 @@ const HomeSlidesNew = () => {
         >
           <div className="shadow-md rounded-md p-3 bg-white mt-5">
             <div className="cartHead p-2 pb-4 mb-3 border-b border-[#ff5252]">
-              <h2 className="font-bold text-[18px]">ADD NEW SLIDER</h2>
+              <h2 className="font-bold text-[18px]">UPDATE SLIDER</h2>
             </div>
 
             <form

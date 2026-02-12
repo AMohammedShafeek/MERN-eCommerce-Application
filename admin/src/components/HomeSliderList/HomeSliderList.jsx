@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -10,16 +10,68 @@ import Button from "@mui/material/Button";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
+import { useContext } from "react";
+import { MyContext } from "../../App";
+import { deleteData } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const HomeSliderList = () => {
   const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+  const context = useContext(MyContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      context.setSortedIds([]);
+      context.homeSliderData();
+    }, []);
+
+  const editSlider = (id) => {
+    navigate(`/home-slides-edit/${id}`);
+  };
+
+  const deleteSliderConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Slider deleted successfully",
+      onConfirm: () => deleteSlid(id),
+    });
+  };
+
+  const deleteSlid = (id) => {
+    deleteData(`/api/slider/${id}`).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.homeSliderData();
+      } else {
+        context.openAlertBox("error", res?.message);
+      }
+    });
+  };
+
+  const deleteMultiSliderConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Sliders deleted successfully",
+      onConfirm: () => context.deleteMultiple("/api/slider/delete-multiple"),
+    });
+  };
 
   return (
     <div>
-      <div>
-        <h1 className="text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
-          Home Sliders{" "}
+      <div className="flex items-center">
+        <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
+          SLIDERS{" "}
         </h1>
+        <Button
+          disabled={context.sortedIds.length === 0}
+          onClick={() => deleteMultiSliderConfirm()}
+        >
+          <h1
+            className={`"w-[20%] h-[35px] flex items-center transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+          >
+            DELETE
+          </h1>
+        </Button>
       </div>
       <TableContainer
         sx={{
@@ -38,49 +90,94 @@ const HomeSliderList = () => {
           <TableHead className="bg-white">
             <TableRow>
               <TableCell>
-                <Checkbox {...label} />
+                <Checkbox
+                  checked={
+                    context.sliderData.length > 0 &&
+                    context.sortedIds.length === context.sliderData.length
+                  }
+                  indeterminate={
+                    context.sortedIds.length > 0 &&
+                    context.sortedIds.length < context.sliderData.length
+                  }
+                  onChange={(e) =>
+                    context.addAllIds(e.target.checked, context?.sliderData)
+                  }
+                  {...label}
+                />
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Image</TableCell>
-              <TableCell className=" !text-[14px] !font-bold">
+              <TableCell className=" !text-[14px] !min-w-[120px] !font-bold">
+                Name
+              </TableCell>
+              <TableCell className=" !text-[14px] !min-w-[250px] !font-bold">
+                Image
+              </TableCell>
+              <TableCell className=" !text-[14px] !min-w-[120px] !font-bold">
                 Category
               </TableCell>
-              <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
+              <TableCell className=" !text-[14px] !min-w-[120px] !font-bold">
+                Action
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow className="bg-white">
-              <TableCell>
-                <Checkbox {...label} />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">1</TableCell>
-              <TableCell className="ProdductID !text-[14px] !font-bold">
-                Every wear
-              </TableCell>
-              <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
-                <img
-                  src="../../../src/assets/Sliders/Slider-1.png"
-                  alt=""
-                  className="object-contain h-[80px]"
-                />
-              </TableCell>
-              <TableCell className="!text-[14px] !font-bold">
-                Women Fasion
-              </TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200">
-                    <MdEdit className="text-[30px]"></MdEdit>
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200">
-                    <MdDelete className="text-[30px]"></MdDelete>
-                  </Button>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
+            {context?.sliderData?.length > 0 ? (
+              context.sliderData.map((item, index) => (
+                <TableRow key={index} className="bg-white">
+                  <TableCell>
+                    <Checkbox
+                      {...label}
+                      checked={context.sortedIds.includes(item?._id)}
+                      onClick={() => context.handleSortedIds(item?._id)}
+                    />
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="ProdductID !text-[14px] !font-bold">
+                    {item?.name}
+                  </TableCell>
+                  <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
+                    <img
+                      src={item?.image}
+                      alt=""
+                      className="object-contain h-[80px]"
+                    />
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {item?.catName || "No Category"}
+                  </TableCell>
+                  <TableCell>
+                    <Tooltip title="Edit">
+                      <Button
+                        onClick={() => editSlider(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200"
+                      >
+                        <MdEdit className="text-[30px]"></MdEdit>
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <Button
+                        onClick={() => deleteSliderConfirm(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200"
+                      >
+                        <MdDelete className="text-[30px]"></MdDelete>
+                      </Button>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={12}
+                  align="center"
+                  className="!py-6 !font-semibold"
+                >
+                  No Sliders found
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

@@ -6,10 +6,12 @@ const sliderSchema = mongoose.Schema(
       type: String,
       required: [true, "Name Required"],
     },
-    image: {
-      type: String,
-      required: [true, "Image Required"],
-    },
+    image: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     catName: {
       type: String,
       default: "",

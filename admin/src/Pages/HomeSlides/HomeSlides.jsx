@@ -6,20 +6,33 @@ import Search from "../../components/Search/Search";
 import { useNavigate } from "react-router-dom";
 import HomeSliderList from "../../components/HomeSliderList/HomeSliderList";
 import { MyContext } from "../../App";
+import { useEffect } from "react";
 
 const HomeSlides = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    context.homeSliderData();
+  }, []);
+
   return (
-    <section>
-      <div className="container flex pt-10">
+    <section className="min-h-dvh">
+      {context.isOpenSideBar && (
         <div
-          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
+          className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden`}
+          onClick={() => context.setIsOpenSideBar(false)}
+        />
+      )}
+      <div className="container lg:flex pt-10">
+        <div
+          className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
         ></div>
         <div
-          className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
-                ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
+          className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
+          ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}
+        `}
         >
           <div className="flex items-center w-full gap-2">
             <div
@@ -34,7 +47,7 @@ const HomeSlides = () => {
               </h1>
             </div>
             <div className="w-[80%]">
-              <Search placeHolder="Search Slider by Slider ID, Slider Name or Category"></Search>
+              <Search placeHolder="Search Slider"></Search>
             </div>
           </div>
           <HomeSliderList></HomeSliderList>

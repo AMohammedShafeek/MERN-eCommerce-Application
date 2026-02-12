@@ -17,11 +17,11 @@ import {
 const sliderRouter = Router();
 
 sliderRouter.post("/create", createSlider);
-sliderRouter.get("/getAllSliders", getAllSliders);
+sliderRouter.get("/", getAllSliders);
 sliderRouter.get("/:id", getSlider);
 sliderRouter.post("/uploadImages", auth, upload.array("images"), uploadImage);
 sliderRouter.delete("/deleteImage", auth, removeImageFromCloudinary);
-sliderRouter.delete("delete-Multiple", deleteMultipleData);
+sliderRouter.delete("/delete-Multiple", deleteMultipleData);
 sliderRouter.delete("/:id", deleteSlider);
 sliderRouter.put("/updateSlider/:id", auth, updateSlider);
 

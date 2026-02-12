@@ -28,6 +28,7 @@ import ProductsItemsEdit from "./Pages/ProductsData/ProductsItemsEdit.jsx";
 import SubCategories from "./Pages/Category/SubCategories.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
+import HomeSlidesEdit from "./Pages/HomeSlides/HomeSlidesEdit.jsx";
 
 export const MyContext = createContext();
 
@@ -43,6 +44,7 @@ function App() {
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
   const [prodData, setProdData] = useState([]);
+  const [sliderData, setSliderData] = useState([]);
   const [sortedIds, setSortedIds] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -103,6 +105,7 @@ function App() {
     categoryData();
     subCategoryData();
     productsData();
+    homeSliderData();
     handleResize();
   }, []);
 
@@ -147,6 +150,15 @@ function App() {
     });
   };
 
+  const homeSliderData = () => {
+    getData("/api/slider").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setSliderData(res?.data);
+      }
+    });
+  };
+
   const productsData = () => {
     getData("/api/product/getAllProducts").then((res) => {
       let productArr = [];
@@ -188,11 +200,12 @@ function App() {
         ids: sortedIds,
       }).then((res) => {
         if (res?.error !== true) {
-          console.log("here", res);
+          console.log(res);
 
           productsData();
           categoryData();
           subCategoryData();
+          homeSliderData();
           setSortedIds([]);
           return;
         }
@@ -247,6 +260,9 @@ function App() {
     setRefresh,
     deleteCat,
     windowWidth,
+    sliderData,
+    setSliderData,
+    homeSliderData,
   };
 
   return (
@@ -276,6 +292,10 @@ function App() {
               <Route
                 path={"/home-slides-new"}
                 element={<HomeSlidesNew></HomeSlidesNew>}
+              ></Route>
+              <Route
+                path={"/home-slides-edit/:id"}
+                element={<HomeSlidesEdit></HomeSlidesEdit>}
               ></Route>
               <Route path={"/users"} element={<Users></Users>}></Route>
               <Route
