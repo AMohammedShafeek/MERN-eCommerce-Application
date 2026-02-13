@@ -120,11 +120,11 @@ export async function createProduct(request, response) {
 export async function getAllProducts(request, response) {
   try {
     const page = parseInt(request.query.page) || 1;
-    const perPage = parseInt(request.query.perPage);
-    const totalPosts = await ProductModel.countDocuments();
-    const totalPages = Math.ceil(totalPosts / perPage);
+    const perPage = parseInt(request.query.perPage) || 10;
+    const totalItems = await ProductModel.countDocuments();
+    const totalPages = Math.ceil(totalItems / perPage);
 
-    if (page > totalPages) {
+    if (page > totalPages && totalItems !== 0) {
       return response.status(404).json({
         error: true,
         success: false,
@@ -135,6 +135,8 @@ export async function getAllProducts(request, response) {
     const products = await ProductModel.find()
       .populate("category")
       .skip((page - 1) * perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 })
       .exec();
 
     if (!products) {
@@ -153,7 +155,7 @@ export async function getAllProducts(request, response) {
       page: page,
     });
   } catch (error) {
-    request.status(500).json({
+    response.status(500).json({
       message: error.message || error,
       error: true,
       success: false,

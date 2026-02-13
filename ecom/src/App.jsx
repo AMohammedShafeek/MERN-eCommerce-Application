@@ -37,13 +37,16 @@ function App() {
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [catData, setCatData] = useState([]);
+  const [subCatData, setSubCatData] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const openAlertBox = (status, msg) => {
+  const openAlertBox = (status, msg, id) => {
     if (status === "success") {
-      toast.success(msg);
+      toast.success(msg, { id });
     }
     if (status === "error") {
-      toast.error(msg);
+      toast.error(msg, { id });
     }
   };
 
@@ -55,6 +58,46 @@ function App() {
     setOpenCartDrawer(newOpen);
   };
 
+  const openConfirmBox = ({ type, message, onConfirm }) => {
+    if (type === "delete") {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onConfirm();
+          Swal.fire({
+            title: "Deleted!",
+            text: message,
+            icon: "success",
+          });
+        }
+      });
+    }
+  };
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 992) {
+        // setIsOpenSideBar(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
 
@@ -63,6 +106,15 @@ function App() {
       return;
     }
 
+    userDetails();
+    categoryData();
+    subCategoryData();
+    // productsData();
+    // homeSliderData();
+    handleResize();
+  }, []);
+
+  const userDetails = () => {
     getData("/api/user/user-details").then((res) => {
       console.log(res);
 
@@ -71,7 +123,11 @@ function App() {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("userEmail");
 
-        openAlertBox("error", "Your session has expired. Please login again");
+        openAlertBox(
+          "error",
+          "Your session has expired. Please login again",
+          "sessionExpire-error",
+        );
         setIsLogin(false);
         return res;
       } else {
@@ -79,7 +135,21 @@ function App() {
         setIsLogin(true);
       }
     });
-  }, []);
+  };
+
+  const categoryData = () => {
+    getData("/api/category").then((res) => {
+      // console.log("res", res?.data);
+      setCatData(res?.data || []);
+    });
+  };
+
+  const subCategoryData = () => {
+    getData("/api/category").then((res) => {
+      // console.log(res?.data);
+      setCatData(res?.data);
+    });
+  };
 
   const values = {
     setOpenProductDetailDialog,
@@ -92,6 +162,13 @@ function App() {
     userData,
     setUserData,
     role,
+    categoryData,
+    catData,
+    setCatData,
+    subCategoryData,
+    subCatData,
+    setSubCatData,
+    windowWidth,
   };
 
   return (
