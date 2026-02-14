@@ -2,12 +2,13 @@ import CategoryModel from "../models/category.model.js";
 
 export async function createCategory(request, response) {
   try {
-    const { name, parentId, parentCatName } = request.body;
+    const { name, parentId, parentCatName, thumbnail } = request.body;
 
     let category = new CategoryModel({
       name: name,
       parentCatName: parentCatName,
       parentId: parentId,
+      thumbnail: thumbnail,
     });
 
     if (!category) {
@@ -197,7 +198,7 @@ export async function deleteCategory(request, response) {
 export async function updateCategory(request, response) {
   try {
     const { id } = request.params;
-    const { name, parentId, parentCatName } = request.body;
+    const { name, parentId, parentCatName, thumbnail } = request.body;
 
     const category = await CategoryModel.findByIdAndUpdate(
       id,
@@ -205,6 +206,7 @@ export async function updateCategory(request, response) {
         name: name,
         parentId: parentId,
         parentCatName: parentCatName,
+        thumbnail: thumbnail,
       },
       { new: true },
     );

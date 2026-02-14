@@ -24,7 +24,7 @@ const CategoriesList = (props) => {
 
   const editCat = (id) => {
     navigate(`/edit-category/${id}`, {
-      state: { redirecturl: "/categories"}
+      state: { redirecturl: "/categories" },
     });
   };
 
@@ -41,7 +41,6 @@ const CategoriesList = (props) => {
       // console.log("test", res);
       if (res?.error !== true) {
         context.categoryData();
-       
       } else {
         context.openAlertBox("error", res?.message);
       }
@@ -112,6 +111,9 @@ const CategoriesList = (props) => {
               <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
               <TableCell className=" !text-[14px] !font-bold">Name</TableCell>
               <TableCell className=" !text-[14px] !font-bold">
+                thumbnail
+              </TableCell>
+              <TableCell className=" !text-[14px] !font-bold">
                 Sub-Categories
               </TableCell>
               <TableCell className=" !text-[14px] !font-bold">Action</TableCell>
@@ -134,6 +136,10 @@ const CategoriesList = (props) => {
 
                   <TableCell className="!text-[14px] !font-bold">
                     {item.name}
+                  </TableCell>
+
+                  <TableCell className="!text-[14px] !font-bold !w-[100px]">
+                    <img src={item.thumbnail} alt="" />
                   </TableCell>
 
                   <TableCell className="!text-[14px] !font-bold !min-w-[250px] md:!min-w-[410px]">

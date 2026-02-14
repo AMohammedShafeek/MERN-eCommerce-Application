@@ -145,7 +145,7 @@ function App() {
 
   const subCategoryData = () => {
     getData("/api/category").then((res) => {
-      // console.log(res?.data);
+      console.log(res?.data);
       setCatData(res?.data);
     });
   };

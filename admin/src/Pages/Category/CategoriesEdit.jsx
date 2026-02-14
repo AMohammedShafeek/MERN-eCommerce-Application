@@ -22,7 +22,7 @@ const CategoriesEdit = () => {
     parentId: null,
   });
 
-  const valideValue = formFeilds.name !== "";
+  const valideValue = formFeilds.name !== "" && formFeilds.thumbnail !== "";
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -36,6 +36,7 @@ const CategoriesEdit = () => {
     getData(`/api/category/${id}`).then((res) => {
       setFormFeilds({
         name: res?.category?.name,
+        thumbnail: res?.category?.thumbnail,
       });
     });
   }, [id]);
@@ -49,6 +50,16 @@ const CategoriesEdit = () => {
         "error",
         "Enter Category Name",
         "missingCatName-error",
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    if (formFeilds.thumbnail === "") {
+      context.openAlertBox(
+        "error",
+        "Enter Category Thumbnail Link",
+        "missingCatThumbnail-error",
       );
       setIsLoading(false);
       return;
@@ -83,8 +94,7 @@ const CategoriesEdit = () => {
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
-        >
-        </div>
+        ></div>
         <div
           className={`sidebarWrapper my-7 h-full transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[80%]" : "w-full"}`}
@@ -110,6 +120,44 @@ const CategoriesEdit = () => {
                       name="name"
                       value={formFeilds.name}
                       label="Enter Category Name"
+                      variant="outlined"
+                      size="medium"
+                      sx={{
+                        "& label.Mui-focused": {
+                          color: "#ff5252",
+                          transition: "all 0.3s",
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            borderColor: "#ccc",
+                            transition: "all 0.3s",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#ff5252",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#ff5252",
+                          },
+                        },
+                      }}
+                      className="w-full"
+                      onChange={onChangeInput}
+                    />
+                  </div>
+                </div>
+              </div>
+              <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
+                Thumbnail Link
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <div className="name w-full">
+                  <div className="name mb-2">
+                    <TextField
+                      type="text"
+                      id="thumbnail"
+                      name="thumbnail"
+                      value={formFeilds.thumbnail}
+                      label="Enter Category thumbnail Link"
                       variant="outlined"
                       size="medium"
                       sx={{

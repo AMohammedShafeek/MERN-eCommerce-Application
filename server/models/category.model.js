@@ -7,6 +7,11 @@ const categorySchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    thumbnail: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     parentCatName: {
       type: String,
       default: null,
@@ -19,7 +24,7 @@ const categorySchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const CategoryModel = mongoose.model("category", categorySchema);

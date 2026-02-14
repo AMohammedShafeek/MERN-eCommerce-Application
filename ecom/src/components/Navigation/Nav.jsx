@@ -47,19 +47,20 @@ const Nav = () => {
               <li className="list-none">
                 <Link to={"/"}>
                   <Button className="link transition-all duration-300 !font-[600]">
-                    {/* <IoMdHome className="text-[18px] mr-0.5"></IoMdHome> */}
+                    <IoMdHome className="text-[18px] mr-0.5"></IoMdHome>
                     <p className="mt-0.5">Home</p>
                   </Button>
                 </Link>
               </li>
               {context.catData.map((catItem, index) => (
-                <li
-                  key={index}
-                  className="list-none relative"
-                >
+                <li key={index} className="list-none relative">
                   <Link to={"/productList"}>
-                    <Button className="link transition-all duration-300 !font-[600] !text-center !w-full !items-center">
-                      {/* <FaShirt className="text-[16px] mr-0.5"></FaShirt> */}
+                    <Button className="link transition-all !flex !gap-2 duration-300 !font-[600] !text-center !w-full !items-center">
+                      <img
+                        src={catItem.thumbnail}
+                        alt=""
+                        className="w-[20px] object-contain"
+                      />
                       <p className="mt-0.5">{catItem.name}</p>
                     </Button>
                   </Link>
