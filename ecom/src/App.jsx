@@ -39,6 +39,7 @@ function App() {
   const [userData, setUserData] = useState(null);
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
+  const [sliderData, setSliderData] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const openAlertBox = (status, msg, id) => {
@@ -110,7 +111,7 @@ function App() {
     categoryData();
     subCategoryData();
     // productsData();
-    // homeSliderData();
+    homeSliderData();
     handleResize();
   }, []);
 
@@ -151,6 +152,15 @@ function App() {
     });
   };
 
+  const homeSliderData = () => {
+    getData("/api/slider").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setSliderData(res?.data);
+      }
+    });
+  };
+
   const values = {
     setOpenProductDetailDialog,
     setOpenCartDrawer,
@@ -169,6 +179,7 @@ function App() {
     subCatData,
     setSubCatData,
     windowWidth,
+    sliderData,
   };
 
   return (
