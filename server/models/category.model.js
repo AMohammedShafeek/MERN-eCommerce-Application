@@ -9,7 +9,7 @@ const categorySchema = mongoose.Schema(
     },
     thumbnail: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
     },
     parentCatName: {

@@ -24,7 +24,7 @@ const CategoriesList = (props) => {
 
   const editCat = (id) => {
     navigate(`/edit-category/${id}`, {
-      state: { redirecturl: "/categories" },
+      state: { redirectUrl: "/categories" },
     });
   };
 
