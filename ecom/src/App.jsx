@@ -103,10 +103,10 @@ function App() {
 
     if (!token) {
       setIsLogin(false);
-      return;
+    } else {
+      userDetails();
     }
 
-    userDetails();
     categoryData();
     subCategoryData();
     // productsData();

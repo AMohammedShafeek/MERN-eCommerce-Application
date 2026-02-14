@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { LiaAngleDownSolid } from "react-icons/lia";
@@ -16,8 +16,10 @@ import {
 } from "react-icons/gi";
 import DrawerPanel from "../Drawer/DrawerPanel";
 import "../Navigation/Nav.css";
+import { MyContext } from "../../App";
 
 const Nav = () => {
+  const context = useContext(MyContext);
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
 
   const openDrawer = () => {
@@ -40,240 +42,42 @@ const Nav = () => {
               <LiaAngleDownSolid className="text-[15px] font-bold ml-2 mr-3"></LiaAngleDownSolid>
             </Button>
           </div>
-          <div className="col_2 w-[70%] border-r-[1px] border-gray-300 ml-8">
-            <ul className="flex items-center gap-5 nav">
+          <div className="col_2 w-[70%] border-r-[1px] border-gray-300">
+            <ul className="flex items-center justify-around nav">
               <li className="list-none">
                 <Link to={"/"}>
                   <Button className="link transition-all duration-300 !font-[600]">
-                    <IoMdHome className="text-[18px] mr-0.5"></IoMdHome>
+                    {/* <IoMdHome className="text-[18px] mr-0.5"></IoMdHome> */}
                     <p className="mt-0.5">Home</p>
                   </Button>
                 </Link>
               </li>
-              <li className="list-none relative">
-                <Link to={"/productList"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <FaShirt className="text-[16px] mr-0.5"></FaShirt>
-                    <p className="mt-0.5">Fashion</p>
-                  </Button>
-                </Link>
-                <div className="submenu absolute top-[100%] left-[0%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
-                  <ul>
-                    <li className="list-none w-full">
-                      <Link to={"/"}>
-                        <Button className="!font-[600] w-full !text-left !justify-start !rounded-none">
-                          Mens
-                        </Button>
-                      </Link>
-                      <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
-                        <ul>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                Shirt
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                Pant
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Hoodie
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Jacket
-                              </Button>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="list-none w-full">
-                      <Link to={"/"}>
-                        <Button className="!font-[600] w-full !text-left !justify-start !rounded-none">
-                          Womens
-                        </Button>
-                      </Link>
-                      <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
-                        <ul>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                Saree
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                T Shirt
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Chudidar
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Denims
-                              </Button>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="list-none w-full">
-                      <Link to={"/"}>
-                        <Button className="!font-[600] w-full !text-left !justify-start !rounded-none">
-                          Kids
-                        </Button>
-                      </Link>
-                      <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
-                        <ul>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                Shorts
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                T Shirt
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Shirts
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Cap
-                              </Button>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                    <li className="list-none w-full">
-                      <Link to={"/"}>
-                        <Button className="!font-[600] w-full !text-left !justify-start !rounded-none">
-                          Babies
-                        </Button>
-                      </Link>
-                      <div className="submenu absolute top-[0%] left-[100%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-300-all">
-                        <ul>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                Towel
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className="w-full !text-left !justify-start !rounded-none">
-                                Pure Cottons
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Bedsheet
-                              </Button>
-                            </Link>
-                          </li>
-                          <li className="list-none w-full">
-                            <Link to={"/"}>
-                              <Button className=" w-full !text-left !justify-start !rounded-none">
-                                Jels
-                              </Button>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <IoHeadset className="text-[17px] mr-0.5"></IoHeadset>
-                    <p className="mt-0.5">Electronics</p>
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <MdWatch className="text-[17px] mr-0.5"></MdWatch>
-                    <p className="mt-0.5">Accessories</p>
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <GiBeachBag className="text-[17px] mr-0.5"></GiBeachBag>
-                    <p className="mt-0.5">Bags</p>
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <GiConverseShoe className="text-[21px] mr-0.5 mt-0.5"></GiConverseShoe>
-                    <p className="mt-0.5">Footwear</p>
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <RiBrushAiFill className="text-[18px] mr-0.5 mt-0.5"></RiBrushAiFill>
-                    <p className="mt-0.5">Beauty</p>
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <GiDiamondRing className="text-[17px] mr-0.5"></GiDiamondRing>
-                    <p className="mt-0.5">Jewellery</p>
-                  </Button>
-                </Link>
-              </li>
-              <li className="list-none">
-                <Link to={"/"}>
-                  <Button className="link transition-all duration-300 !font-[600]">
-                    <GiHeatHaze className="text-[18px] mr-0.5"></GiHeatHaze>
-                    <p className="mt-0.5">Wellness</p>
-                  </Button>
-                </Link>
-              </li>
+              {context.catData.map((catItem, index) => (
+                <li
+                  key={index}
+                  className="list-none relative"
+                >
+                  <Link to={"/productList"}>
+                    <Button className="link transition-all duration-300 !font-[600] !text-center !w-full !items-center">
+                      {/* <FaShirt className="text-[16px] mr-0.5"></FaShirt> */}
+                      <p className="mt-0.5">{catItem.name}</p>
+                    </Button>
+                  </Link>
+                  <div className="submenu absolute top-[100%] left-[0%] min-w-[160px] bg-white shadow-md opacity-0 transition-all duration-400">
+                    <ul>
+                      {catItem.children.map((subCatItem, index) => (
+                        <li key={index} className="list-none w-full">
+                          <Link to={"/"}>
+                            <Button className="!font-[600] w-full !text-left !justify-start !rounded-none">
+                              {subCatItem.name}
+                            </Button>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="col_3 w-[15.5%] ml-11 justify-end">

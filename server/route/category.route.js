@@ -16,7 +16,7 @@ import {
 
 const categoryRouter = Router();
 categoryRouter.post("/create", createCategory);
-categoryRouter.get("/", auth, getCategories);
+categoryRouter.get("/", getCategories);
 categoryRouter.get("/get/count", getCategoriesCount);
 categoryRouter.get("/get/count/subCat", getSubCategoriesCount);
 categoryRouter.get("/:id", getCategory);
