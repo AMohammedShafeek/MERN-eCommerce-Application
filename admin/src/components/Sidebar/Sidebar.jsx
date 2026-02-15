@@ -52,7 +52,7 @@ const Sidebar = () => {
                 <Link to={"/"}>
                   <div className="adminProfile py-7 mb-3 border-b border-gray-300 flex items-center justify-center">
                     <div className="profile pr-5 border-r border-[#ff5252]">
-                      {context?.userData?.avatar !== null ? (
+                      {context?.userData?.avatar !== "" ? (
                         <div className="w-[100px] h-[100px] overflow-hidden rounded-full border-3 border-[#ff5252] cursor-not-allowed">
                           <img
                             className="w-full h-full object-cover"
@@ -60,7 +60,7 @@ const Sidebar = () => {
                           />
                         </div>
                       ) : (
-                        <FaUserCircle className="text-[70px] text-[#ff5252]"></FaUserCircle>
+                        <FaUserCircle className="text-[70px] text-[#ff5252] cursor-not-allowed"></FaUserCircle>
                       )}
                     </div>
                     <div className="data pl-5 flex flex-col justify-start">

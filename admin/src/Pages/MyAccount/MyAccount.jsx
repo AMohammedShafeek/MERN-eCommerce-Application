@@ -196,8 +196,7 @@ const MyAccount = () => {
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
-        >
-        </div>
+        ></div>
         <div
           className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
                 ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}
@@ -228,19 +227,23 @@ const MyAccount = () => {
                     </div>
                   ) : (
                     <>
-                      {previews?.length !== 0 &&
+                      {previews?.length > 0 ? (
                         previews?.map((img, index) => {
                           return (
                             <img
-                              src={
-                                img ||
-                                "../../../src/assets/defaultAssets/userAvatar.jpg"
-                              }
+                              src={img}
                               key={index}
                               className="w-full h-full object-cover"
                             />
                           );
-                        })}
+                        })
+                      ) : (
+                        <img
+                          src="/src/assets/defaultAssets/userAvatar.jpg"
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                     </>
                   )}
                 </div>
