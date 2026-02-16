@@ -14,6 +14,9 @@ const Categories = () => {
 
   useEffect(() => {
     context.setSortedIds([]);
+    context.categoryData();
+    context.subCategoryData();
+    context.productsData();
   }, []);
 
   return (
@@ -28,8 +31,7 @@ const Categories = () => {
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out 
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
-        >
-        </div>
+        ></div>
         <div
           className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
                 ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}`}

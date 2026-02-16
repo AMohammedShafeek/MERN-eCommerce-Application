@@ -128,18 +128,14 @@ const MyAccount = () => {
   }, [context?.userData]);
 
   useEffect(() => {
-    const userAvatar = [];
     if (
       context?.userData?.avatar !== "" &&
       context?.userData?.avatar !== undefined
     ) {
-      userAvatar.push(context?.userData?.avatar);
-      setPreviews(userAvatar);
+      context.userAvatar.push(context?.userData?.avatar);
+      context.setPreviews(context.userAvatar);
     }
   }, [context?.userData]);
-
-  const [previews, setPreviews] = useState([]);
-  const [uploading, setUploading] = useState(false);
 
   let selectedImages = [];
 
@@ -147,9 +143,9 @@ const MyAccount = () => {
 
   const onChangeFile = async (e, apiEndPoint) => {
     try {
-      setPreviews([]);
+      context.setPreviews([]);
       const files = e.target.files;
-      setUploading(true);
+      context.setUploading(true);
 
       for (var i = 0; i < files.length; i++) {
         if (
@@ -163,11 +159,11 @@ const MyAccount = () => {
           formdata.append("avatar", file);
 
           uploadImage("/api/user/user-avatar", formdata).then((res) => {
-            setUploading(false);
+            context.setUploading(false);
             let avatar = [];
             avatar.push(res?.avatar);
-            setPreviews(avatar);
-            console.log(res);
+            context.setPreviews(avatar);
+            // console.log(res);
           });
         } else {
           context.openAlertBox(
@@ -175,7 +171,7 @@ const MyAccount = () => {
             "Select PNG, JPG, JPEG or WEBP Files",
             "updateProfile-error",
           );
-          setUploading(false);
+          context.setUploading(false);
           return false;
         }
       }
@@ -216,8 +212,8 @@ const MyAccount = () => {
 
             <div className="w-full p-3 flex flex-col md:flex-row gap-2 md:gap-10 items-center md:items-start justify-center border-b border-gray-300 mb-3">
               <div className="edit relative md:border-r-1 px-2 md:px-10 border-[#ff5252]">
-                <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-[#ff5252] bg-gray-200">
-                  {uploading === true ? (
+                <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-[#ff5252]">
+                  {context.uploading === true ? (
                     <div className="flex items-center mt-7 justify-center">
                       <CircularProgress
                         color="inherit"
@@ -227,8 +223,8 @@ const MyAccount = () => {
                     </div>
                   ) : (
                     <>
-                      {previews?.length > 0 ? (
-                        previews?.map((img, index) => {
+                      {context.previews?.length > 0 ? (
+                        context.previews?.map((img, index) => {
                           return (
                             <img
                               src={img}

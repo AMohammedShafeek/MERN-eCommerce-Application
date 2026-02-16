@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { Link, NavLink, useNavigate } from "react-router";
 import { IoIosLogOut } from "react-icons/io";
@@ -13,6 +13,7 @@ import "./Sidebar.css";
 import { MyContext } from "../../App";
 import { TiThMenu } from "react-icons/ti";
 import Slide from "@mui/material/Slide";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -51,18 +52,28 @@ const Sidebar = () => {
                 </div>
                 <Link to={"/"}>
                   <div className="adminProfile py-7 mb-3 border-b border-gray-300 flex items-center justify-center">
-                    <div className="profile pr-5 border-r border-[#ff5252]">
-                      {context?.userData?.avatar !== "" ? (
-                        <div className="w-[100px] h-[100px] overflow-hidden rounded-full border-3 border-[#ff5252] cursor-not-allowed">
-                          <img
-                            className="w-full h-full object-cover"
-                            src={context?.userData?.avatar}
-                          />
-                        </div>
-                      ) : (
-                        <FaUserCircle className="text-[70px] text-[#ff5252] cursor-not-allowed"></FaUserCircle>
-                      )}
-                    </div>
+                    {context.uploading === true ? (
+                      <div className="flex items-center mr-2 justify-center">
+                        <CircularProgress
+                          color="inherit"
+                          size={35}
+                          sx={{ color: "#ff5252" }}
+                        ></CircularProgress>
+                      </div>
+                    ) : (
+                      <div className="profile pr-5 border-r border-[#ff5252]">
+                        {context.previews?.length > 0 ? (
+                          <div className="w-[100px] h-[100px] overflow-hidden rounded-full border-3 border-[#ff5252] cursor-not-allowed">
+                            <img
+                              className="w-full h-full object-cover"
+                              src={context?.previews[0]}
+                            />
+                          </div>
+                        ) : (
+                          <FaUserCircle className="text-[70px] text-[#ff5252] cursor-not-allowed"></FaUserCircle>
+                        )}
+                      </div>
+                    )}
                     <div className="data pl-5 flex flex-col justify-start">
                       <span className="font-bold text-[16px] mb-2">
                         {context?.userData?.name}

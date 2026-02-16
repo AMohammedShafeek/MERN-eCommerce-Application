@@ -29,6 +29,7 @@ import SubCategories from "./Pages/Category/SubCategories.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
 import HomeSlidesEdit from "./Pages/HomeSlides/HomeSlidesEdit.jsx";
+import LoginExpire from "./Pages/Authentication/loginExpire.jsx";
 
 export const MyContext = createContext();
 
@@ -47,6 +48,8 @@ function App() {
   const [sliderData, setSliderData] = useState([]);
   const [sortedIds, setSortedIds] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [previews, setPreviews] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const openAlertBox = (status, msg, id) => {
     if (status === "success") {
@@ -79,6 +82,8 @@ function App() {
       });
     }
   };
+
+  const userAvatar = [];
 
   useEffect(() => {
     const handleResize = () => {
@@ -263,6 +268,11 @@ function App() {
     sliderData,
     setSliderData,
     homeSliderData,
+    userAvatar,
+    previews,
+    setPreviews,
+    uploading,
+    setUploading,
   };
 
   return (
@@ -270,10 +280,7 @@ function App() {
       <BrowserRouter>
         <MyContext.Provider value={values}>
           <>
-            <Header></Header>
-            <Sidebar></Sidebar>
             <Routes>
-              <Route path={"/"} element={<Dashboard></Dashboard>}></Route>
               <Route path={"/login"} element={<Login></Login>}></Route>
               <Route path={"/register"} element={<Register></Register>}></Route>
               <Route path={"/verify"} element={<Verify></Verify>}></Route>
@@ -281,74 +288,94 @@ function App() {
                 path={"/changePassword"}
                 element={<ChangePass></ChangePass>}
               ></Route>
-              <Route
-                path={"/dashboard"}
-                element={<Dashboard></Dashboard>}
-              ></Route>
-              <Route
-                path={"/home-slides"}
-                element={<HomeSlides></HomeSlides>}
-              ></Route>
-              <Route
-                path={"/home-slides-new"}
-                element={<HomeSlidesNew></HomeSlidesNew>}
-              ></Route>
-              <Route
-                path={"/home-slides-edit/:id"}
-                element={<HomeSlidesEdit></HomeSlidesEdit>}
-              ></Route>
-              <Route path={"/users"} element={<Users></Users>}></Route>
-              <Route
-                path={"/products-data"}
-                element={<ProductsData></ProductsData>}
-              ></Route>
-              <Route
-                path={"/products-new"}
-                element={<ProductsItemsNew></ProductsItemsNew>}
-              ></Route>
-              <Route
-                path={"/categories"}
-                element={<Categories></Categories>}
-              ></Route>
-              <Route
-                path={"/sub-categories"}
-                element={<SubCategories></SubCategories>}
-              ></Route>
-              <Route
-                path={"/categories-new"}
-                element={<CategoriesNew></CategoriesNew>}
-              ></Route>
-              <Route
-                path={"/sub-categories-new"}
-                element={<SubCategoriesNew></SubCategoriesNew>}
-              ></Route>
-              <Route
-                path={"/categories-list"}
-                element={<CategoriesList></CategoriesList>}
-              ></Route>
-              <Route
-                path={"/sub-categories-list"}
-                element={<SubCategoriesList></SubCategoriesList>}
-              ></Route>
-              <Route path={"/orders"} element={<Orders></Orders>}></Route>
-              <Route
-                path={"/my-account"}
-                element={<MyAccount></MyAccount>}
-              ></Route>
-              <Route
-                path={"/updatePassword"}
-                element={<UpdatePass></UpdatePass>}
-              ></Route>
-              <Route
-                path={"/edit-category/:id"}
-                element={<CategoriesEdit></CategoriesEdit>}
-              ></Route>
-              <Route
-                path={"/edit-product/:id"}
-                element={<ProductsItemsEdit></ProductsItemsEdit>}
-              ></Route>
             </Routes>
-            {/* <Footer></Footer> */}
+            {isLogin === true ? (
+              <>
+                <Header></Header>
+                <Sidebar></Sidebar>
+                <Routes>
+                  <Route path={"/"} element={<Dashboard></Dashboard>}></Route>
+                  <Route path={"/login"} element={<Login></Login>}></Route>
+                  <Route
+                    path={"/register"}
+                    element={<Register></Register>}
+                  ></Route>
+                  <Route path={"/verify"} element={<Verify></Verify>}></Route>
+                  <Route
+                    path={"/changePassword"}
+                    element={<ChangePass></ChangePass>}
+                  ></Route>
+                  <Route
+                    path={"/dashboard"}
+                    element={<Dashboard></Dashboard>}
+                  ></Route>
+                  <Route
+                    path={"/home-slides"}
+                    element={<HomeSlides></HomeSlides>}
+                  ></Route>
+                  <Route
+                    path={"/home-slides-new"}
+                    element={<HomeSlidesNew></HomeSlidesNew>}
+                  ></Route>
+                  <Route
+                    path={"/home-slides-edit/:id"}
+                    element={<HomeSlidesEdit></HomeSlidesEdit>}
+                  ></Route>
+                  <Route path={"/users"} element={<Users></Users>}></Route>
+                  <Route
+                    path={"/products-data"}
+                    element={<ProductsData></ProductsData>}
+                  ></Route>
+                  <Route
+                    path={"/products-new"}
+                    element={<ProductsItemsNew></ProductsItemsNew>}
+                  ></Route>
+                  <Route
+                    path={"/categories"}
+                    element={<Categories></Categories>}
+                  ></Route>
+                  <Route
+                    path={"/sub-categories"}
+                    element={<SubCategories></SubCategories>}
+                  ></Route>
+                  <Route
+                    path={"/categories-new"}
+                    element={<CategoriesNew></CategoriesNew>}
+                  ></Route>
+                  <Route
+                    path={"/sub-categories-new"}
+                    element={<SubCategoriesNew></SubCategoriesNew>}
+                  ></Route>
+                  <Route
+                    path={"/categories-list"}
+                    element={<CategoriesList></CategoriesList>}
+                  ></Route>
+                  <Route
+                    path={"/sub-categories-list"}
+                    element={<SubCategoriesList></SubCategoriesList>}
+                  ></Route>
+                  <Route path={"/orders"} element={<Orders></Orders>}></Route>
+                  <Route
+                    path={"/my-account"}
+                    element={<MyAccount></MyAccount>}
+                  ></Route>
+                  <Route
+                    path={"/updatePassword"}
+                    element={<UpdatePass></UpdatePass>}
+                  ></Route>
+                  <Route
+                    path={"/edit-category/:id"}
+                    element={<CategoriesEdit></CategoriesEdit>}
+                  ></Route>
+                  <Route
+                    path={"/edit-product/:id"}
+                    element={<ProductsItemsEdit></ProductsItemsEdit>}
+                  ></Route>
+                </Routes>
+              </>
+            ) : (
+              <LoginExpire></LoginExpire>
+            )}
           </>
         </MyContext.Provider>
       </BrowserRouter>
