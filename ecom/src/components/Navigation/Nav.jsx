@@ -28,7 +28,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="py-2">
+      <nav className="py-2 shadow-md">
         <div className="container flex items-center">
           <div className="col_1 w-[14.5%] border-r-[1px] border-gray-300">
             <Button

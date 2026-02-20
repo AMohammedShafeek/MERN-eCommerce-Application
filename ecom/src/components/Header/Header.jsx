@@ -62,7 +62,7 @@ const Header = () => {
       location.pathname === "/register" ||
       location.pathname === "/verify" ||
       location.pathname === "/changePassword" ? null : (
-        <header className="bg-white">
+        <header className="bg-white sticky -top-[115px] z-50">
           {/* NOTIFICATION BAR */}
 
           <div className="top-stripe py-2 border-t-[1px] border-b-[1px] border-gray-300">
