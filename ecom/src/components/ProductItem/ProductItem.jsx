@@ -9,30 +9,33 @@ import { MdZoomOutMap } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { MyContext } from "../../App";
 
-const ProductItem = () => {
+const ProductItem = ({ product }) => {
   const context = useContext(MyContext);
+
+  const openDialog = () => {
+    context.setOpenProductDetailDialog(true);
+    context.setDialogProduct(product);
+  };
 
   return (
     <div className="productItem bg-white pt-3 group overflow-hidden rounded-lg transition-all duration-300">
-      <div className="group/img imgWraapper w-[100%] relative">
-        <Link to={"/productDetail/1"}>
+      <div className="group/img bg-gray-100 imgWraapper w-[100%] relative">
+        <Link to={`/productDetail/${product._id}`}>
           <div className="img h-[200px] overflow-hidden">
             <img
-              src="../src/assets/Products/p1.jpg"
-              alt=""
-              className="w-full h-full object-contain group-hover:scale-110 transition-all duration-300"
+              src={product.images[0]}
+              className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300"
             />
             <img
-              src="../src/assets/Products/p1-2.jpg"
-              alt=""
+              src={product.images[1]}
               className="w-full h-full absolute top-0 left-0 object-contain opacity-0 group-hover/img:opacity-100 transition-all duration-300"
             />
           </div>
         </Link>
         <span className="discount flex items-center absolute top-[0px] left-[10px] z-50 bg-primary text-white rounded-md p-2 text-[12px] font-[500]">
-          10%
+          {product.discount + "%" || 0 + "%"}
         </span>
-        <div className="actions absolute top-[0px] right-[-50px] z-50 flex items-center gap-3 flex-col w-[80px] group-hover:right-[-12px] transition-all duration-300">
+        <div className="actions absolute top-0 right-[-12px] z-50 flex items-center gap-3 flex-col w-[80px] opacity-0 translate-x-5 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto transition-all duration-300">
           <Tooltip title="Like" placement="left">
             <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !bg-white !text-[#7b7b7b] hover:!bg-[#ff5252] hover:!text-white">
               <FaRegHeart className="text-[18px] pt-[0.3px] transition-all duration-300"></FaRegHeart>
@@ -47,7 +50,7 @@ const ProductItem = () => {
             <Button className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !bg-white !text-[#7b7b7b] hover:!bg-[#ff5252] hover:!text-white">
               <MdZoomOutMap
                 className="text-[18px] pt-[0.3px] transition-all duration-300"
-                onClick={() => context.setOpenProductDetailDialog(true)}
+                onClick={() => openDialog(product)}
               ></MdZoomOutMap>
             </Button>
           </Tooltip>
@@ -55,20 +58,29 @@ const ProductItem = () => {
       </div>
       <div className="info p-3">
         <h6 className="transition-all duration-300 text-[14px] text-[#5e5e5e] pl-1.5">
-          Men's Regular Fit Casual
+          {product.brand}
         </h6>
         <h3 className="transition-all duration-300 text-[16px] mt-2 my-1 pl-1.5 font-medium group-hover:text-[#ff5252]">
-          TAGDO Gray Shirt | Casual Shirt
+          {product.name}
         </h3>
         <div className="flex items-center gap-3 pl-1.5 mb-1">
-          <span className="oldPrice font-[500] line-through pt-1">$899</span>
+          <span className="oldPrice font-[500] line-through pt-1">
+            ₹{product.oldPrice}
+          </span>
           <span className="oldPrice text-[21px] font-medium text-[#ff5252]">
-            $399
+            ₹{product.price}
           </span>
         </div>
         <div className="rating flex pb-3 justify-between">
-          <Rating name="size-small" defaultValue={2} size="medium" readOnly />
-          <h6 className="text-[14px] primary pr-1.5">(3+rating)</h6>
+          <Rating
+            name="size-small"
+            defaultValue={product.rating}
+            size="medium"
+            readOnly
+          />
+          <h6 className="text-[14px] primary pr-1.5">
+            ({product.ratingCount || 0}+rating)
+          </h6>
         </div>
         <Link>
           <div className="group/price flex items-center gap-3 pl-1.5 p-1 bg-[#ff5252] hover:bg-black rounded-md justify-center transition-all duration-300">

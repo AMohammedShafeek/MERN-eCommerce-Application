@@ -21,11 +21,23 @@ const QtyBox = () => {
     }
   };
 
+  const handleChange = (e) => {
+    let value = Number(e.target.value);
+
+    if (value < 1) value = 1;
+    if (value > 99) value = 99;
+
+    setQtyValue(value);
+  };
+
   return (
     <div className="QtyBox flex items-center relative">
       <input
         type="number"
+        min={1}
+        max={99}
         value={qtyValume}
+        onChange={handleChange}
         className="productCount w-[70px] h-[40px] text-[18px] text-[#ff5252] pl-2 font-bold focus:outline-none border-1 border-[#ff5252] rounded-md "
       />
       <div className="buttonWrapper flex items-center flex-col justify-between h-[40px] absolute top-0 right-0 z-50 border-l-1 border-[#ff5252]">

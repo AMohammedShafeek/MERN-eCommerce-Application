@@ -5,16 +5,19 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { getData } from "../../utils/api";
 
-const MainImage = () => {
+const MainImage = ({ product }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const parentImg = useRef();
   const childImg = useRef();
 
   const goto = (index) => {
     setSlideIndex(index);
-    childImg.current.swiper.slideTo(index);
-    parentImg.current.swiper.slideTo(index);
+    childImg.current?.swiper.slideTo(index);
+    parentImg.current?.swiper.slideTo(index);
   };
 
   return (
@@ -24,129 +27,52 @@ const MainImage = () => {
           ref={childImg}
           direction="vertical"
           slidesPerView={4}
-          spaceBetween={10}
+          spaceBetween={0}
           navigation={true}
           modules={[Navigation]}
-          className="zoomProductSliderThumbs h-[54.5vh] overflow-hidden"
+          className="zoomProductSliderThumbs h-[60vh] !pt-5"
         >
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 mt-13 ${
-                slideIndex === 0 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(0)}
-            >
-              <img src="../src/assets/Products/p1-2.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 1 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(1)}
-            >
-              <img src="../src/assets/Products/p1.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 2 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(2)}
-            >
-              <img src="../src/assets/Products/p2.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 3 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(3)}
-            >
-              <img src="../src/assets/Products/p2-2.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 4 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(4)}
-            >
-              <img src="../src/assets/Products/p1.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 5 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(5)}
-            >
-              <img src="../src/assets/Products/p1-2.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 6 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(6)}
-            >
-              <img src="../src/assets/Products/p2.jpg" alt="" />
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div
-              className={`item w-[70px] transition-all duration-300 ${
-                slideIndex === 7 ? "opacity-30" : "opacity-100"
-              }`}
-              onClick={() => goto(7)}
-            >
-              <img src="../src/assets/Products/p2-2.jpg" alt="" />
-            </div>
-          </SwiperSlide>
+          {product?.images?.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div
+                className={`item w-[70px] transition-all duration-300 rounded-none border-b-1 border-[#ff5252] ${
+                  slideIndex === index ? "opacity-30" : "opacity-100"
+                }`}
+                onClick={() => goto(index)}
+              >
+                <img
+                  src={item}
+                  alt=""
+                  className="w-full h-full object-contain my-5"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
-      <div className="parentImage w-[85%] overflow-hidden h-[455px] border-2 border-[#ff5252] rounded-[15px]">
+      <div className="parentImage w-[85%] bg-gray-100 overflow-hidden border-2 border-[#ff5252] rounded-[15px]">
         <Swiper
           ref={parentImg}
           slidesPerView={1}
           spaceBetween={0}
           effect={"fade"}
-          pagination={{
-            dynamicBullets: true,
-          }}
+          // pagination={{
+          //   dynamicBullets: true,
+          // }}
           navigation={false}
-          modules={[EffectFade, Pagination]}
+          modules={[EffectFade]}
         >
-          <SwiperSlide>
-            <img src="../src/assets/Products/p1-2.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p1.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p2.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p2-2.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p1.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p1-2.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p2.jpg" alt="" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="../src/assets/Products/p2-2.jpg" alt="" />
-          </SwiperSlide>
+          {product?.images?.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="w-full flex items-center justify-center">
+                <img
+                  src={item}
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>

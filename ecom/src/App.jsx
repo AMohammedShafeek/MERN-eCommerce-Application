@@ -34,6 +34,7 @@ function App() {
   const role = "USER";
 
   const [openProductDetailDialog, setOpenProductDetailDialog] = useState(false);
+  const [dialogProduct, setDialogProduct] = useState("");
   const [openCartDrawer, setOpenCartDrawer] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -173,9 +174,6 @@ function App() {
     });
   };
 
-  console.log(prodData);
-  
-
   const values = {
     setOpenProductDetailDialog,
     setOpenCartDrawer,
@@ -194,6 +192,8 @@ function App() {
     windowWidth,
     sliderData,
     prodData,
+    dialogProduct,
+    setDialogProduct,
   };
 
   return (
@@ -251,7 +251,15 @@ function App() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         className="productDetailDialog"
-        maxWidth="lg"
+        maxWidth="false"
+        PaperProps={{
+          sx: {
+            width: "70vw",
+            height: "65vh",
+            borderRadius: "12px",
+            margin: "auto",
+          },
+        }}
       >
         <DialogContent>
           <div className="flex items-center w-full productDetailDialogContainer relative">
@@ -261,11 +269,11 @@ function App() {
             >
               <IoCloseSharp></IoCloseSharp>
             </Button>
-            <div className="col1 w-[38.5%]">
-              <MainImage></MainImage>
+            <div className="col1 w-[50%]">
+              <MainImage product={dialogProduct}></MainImage>
             </div>
-            <div className="col2 w-[61.5%] px-2">
-              <ProductContent></ProductContent>
+            <div className="col2 w-[50%] px-2">
+              <ProductContent product={dialogProduct}></ProductContent>
             </div>
           </div>
         </DialogContent>

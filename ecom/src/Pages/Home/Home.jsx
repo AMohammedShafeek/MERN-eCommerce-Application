@@ -12,14 +12,34 @@ import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import BlogItem from "../../components/BlogItem/BlogItem";
 import "../Home/Home.css";
+import { useContext } from "react";
+import { MyContext } from "../../App";
+import { getData } from "../../utils/api";
+import { useEffect } from "react";
 
 const Home = () => {
-
   const [value, setValue] = useState(0);
+
+  const context = useContext(MyContext);
+
+  const [popularProdData, setPopularProdData] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const filterByCatId = (id) => {
+    getData(`/api/product/getByCategoryId/${id}`).then((res) => {
+      // console.log("res", res?.data);
+      setPopularProdData(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    if (context?.catData?.length > 0) {
+      filterByCatId(context.catData[0]._id);
+    }
+  }, [context.catData]);
 
   return (
     <>
@@ -43,23 +63,22 @@ const Home = () => {
                 scrollButtons="auto"
                 aria-label="scrollable auto tabs example"
               >
-                <Tab className="!text-[16px] !font-bold" label="Casuals" />
-                <Tab className="!text-[16px] !font-bold" label="Denims" />
-                <Tab className="!text-[16px] !font-bold" label="Cargos" />
-                <Tab className="!text-[16px] !font-bold" label="Floral" />
-                <Tab className="!text-[16px] !font-bold" label="Jacfort" />
-                <Tab className="!text-[16px] !font-bold" label="Falls" />
-                <Tab className="!text-[16px] !font-bold" label="Crop Tops" />
-                <Tab className="!text-[16px] !font-bold" label="Crop" />
-                <Tab className="!text-[16px] !font-bold" label="Bells" />
-                <Tab className="!text-[16px] !font-bold" label="Shorts" />
-                <Tab className="!text-[16px] !font-bold" label="Tracks" />
-                <Tab className="!text-[16px] !font-bold" label="Jaquers" />
-                <Tab className="!text-[16px] !font-bold" label="Formals" />
+                {context?.catData?.length > 0 &&
+                  context.catData.map((item, index) => (
+                    <Tab
+                      key={index}
+                      className="!text-[16px] !font-bold"
+                      label={`${item.name}`}
+                      onClick={() => filterByCatId(item?._id)}
+                    />
+                  ))}
               </Tabs>
             </div>
           </div>
-          <ProductSlider items={6}></ProductSlider>
+          <ProductSlider
+            items={6}
+            productData={popularProdData}
+          ></ProductSlider>
         </div>
       </section>
 
@@ -94,7 +113,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <ProductSlider items={6}></ProductSlider>
+          {/* <ProductSlider items={6}></ProductSlider> */}
           <AdsSlider items={4}></AdsSlider>
         </div>
       </section>
@@ -109,7 +128,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <ProductSlider items={6}></ProductSlider>
+          {/* <ProductSlider items={6}></ProductSlider> */}
           <AdsSlider items={4}></AdsSlider>
         </div>
       </section>
@@ -144,7 +163,6 @@ const Home = () => {
           </Swiper>
         </div>
       </section>
-
     </>
   );
 };

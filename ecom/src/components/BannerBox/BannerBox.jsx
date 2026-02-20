@@ -24,5 +24,3 @@ const BannerBox = (props) => {
 };
 
 export default BannerBox;
-
-19.4;
