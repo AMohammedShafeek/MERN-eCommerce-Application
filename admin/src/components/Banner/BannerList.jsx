@@ -1,0 +1,188 @@
+import React, { useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableContainer from "@mui/material/TableContainer";
+import TableBody from "@mui/material/TableBody";
+import Checkbox from "@mui/material/Checkbox";
+import Button from "@mui/material/Button";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import Tooltip from "@mui/material/Tooltip";
+import { useContext } from "react";
+import { MyContext } from "../../App";
+import { deleteData } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
+
+const BannerList = () => {
+  const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
+  const context = useContext(MyContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    context.setSortedIds([]);
+    context.homeBannerData();
+  }, []);
+
+  const editBanner = (id) => {
+    navigate(`/home-banner-edit/${id}`);
+  };
+
+  const deleteBannerConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Banner deleted successfully",
+      onConfirm: () => deleteSlid(id),
+    });
+  };
+
+  const deleteSlid = (id) => {
+    deleteData(`/api/banner/${id}`).then((res) => {
+      console.log(res);
+      if (res?.error !== true) {
+        context.homeBannerData();
+      } else {
+        context.openAlertBox("error", res?.message);
+      }
+    });
+  };
+
+  const deleteMultiBannerConfirm = (id) => {
+    context.openConfirmBox({
+      type: "delete",
+      message: "Banners deleted successfully",
+      onConfirm: () => context.deleteMultiple("/api/banner/delete-multiple"),
+    });
+  };
+
+  return (
+    <div>
+      <div className="flex items-center">
+        <h1 className="w-full text-[18px] font-black text-white bg-black p-1 pl-4 rounded-md my-3">
+          BANNERS{" "}
+        </h1>
+        <Button
+          disabled={context.sortedIds.length === 0}
+          onClick={() => deleteMultiBannerConfirm()}
+        >
+          <h1
+            className={`"w-[20%] h-[35px] flex items-center transition-all duration-200 ml-2 px-3 cursor-pointer text-center text-[18px] font-bold ${context?.sortedIds?.length > 0 ? "bg-[#ff5252] text-white" : "bg-gray-400 text-white"}  p-1 rounded-md my-3"`}
+          >
+            DELETE
+          </h1>
+        </Button>
+      </div>
+      <TableContainer
+        sx={{
+          width: "100%",
+          borderRadius: "5px",
+          overflowX: "auto",
+        }}
+      >
+        <Table
+          sx={{
+            width: "full",
+            backgroundColor: "white",
+          }}
+          aria-label="simple table"
+        >
+          <TableHead className="bg-white">
+            <TableRow>
+              <TableCell>
+                <Checkbox
+                  checked={
+                    context.bannerData.length > 0 &&
+                    context.sortedIds.length === context.bannerData.length
+                  }
+                  indeterminate={
+                    context.sortedIds.length > 0 &&
+                    context.sortedIds.length < context.bannerData.length
+                  }
+                  onChange={(e) =>
+                    context.addAllIds(e.target.checked, context?.bannerData)
+                  }
+                  {...label}
+                />
+              </TableCell>
+              <TableCell className=" !text-[14px] !font-bold">S.I</TableCell>
+              <TableCell className=" !text-[14px] !min-w-[120px] !font-bold">
+                Name
+              </TableCell>
+              <TableCell className=" !text-[14px] !min-w-[250px] !font-bold">
+                Image
+              </TableCell>
+              <TableCell className=" !text-[14px] !min-w-[120px] !font-bold">
+                Category
+              </TableCell>
+              <TableCell className=" !text-[14px] !min-w-[120px] !font-bold">
+                Action
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {context?.bannerData?.length > 0 ? (
+              context.bannerData.map((item, index) => (
+                <TableRow key={index} className="bg-white">
+                  <TableCell>
+                    <Checkbox
+                      {...label}
+                      checked={context.sortedIds.includes(item?._id)}
+                      onClick={() => context.handleSortedIds(item?._id)}
+                    />
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell className="ProdductID !text-[14px] !font-bold">
+                    {item?.name}
+                  </TableCell>
+                  <TableCell className="!text-left !font-bold !text-[14px] flex items-center justify-start">
+                    <img
+                      src={item?.image}
+                      alt=""
+                      className="object-contain h-[80px]"
+                    />
+                  </TableCell>
+                  <TableCell className="!text-[14px] !font-bold">
+                    {item?.catName || "No Category"}
+                  </TableCell>
+                  <TableCell>
+                    <Tooltip title="Edit">
+                      <Button
+                        onClick={() => editBanner(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !mr-3 !rounded-full !text-blue-700 !bg-blue-200"
+                      >
+                        <MdEdit className="text-[30px]"></MdEdit>
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Delete">
+                      <Button
+                        onClick={() => deleteBannerConfirm(item._id)}
+                        className="!w-[35px] !h-[35px] !min-w-[35px] !rounded-full !text-red-700 !bg-red-200"
+                      >
+                        <MdDelete className="text-[30px]"></MdDelete>
+                      </Button>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={12}
+                  align="center"
+                  className="!py-6 !font-semibold"
+                >
+                  No Banners found
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
+};
+
+export default BannerList;

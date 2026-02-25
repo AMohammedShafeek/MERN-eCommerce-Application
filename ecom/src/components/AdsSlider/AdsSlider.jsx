@@ -5,8 +5,12 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 import BannerBox from "../BannerBox/BannerBox";
+import { useContext } from "react";
+import { MyContext } from "../../App";
 
 const AdsSlider = (probs) => {
+  const context = useContext(MyContext);
+  
   return (
     <div className="py-8 w-full">
       <Swiper
@@ -22,38 +26,12 @@ const AdsSlider = (probs) => {
         }}
         className="CatSlider"
       >
-        <SwiperSlide>
-          <BannerBox
-            img={"../src/assets/Banners/Ad1.jpg"}
-            title={"MOBILES"}
-            offer={"27%"}
-            link={"/"}
-          ></BannerBox>
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBox
-            img={"../src/assets/Banners/Ad2.jpg"}
-            title={"FURNITURES"}
-            offer={"15%"}
-            link={"/"}
-          ></BannerBox>
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBox
-            img={"../src/assets/Banners/Ad3.jpg"}
-            title={"ELECTRONICS"}
-            offer={"45%"}
-            link={"/"}
-          ></BannerBox>
-        </SwiperSlide>
-        <SwiperSlide>
-          <BannerBox
-            img={"../src/assets/Banners/Ad1.jpg"}
-            title={"MOBILES"}
-            offer={"27%"}
-            link={"/"}
-          ></BannerBox>
-        </SwiperSlide>
+        {context?.bannerData?.length > 0 &&
+          context.bannerData.map((item, index) => (
+            <SwiperSlide key={index}>
+              <BannerBox banner={item}></BannerBox>
+            </SwiperSlide>
+          ))}
       </Swiper>
     </div>
   );

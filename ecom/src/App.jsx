@@ -41,6 +41,7 @@ function App() {
   const [catData, setCatData] = useState([]);
   const [subCatData, setSubCatData] = useState([]);
   const [sliderData, setSliderData] = useState([]);
+  const [bannerData, setBannerData] = useState([]);
   const [prodData, setProdData] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -114,6 +115,7 @@ function App() {
     subCategoryData();
     productsData();
     homeSliderData();
+    homeBannerData();
     handleResize();
   }, []);
 
@@ -163,6 +165,15 @@ function App() {
     });
   };
 
+  const homeBannerData = () => {
+    getData("/api/banner").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setBannerData(res?.data);
+      }
+    });
+  };
+
   const productsData = () => {
     getData("/api/product/getAllProducts").then((res) => {
       let productArr = [];
@@ -194,6 +205,9 @@ function App() {
     prodData,
     dialogProduct,
     setDialogProduct,
+    homeBannerData,
+    bannerData,
+    setBannerData,
   };
 
   return (

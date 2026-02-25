@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -15,7 +14,7 @@ import { deleteData, editData, getData, postData } from "../../utils/api";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate, useParams } from "react-router-dom";
 
-const HomeSlidesEdit = () => {
+const HomeBannersEdit = () => {
   const context = useContext(MyContext);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -29,16 +28,16 @@ const HomeSlidesEdit = () => {
   });
 
   useEffect(() => {
-    getData(`/api/slider/${id}`).then((res) => {
+    getData(`/api/banner/${id}`).then((res) => {
       if (res?.error !== true) {
         setFormFeilds({
-          name: res?.slider?.name,
-          image: res?.slider?.image,
+          name: res?.banner?.name,
+          image: res?.banner?.image,
         });
-        setPreviews(res?.slider?.image || []);
+        setPreviews(res?.banner?.image || []);
       } else {
-        context.openAlertBox("error", res?.message, "getSliderByID-error");
-        navigate("/home-slides");
+        context.openAlertBox("error", res?.message, "getBannerByID-error");
+        navigate("/home-banner");
       }
     });
   }, [id]);
@@ -63,7 +62,7 @@ const HomeSlidesEdit = () => {
     setIsRemoveLoading(true);
     var imageArr = [];
     imageArr = previews;
-    deleteData(`/api/slider/deleteImage?imageUrl=${image}`).then((res) => {
+    deleteData(`/api/banner/deleteImage?imageUrl=${image}`).then((res) => {
       if (res?.error !== true) {
         imageArr.splice(index, 1);
         setPreviews([]);
@@ -74,7 +73,7 @@ const HomeSlidesEdit = () => {
         }, 100);
       } else {
         setIsRemoveLoading(false);
-        context.openAlertBox("error", res?.message, "deleteSliderImage-error");
+        context.openAlertBox("error", res?.message, "deleteBannerImage-error");
       }
     });
   };
@@ -86,27 +85,27 @@ const HomeSlidesEdit = () => {
     if (formFeilds.name === "") {
       context.openAlertBox(
         "error",
-        "Enter Slider Name",
-        "MissingSliderName-error",
+        "Enter Banner Name",
+        "MissingBannerName-error",
       );
       setIsLoading(false);
       return;
     }
 
-    editData(`/api/slider/updateSlider/${id}`, formFeilds, {
+    editData(`/api/banner/updateBanner/${id}`, formFeilds, {
       withCredentials: true,
     }).then((res) => {
       console.log(res);
       if (res?.error !== true) {
-        context.openAlertBox("success", res?.message, "updateSlider-success");
+        context.openAlertBox("success", res?.message, "updateBanner-success");
         setFormFeilds({
           name: "",
           images: [],
         });
         setIsLoading(false);
-        navigate("/home-slides");
+        navigate("/home-banner");
       } else {
-        context.openAlertBox("error", res?.message, "updateSlider-error");
+        context.openAlertBox("error", res?.message, "updateBanner-error");
         setIsLoading(false);
       }
     });
@@ -142,7 +141,7 @@ const HomeSlidesEdit = () => {
               <div className="flex items-center">
                 <div className="upload">
                   <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
-                    Upload Slider
+                    Upload Banner
                   </p>
                   <div className="flex w-full items-center gap-4">
                     {previews?.length !== 0 &&
@@ -173,7 +172,7 @@ const HomeSlidesEdit = () => {
                       className={`block ${previews.length >= 1 && "hidden"}`}
                     >
                       <UploadBox
-                        image="Add Slider"
+                        image="Add Banner"
                         multiple={false}
                         name="image"
                         url="/api/product/uploadImages"
@@ -187,7 +186,7 @@ const HomeSlidesEdit = () => {
                 </div>
               </div>
               <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
-                Slider Name
+                Banner Name
               </p>
               <div className="flex items-center justify-center gap-3">
                 <div className="name w-full">
@@ -198,7 +197,7 @@ const HomeSlidesEdit = () => {
                       name="name"
                       value={formFeilds.name}
                       disabled={isUploading}
-                      label="Enter Slider Name"
+                      label="Enter Banner Name"
                       variant="outlined"
                       size="medium"
                       sx={{
@@ -253,4 +252,4 @@ const HomeSlidesEdit = () => {
   );
 };
 
-export default HomeSlidesEdit;
+export default HomeBannersEdit;

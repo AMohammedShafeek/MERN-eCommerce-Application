@@ -30,6 +30,9 @@ import Footer from "./components/Footer/Footer.jsx";
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
 import HomeSlidesEdit from "./Pages/HomeSlides/HomeSlidesEdit.jsx";
 import LoginExpire from "./Pages/Authentication/loginExpire.jsx";
+import HomeBanners from "./Pages/HomeBanners/HomeBanners.jsx";
+import HomeBannersNew from "./Pages/HomeBanners/HomeBannersNew.jsx";
+import HomeBannersEdit from "./Pages/HomeBanners/HomeBannersEdit.jsx";
 
 export const MyContext = createContext();
 
@@ -46,6 +49,7 @@ function App() {
   const [subCatData, setSubCatData] = useState([]);
   const [prodData, setProdData] = useState([]);
   const [sliderData, setSliderData] = useState([]);
+  const [bannerData, setBannerData] = useState([]);
   const [sortedIds, setSortedIds] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [previews, setPreviews] = useState([]);
@@ -111,6 +115,7 @@ function App() {
     subCategoryData();
     productsData();
     homeSliderData();
+    homeBannerData();
     handleResize();
   }, []);
 
@@ -160,6 +165,15 @@ function App() {
       if (res?.error !== true) {
         // console.log(res?.data);
         setSliderData(res?.data);
+      }
+    });
+  };
+
+  const homeBannerData = () => {
+    getData("/api/banner").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setBannerData(res?.data);
       }
     });
   };
@@ -266,8 +280,11 @@ function App() {
     deleteCat,
     windowWidth,
     sliderData,
+    bannerData,
     setSliderData,
+    setBannerData,
     homeSliderData,
+    homeBannerData,
     userAvatar,
     previews,
     setPreviews,
@@ -320,6 +337,18 @@ function App() {
                   <Route
                     path={"/home-slides-edit/:id"}
                     element={<HomeSlidesEdit></HomeSlidesEdit>}
+                  ></Route>
+                  <Route
+                    path={"/home-banner"}
+                    element={<HomeBanners></HomeBanners>}
+                  ></Route>
+                  <Route
+                    path={"/home-banner-new"}
+                    element={<HomeBannersNew></HomeBannersNew>}
+                  ></Route>
+                  <Route
+                    path={"/home-banner-edit/:id"}
+                    element={<HomeBannersEdit></HomeBannersEdit>}
                   ></Route>
                   <Route path={"/users"} element={<Users></Users>}></Route>
                   <Route
