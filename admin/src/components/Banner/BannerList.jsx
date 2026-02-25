@@ -141,7 +141,7 @@ const BannerList = () => {
                     <img
                       src={item?.image}
                       alt=""
-                      className="object-contain h-[80px]"
+                      className="object-cover w-[120px] h-[80px]"
                     />
                   </TableCell>
                   <TableCell className="!text-[14px] !font-bold">

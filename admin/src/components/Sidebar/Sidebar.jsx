@@ -142,6 +142,25 @@ const Sidebar = () => {
                       </Button>
                     </NavLink>
                   </li>
+                  <li className="HomeSlides w-full py-1">
+                    <NavLink
+                      to={"/home-banner"}
+                      exact={"true"}
+                      activeclassname="isActive"
+                    >
+                      <Button
+                        onClick={() => {
+                          if (context.windowWidth < 1024) {
+                            context.setIsOpenSideBar(!context.isOpenSideBar);
+                          }
+                        }}
+                        className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                      >
+                        <FaImages className="text-[20px] mr-2"></FaImages>
+                        <span>Home Banners</span>
+                      </Button>
+                    </NavLink>
+                  </li>
                   <li className="Users w-full py-1">
                     <NavLink
                       to={"/users"}
