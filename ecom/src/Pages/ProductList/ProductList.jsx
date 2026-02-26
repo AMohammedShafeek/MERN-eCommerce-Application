@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
 import ProductItem from "../../components/ProductItem/ProductItem";
 import Button from "@mui/material/Button";
 import { IoGridSharp } from "react-icons/io5";
@@ -10,8 +9,16 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ProductItemListView from "../../components/ProductItem/ProductItemListView";
 import Pagination from "@mui/material/Pagination";
+import { useSearchParams } from "react-router-dom";
+import { getData } from "../../utils/api";
+import { Link as RouterLink } from "react-router-dom";
+import MuiLink from "@mui/material/Link";
 
 const ProductList = () => {
+  const [searchParams] = useSearchParams();
+  const catId = searchParams.get("catId");
+  const catName = searchParams.get("catName");
+  const [productData, setProductData] = useState("");
   const [itemView, setItemView] = useState("grid");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -22,6 +29,13 @@ const ProductList = () => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    getData(`/api/product/getByCategoryId/${catId}`).then((res) => {
+      // console.log("res", res);
+      setProductData(res?.data || []);
+    });
+  }, [catId]);
+
   return (
     <section className="bg-white py-5  border-t border-t-gray-300">
       <div className="bg-white">
@@ -29,22 +43,22 @@ const ProductList = () => {
           <div className="sidebarWrapper w-[15%] h-full bg-white">
             <div className="container bg-body py-4 rounded-md flex items-center justify-center">
               <Breadcrumbs aria-label="breadcrumb">
-                <Link
+                <MuiLink
+                  component={RouterLink}
                   underline="hover"
                   color="inherit"
-                  to={'/'}
+                  to={"/"}
                   className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
                 >
                   HOME
-                </Link>
-                <Link
+                </MuiLink>
+                <MuiLink
                   underline="hover"
                   color="inherit"
-                  to={'/'}
                   className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
                 >
-                  FASHION
-                </Link>
+                  {catName?.toUpperCase()}
+                </MuiLink>
               </Breadcrumbs>
             </div>
             <Sidebar></Sidebar>
@@ -138,25 +152,20 @@ const ProductList = () => {
             >
               {itemView === "grid" ? (
                 <>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
-                  <ProductItem></ProductItem>
+                  {productData?.length > 0 &&
+                    productData.map((item, index) => (
+                      <ProductItem key={index} product={item}></ProductItem>
+                    ))}
                 </>
               ) : (
                 <>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
-                  <ProductItemListView></ProductItemListView>
+                  {productData?.length > 0 &&
+                    productData.map((item, index) => (
+                      <ProductItemListView
+                        key={index}
+                        product={item}
+                      ></ProductItemListView>
+                    ))}
                 </>
               )}
             </div>

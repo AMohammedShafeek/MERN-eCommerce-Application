@@ -9,28 +9,28 @@ import { MdZoomOutMap } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { MyContext } from "../../App";
 
-const ProductItem = () => {
+const ProductItem = ({ product }) => {
   const context = useContext(MyContext);
 
   return (
     <div className="productItem bg-white pt-3 group overflow-hidden rounded-lg transition-all duration-300 flex items-center pb-3 border-b-1 border-gray-300">
       <div className="group/img imgWraapper w-[25%] relative">
-        <Link to={"/productDetail/1"}>
-          <div className="img h-[200px] overflow-hidden">
+        <Link to={`/productDetail/${product._id}`}>
+          <div className="img h-[200px] overflow-hidden bg-gray-100">
             <img
-              src="../src/assets/Products/p1.jpg"
+              src={product.images[0]}
               alt=""
               className="w-full h-full object-contain group-hover:scale-110 transition-all duration-300"
             />
             <img
-              src="../src/assets/Products/p1-2.jpg"
+              src={product.images[1]}
               alt=""
               className="w-full h-full absolute top-0 left-0 object-contain opacity-0 group-hover/img:opacity-100 transition-all duration-300"
             />
           </div>
         </Link>
         <span className="discount flex items-center absolute top-[0px] left-[10px] z-50 bg-primary text-white rounded-md p-2 text-[12px] font-[500]">
-          10%
+          {product.discount}%
         </span>
         <div className="actions absolute top-[50px] right-[290px] z-50 flex items-center gap-3 flex-col w-[80px] group-hover:right-[245px] transition-all duration-300">
           <Tooltip title="Like" placement="left">
@@ -55,26 +55,23 @@ const ProductItem = () => {
       </div>
       <div className="info p-3 w-[75%]">
         <h6 className="transition-all duration-300 text-left text-[15px] text-[#5e5e5e] pl-1.5">
-          Men's Regular Fit Casual
+          {product.brand}
         </h6>
         <h3 className="transition-all duration-300 text-[18px] mt-2 my-2 pl-1.5 font-medium group-hover:text-[#ff5252]">
-          TAGDO Gray Shirt | Casual Shirt
+          {product.name}
         </h3>
-        <p className="text-[14px] mb-3 pl-2">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime ipsa
-          facere, nostrum delectus eius a dolorum sed ipsam assumenda optio quia
-          vel veritatis expedita. Mollitia minima dolore quidem totam! Deleniti
-          quibusdam dicta autem iste quasi!
-        </p>
+        <p className="text-[14px] mb-3 pl-2">{product.description}</p>
         <div className="flex items-center gap-3 pl-1.5 mb-1.5">
-          <span className="oldPrice font-[500] line-through pt-1">$899</span>
+          <span className="oldPrice font-[500] line-through pt-1">
+            ₹{product.oldPrice}
+          </span>
           <span className="oldPrice text-[21px] font-medium text-[#ff5252]">
-            $399
+            ₹{product.price}
           </span>
         </div>
         <div className="rating flex pb-3 px-1 gap-3">
-          <Rating name="size-small" defaultValue={2} size="medium" readOnly />
-          <h6 className="text-[14px] primary pt-0.5">(3+rating)</h6>
+          <Rating name="size-small" defaultValue={product.rating} size="medium" readOnly />
+          <h6 className="text-[14px] primary pt-0.5">(0+rating)</h6>
         </div>
         <Link>
           <div className="flex items-center gap-3 pl-1.5 p-1">

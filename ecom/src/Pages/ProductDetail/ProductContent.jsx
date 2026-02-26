@@ -26,7 +26,7 @@ const ProductContent = ({ product }) => {
         <div className="rating flex items-center justify-between">
           <Rating
             name="size-small"
-            defaultValue={product?.rating}
+            value={product?.rating || 0}
             size="small"
             readOnly
           />

@@ -54,7 +54,7 @@ const Nav = () => {
               </li>
               {context.catData.map((catItem, index) => (
                 <li key={index} className="list-none relative">
-                  <Link to={"/productList"}>
+                  <Link to={`/productList?catId=${catItem._id}&catName=${catItem.name}`}>
                     <Button className="link transition-all !flex !gap-2 duration-300 !font-[600] !text-center !w-full !items-center">
                       <img
                         src={catItem.thumbnail}

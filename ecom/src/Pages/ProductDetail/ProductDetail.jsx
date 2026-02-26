@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
 import MainImage from "../../components/MainImage/MainImage";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
@@ -20,12 +19,15 @@ import TextField from "@mui/material/TextField";
 import ProductSlider from "../../components/ProductSlider/ProductSlider";
 import AdsSlider from "../../components/AdsSlider/AdsSlider";
 import ProductContent from "./ProductContent";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getData } from "../../utils/api";
+import { Link as RouterLink } from "react-router-dom";
+import MuiLink from "@mui/material/Link";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+  const navigate = useNavigate();
 
   return (
     <div
@@ -78,30 +80,31 @@ const ProdductDetail = () => {
       <div className="bg-white">
         <div className="w-full bg-body py-4 px-5 rounded-md flex items-center justify-start">
           <Breadcrumbs aria-label="breadcrumb" className="container pl-20">
-            <Link
+            <MuiLink
+              component={RouterLink}
+              to={"/"}
               underline="hover"
               color="inherit"
-              to={"/"}
               className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
             >
               HOME
-            </Link>
-            <Link
+            </MuiLink>
+            <MuiLink
+              component={RouterLink}
               underline="hover"
               color="inherit"
-              to={"/"}
+              to={`/productList?catId=${product?.catId}&catName=${encodeURIComponent(product?.catName || "")}`}
               className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
             >
-              FASHION
-            </Link>
-            <Link
+              {product?.catName?.toUpperCase()}
+            </MuiLink>
+            <MuiLink
               underline="hover"
               color="inherit"
-              to={"/"}
               className="link transition-all duration-300 !text-[14px] !font-[600] cursor-pointer"
             >
-              TAGDO Gray Shirt
-            </Link>
+              {product?.name?.toUpperCase()}
+            </MuiLink>
           </Breadcrumbs>
         </div>
       </div>
@@ -139,7 +142,13 @@ const ProdductDetail = () => {
                     {product &&
                       Object.entries(product)
                         .filter(([key]) =>
-                          ["name", "brand", "catName", "color", "size"].includes(key),
+                          [
+                            "name",
+                            "brand",
+                            "catName",
+                            "color",
+                            "size",
+                          ].includes(key),
                         )
                         .map(([key, value], index) => (
                           <TableRow key={index}>
@@ -177,7 +186,7 @@ const ProdductDetail = () => {
                       <div className="rating flex flex-col justify-between items-end">
                         <Rating
                           name="size-small"
-                          defaultValue={4}
+                          value={4}
                           size="medium"
                           className="pt-2"
                           readOnly
@@ -210,7 +219,7 @@ const ProdductDetail = () => {
                 <form className="w-full my-2">
                   <Rating
                     name="size-small"
-                    defaultValue={1}
+                    value={1}
                     size="large"
                     className="pb-4"
                   />
