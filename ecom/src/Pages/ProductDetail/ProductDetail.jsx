@@ -73,9 +73,6 @@ const ProdductDetail = () => {
     });
   }, [id]);
 
-  console.log(product);
-  
-
   return (
     <>
       <div className="bg-white">

@@ -148,18 +148,12 @@ const Home = () => {
             modules={[Pagination]}
             className="blogSlider"
           >
-            <SwiperSlide>
-              <BlogItem></BlogItem>
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem></BlogItem>
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem></BlogItem>
-            </SwiperSlide>
-            <SwiperSlide>
-              <BlogItem></BlogItem>
-            </SwiperSlide>
+            {context?.blogData?.length > 0 &&
+              context.blogData.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <BlogItem blog={item}></BlogItem>
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
       </section>

@@ -26,6 +26,7 @@ import MyOrders from "./Pages/MyOrders/MyOrders";
 import TrackOrders from "./Pages/TrackOrders/TrackOrders";
 import { getData } from "./utils/api";
 import UpdatePass from "./Pages/Authentication/UpdatePass";
+import BlogDetail from "./Pages/Blog/BlogDetail";
 
 const MyContext = createContext();
 
@@ -42,6 +43,7 @@ function App() {
   const [subCatData, setSubCatData] = useState([]);
   const [sliderData, setSliderData] = useState([]);
   const [bannerData, setBannerData] = useState([]);
+  const [blogData, setBlogData] = useState([]);
   const [prodData, setProdData] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -116,6 +118,7 @@ function App() {
     productsData();
     homeSliderData();
     homeBannerData();
+    homeBlogData();
     handleResize();
   }, []);
 
@@ -174,6 +177,15 @@ function App() {
     });
   };
 
+  const homeBlogData = () => {
+    getData("/api/blog").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setBlogData(res?.data);
+      }
+    });
+  };
+
   const productsData = () => {
     getData("/api/product/getAllProducts").then((res) => {
       let productArr = [];
@@ -182,6 +194,14 @@ function App() {
         for (let i = 0; i < res?.products?.length; i++) {}
         setProdData(res?.data);
       }
+    });
+  };
+
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
     });
   };
 
@@ -208,6 +228,10 @@ function App() {
     homeBannerData,
     bannerData,
     setBannerData,
+    blogData,
+    setBlogData,
+    homeBlogData,
+    formatDate,
   };
 
   return (
@@ -252,6 +276,10 @@ function App() {
             <Route
               path={"/track-orders"}
               element={<TrackOrders></TrackOrders>}
+            ></Route>
+            <Route
+              path={"/blog/:id"}
+              element={<BlogDetail></BlogDetail>}
             ></Route>
           </Routes>
           <Footer></Footer>

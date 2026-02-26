@@ -13,6 +13,7 @@ import cartRouter from "./route/cart.route.js";
 import myListRouter from "./route/mylist.route.js";
 import sliderRouter from "./route/slider.route.js";
 import bannerRouter from "./route/banner.route.js";
+import blogRouter from "./route/blog.route.js";
 
 const app = express();
 app.use(
@@ -50,6 +51,7 @@ app.use("/api/cart", cartRouter);
 app.use("/api/myList", myListRouter);
 app.use("/api/slider", sliderRouter);
 app.use("/api/banner", bannerRouter);
+app.use("/api/blog", blogRouter);
 
 connectDB().then(() => {
   app.listen(PORT, () => {

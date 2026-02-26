@@ -33,6 +33,9 @@ import LoginExpire from "./Pages/Authentication/loginExpire.jsx";
 import HomeBanners from "./Pages/HomeBanners/HomeBanners.jsx";
 import HomeBannersNew from "./Pages/HomeBanners/HomeBannersNew.jsx";
 import HomeBannersEdit from "./Pages/HomeBanners/HomeBannersEdit.jsx";
+import Blogs from "./Pages/Blogs/Blogs.jsx";
+import BlogNew from "./Pages/Blogs/BlogNew.jsx";
+import BlogEdit from "./Pages/Blogs/BlogEdit.jsx";
 
 export const MyContext = createContext();
 
@@ -50,6 +53,7 @@ function App() {
   const [prodData, setProdData] = useState([]);
   const [sliderData, setSliderData] = useState([]);
   const [bannerData, setBannerData] = useState([]);
+  const [blogData, setBlogData] = useState([]);
   const [sortedIds, setSortedIds] = useState([]);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [previews, setPreviews] = useState([]);
@@ -117,6 +121,7 @@ function App() {
     homeSliderData();
     homeBannerData();
     handleResize();
+    homeBlogData();
   }, []);
 
   const userDetails = () => {
@@ -174,6 +179,15 @@ function App() {
       if (res?.error !== true) {
         // console.log(res?.data);
         setBannerData(res?.data);
+      }
+    });
+  };
+
+  const homeBlogData = () => {
+    getData("/api/blog").then((res) => {
+      if (res?.error !== true) {
+        // console.log(res?.data);
+        setBlogData(res?.data);
       }
     });
   };
@@ -290,6 +304,9 @@ function App() {
     setPreviews,
     uploading,
     setUploading,
+    blogData,
+    setBlogData,
+    homeBlogData,
   };
 
   return (
@@ -349,6 +366,15 @@ function App() {
                   <Route
                     path={"/home-banner-edit/:id"}
                     element={<HomeBannersEdit></HomeBannersEdit>}
+                  ></Route>
+                  <Route path={"/blogs"} element={<Blogs></Blogs>}></Route>
+                  <Route
+                    path={"/blog-new"}
+                    element={<BlogNew></BlogNew>}
+                  ></Route>
+                  <Route
+                    path={"/blog-edit/:id"}
+                    element={<BlogEdit></BlogEdit>}
                   ></Route>
                   <Route path={"/users"} element={<Users></Users>}></Route>
                   <Route

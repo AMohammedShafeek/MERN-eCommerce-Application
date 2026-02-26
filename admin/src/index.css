@@ -154,3 +154,18 @@ button:hover {
 .ReactCollapse--collapse {
   transition: height 300ms;
 }
+
+.rsw-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rsw-editor {
+  min-height: 300px;
+  height: 300px;
+  max-height: 800px;
+  overflow-y: auto;
+}

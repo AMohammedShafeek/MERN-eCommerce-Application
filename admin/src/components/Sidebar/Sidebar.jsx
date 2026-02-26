@@ -14,6 +14,8 @@ import { MyContext } from "../../App";
 import { TiThMenu } from "react-icons/ti";
 import Slide from "@mui/material/Slide";
 import CircularProgress from "@mui/material/CircularProgress";
+import { BsCardImage } from "react-icons/bs";
+import { BsFillPenFill } from "react-icons/bs";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -156,8 +158,27 @@ const Sidebar = () => {
                         }}
                         className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
                       >
-                        <FaImages className="text-[20px] mr-2"></FaImages>
+                        <BsCardImage className="text-[20px] mr-2"></BsCardImage>
                         <span>Home Banners</span>
+                      </Button>
+                    </NavLink>
+                  </li>
+                  <li className="HomeSlides w-full py-1">
+                    <NavLink
+                      to={"/blogs"}
+                      exact={"true"}
+                      activeclassname="isActive"
+                    >
+                      <Button
+                        onClick={() => {
+                          if (context.windowWidth < 1024) {
+                            context.setIsOpenSideBar(!context.isOpenSideBar);
+                          }
+                        }}
+                        className="w-full !link !py-1 !transition-all !duration-300 !rounded-none gap-2 !items-center !justify-start !px-10 !text-[16px] !font-[600] transition-all duration-300"
+                      >
+                        <BsFillPenFill className="text-[20px] mr-2"></BsFillPenFill>
+                        <span>Blogs</span>
                       </Button>
                     </NavLink>
                   </li>
