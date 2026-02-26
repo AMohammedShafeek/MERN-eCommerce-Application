@@ -122,7 +122,6 @@ const ProductsItemsEdit = () => {
     formFeilds.subCatId = event.target.value;
   };
   const handleFeatured = (event) => {
-    alert(event.target.value);
     setFeatured(event.target.value);
     formFeilds.isfeatured = event.target.value;
   };

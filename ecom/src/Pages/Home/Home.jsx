@@ -23,6 +23,8 @@ const Home = () => {
   const context = useContext(MyContext);
 
   const [popularProdData, setPopularProdData] = useState([]);
+  const [latestProdData, setLatestProdData] = useState([]);
+  const [featuredProdData, setFeaturedProdData] = useState([]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -35,11 +37,35 @@ const Home = () => {
     });
   };
 
+  const getLatestProducts = () => {
+    getData(`/api/product/getAllProducts`).then((res) => {
+      // console.log("res", res?.data);
+      const latest = res?.data
+        ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        ?.slice(0, 10);
+      setLatestProdData(latest);
+    });
+  };
+
+  const getFeaturedProducts = () => {
+    getData(`/api/product/getAllProducts`).then((res) => {
+      const featured = res?.data
+        ?.filter((item) => item.isfeatured === true)
+        ?.slice(0, 10);
+      setFeaturedProdData(featured);
+    });
+  };
+
   useEffect(() => {
     if (context?.catData?.length > 0) {
       filterByCatId(context.catData[0]._id);
     }
   }, [context.catData]);
+
+  useEffect(() => {
+    getLatestProducts();
+    getFeaturedProducts();
+  }, []);
 
   return (
     <>
@@ -103,17 +129,17 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-body pt-8">
+      <section className="bg-white pt-8">
         <div className="container">
           <div className="flex items-center justify-between">
-            <div className="leftSection">
+            <div className="leftSection w-[30%]">
               <h2 className="text-[20px] font-medium">Latest Products</h2>
               <p className="text-[14px] font-[500]">
                 Do not miss the current offers until the end of the Season.
               </p>
             </div>
           </div>
-          {/* <ProductSlider items={6}></ProductSlider> */}
+          <ProductSlider items={6} productData={latestProdData}></ProductSlider>
           <AdsSlider items={4}></AdsSlider>
         </div>
       </section>
@@ -128,7 +154,10 @@ const Home = () => {
               </p>
             </div>
           </div>
-          {/* <ProductSlider items={6}></ProductSlider> */}
+          <ProductSlider
+            items={6}
+            productData={featuredProdData}
+          ></ProductSlider>
           <AdsSlider items={4}></AdsSlider>
         </div>
       </section>
