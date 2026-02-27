@@ -14,6 +14,10 @@ import { MyContext } from "../../App";
 import CircularProgress from "@mui/material/CircularProgress";
 import { deleteData, editData, getData, postData } from "../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import { CiCirclePlus } from "react-icons/ci";
 
 const ProductsItemsEdit = () => {
   const context = useContext(MyContext);
@@ -31,6 +35,9 @@ const ProductsItemsEdit = () => {
   const [featured, setFeatured] = useState("");
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
+
+  const [method, setMethod] = useState("upload");
+  const [imageUrl, setImageUrl] = useState("");
 
   const [formFeilds, setFormFeilds] = useState({
     name: "",
@@ -104,7 +111,45 @@ const ProductsItemsEdit = () => {
     }
   }, [formFeilds.catId, context.catData]);
 
-  console.log(formFeilds);
+  const changeMethod = (e) => {
+    const selectedValue = e.target.value;
+
+    if (formFeilds.images.length > 0) {
+      context.openAlertBox(
+        "error",
+        "Remove Selected Images To Access This Feature",
+        "addProdImage-error",
+      );
+      return;
+    }
+
+    setMethod(selectedValue);
+  };
+
+  const handleAddImage = () => {
+    if (!imageUrl.trim()) {
+      context.openAlertBox(
+        "error",
+        "Image URL Required!",
+        "addProdImage-error",
+      );
+      return;
+    }
+
+    setFormFeilds((prev) => ({
+      ...prev,
+      images: [...prev.images, imageUrl.trim()],
+    }));
+
+    setImageUrl("");
+  };
+
+  const handleRemoveImage = (index) => {
+    setFormFeilds((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+  };
 
   const handleCategory = (event) => {
     setCategory(event.target.value);
@@ -235,8 +280,7 @@ const ProductsItemsEdit = () => {
         <div
           className={`sidebarWrapper h-full bg-white transition-all duration-300 ease-in-out
                 ${context.isOpenSideBar ? "w-[20%]" : "w-0 overflow-hidden"}`}
-        >
-        </div>
+        ></div>
         <div
           className={`sidebarWrapper my-7 transition-all duration-300 ease-in-out w-full min-h-0
           ${context.isOpenSideBar ? "lg:w-[80%]" : "lg:w-full"}
@@ -251,53 +295,153 @@ const ProductsItemsEdit = () => {
               onSubmit={handleSubmit}
               className="w-full container mt-5 pt-3 my-3"
             >
-              <div className="flex items-center">
-                <div className="upload">
-                  <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
-                    Image & Gallery
-                  </p>
-                  <div className="flex flex-wrap items-center gap-5">
-                    {previews?.length !== 0 &&
-                      previews?.map((image, index) => {
-                        return (
-                          <div key={index} className="relative wrapper">
-                            <div>
-                              <IoMdClose
-                                onClick={() => removeImg(image, index)}
-                                className="text-white cursor-pointer hover:bg-black bg-red-500 transition-all duration-300 rounded-full z-10 text-[25px] absolute -top-2 -right-2"
-                              ></IoMdClose>
-                              <div
-                                className="relative group cursor-pointer mb-5 bg-[#fff8f8] transition-all duration-300 flex flex-col items-center hover:bg-[#fcc9c9] justify-center rounded-md overflow-hidden border border-dashed border-[#ff5252]
+              <div className="select pb-2">
+                <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
+                  Select Method
+                </p>
+                <FormControl
+                  sx={{
+                    "& .MuiRadio-root": {
+                      color: "#ff5252",
+                    },
+                    "& .MuiRadio-root.Mui-checked": {
+                      color: "#ff5252",
+                    },
+                  }}
+                >
+                  <RadioGroup
+                    row
+                    name="row-radio-buttons-group"
+                    value={method}
+                    onChange={changeMethod}
+                  >
+                    <FormControlLabel
+                      value={"upload"}
+                      control={<Radio />}
+                      label="Upload"
+                    />
+                    <FormControlLabel
+                      value={"insert"}
+                      control={<Radio />}
+                      label="Insert Link"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+              {method === "upload" ? (
+                <div className="flex items-center">
+                  <div className="upload">
+                    <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
+                      Image & Gallery
+                    </p>
+                    <div className="flex flex-wrap items-center gap-5">
+                      {previews?.length !== 0 &&
+                        previews?.map((image, index) => {
+                          return (
+                            <div key={index} className="relative wrapper">
+                              <div>
+                                <IoMdClose
+                                  onClick={() => removeImg(image, index)}
+                                  className="text-white cursor-pointer hover:bg-black bg-red-500 transition-all duration-300 rounded-full z-10 text-[25px] absolute -top-2 -right-2"
+                                ></IoMdClose>
+                                <div
+                                  className="relative group cursor-pointer mb-5 bg-[#fff8f8] transition-all duration-300 flex flex-col items-center hover:bg-[#fcc9c9] justify-center rounded-md overflow-hidden border border-dashed border-[#ff5252]
                         w-[150px] h-[150px]"
-                              >
-                                <div className="flex flex-col items-center justify-center transition-all duration-300 group-hover:scale-105">
-                                  <LazyLoadImage
-                                    effect="blur"
-                                    src={image}
-                                    className="w-full h-full object-contain"
-                                  />
+                                >
+                                  <div className="flex flex-col items-center justify-center transition-all duration-300 group-hover:scale-105">
+                                    <LazyLoadImage
+                                      effect="blur"
+                                      src={image}
+                                      className="w-full h-full object-contain"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
 
-                    <div>
-                      <UploadBox
-                        image="Add Image"
-                        name="images"
-                        url="/api/product/uploadImages"
-                        setPreviewsFun={setPreviewsFun}
-                        setIsLoading={setIsLoading}
-                        multiple={true}
-                        isRemoveLoading={isRemoveLoading}
-                        setIsUploading={setIsUploading}
-                      ></UploadBox>
+                      <div>
+                        <UploadBox
+                          image="Add Image"
+                          name="images"
+                          url="/api/product/uploadImages"
+                          setPreviewsFun={setPreviewsFun}
+                          setIsLoading={setIsLoading}
+                          multiple={true}
+                          isRemoveLoading={isRemoveLoading}
+                          setIsUploading={setIsUploading}
+                        ></UploadBox>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="flex items-center">
+                  <div className="upload">
+                    <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
+                      Insert Link
+                    </p>
+                    <div className="mt-3 flex gap-2">
+                      <TextField
+                        label="Enter Image URL"
+                        variant="outlined"
+                        size="small"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        sx={{
+                          "& label.Mui-focused": {
+                            color: "#ff5252",
+                            transition: "all 0.3s",
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                              borderColor: "#ccc",
+                              transition: "all 0.3s",
+                            },
+                            "&:hover fieldset": {
+                              borderColor: "#ff5252",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#ff5252",
+                            },
+                          },
+                        }}
+                      />
+                      <Button
+                        onClick={handleAddImage}
+                        className="!bg-black hover:!bg-[#ff5252] !rounded-md"
+                      >
+                        <CiCirclePlus className="text-white text-[25px] transition-all duration-200"></CiCirclePlus>
+                      </Button>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-5 mt-5">
+                      {formFeilds.images.map((image, index) => (
+                        <div key={index} className="relative wrapper">
+                          <div>
+                            <IoMdClose
+                              onClick={() => handleRemoveImage(index)}
+                              className="text-white cursor-pointer hover:bg-black bg-red-500 transition-all duration-300 rounded-full z-10 text-[25px] absolute -top-2 -right-2"
+                            ></IoMdClose>
+                            <div
+                              className="relative group cursor-pointer mb-5 bg-[#fff8f8] transition-all duration-300 flex flex-col items-center hover:bg-[#fcc9c9] justify-center rounded-md overflow-hidden border border-dashed border-[#ff5252]
+                        w-[150px] h-[150px]"
+                            >
+                              <div className="flex flex-col items-center justify-center transition-all duration-300 group-hover:scale-105">
+                                <LazyLoadImage
+                                  effect="blur"
+                                  src={image}
+                                  className="w-full h-full object-contain"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
               <p className="transition-all duration-300 text-[14px] text-black font-bold mb-2">
                 Product Name and Brand
               </p>

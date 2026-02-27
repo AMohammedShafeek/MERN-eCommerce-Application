@@ -180,7 +180,7 @@ const ProductsList = () => {
                   <TableCell align="center">
                     <Rating
                       name="size-small"
-                      defaultValue={item?.Rating}
+                      defaultValue={item?.rating}
                       size="small"
                       readOnly
                     />

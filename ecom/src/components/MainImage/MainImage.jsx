@@ -22,60 +22,58 @@ const MainImage = ({ product }) => {
 
   return (
     <div className="flex gap-3">
-      <div className="slider [w-15%] cursor-pointer overflow-hidden">
-        <Swiper
-          ref={childImg}
-          direction="vertical"
-          slidesPerView={4}
-          spaceBetween={0}
-          navigation={true}
-          modules={[Navigation]}
-          className="zoomProductSliderThumbs h-[60vh] !pt-5"
-        >
-          {product?.images?.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div
-                className={`item w-[70px] transition-all duration-300 rounded-none border-b-1 border-[#ff5252] ${
-                  slideIndex === index ? "opacity-30" : "opacity-100"
-                }`}
-                onClick={() => goto(index)}
-              >
-                <img
-                  src={item}
-                  alt=""
-                  className="w-full h-full object-contain my-5"
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="parentImage w-[85%] bg-gray-100 overflow-hidden border-2 border-[#ff5252] rounded-[15px]">
-        <Swiper
-          ref={parentImg}
-          slidesPerView={1}
-          spaceBetween={0}
-          effect={"fade"}
-          // pagination={{
-          //   dynamicBullets: true,
-          // }}
-          navigation={false}
-          modules={[EffectFade]}
-        >
-          {product?.images?.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="w-full flex items-center justify-center">
-                <img
-                  src={item}
-                  alt=""
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
+  
+  <div className="slider cursor-pointer overflow-hidden h-[500px]">
+    <Swiper
+      ref={childImg}
+      direction="vertical"
+      slidesPerView={5}
+      navigation={true}
+      modules={[Navigation]}
+      className="h-full"
+    >
+      {product?.images?.map((item, index) => (
+        <SwiperSlide key={index}>
+          <div
+            className={`w-[70px] h-[90px] border-b border-[#ff5252] ${
+              slideIndex === index ? "opacity-30" : "opacity-100"
+            }`}
+            onClick={() => goto(index)}
+          >
+            <img
+              src={item}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </div>
+
+  <div className="parentImage w-[85%] h-[500px] bg-gray-100 overflow-hidden border-2 border-[#ff5252] rounded-[15px]">
+    <Swiper
+      ref={parentImg}
+      slidesPerView={1}
+      effect={"fade"}
+      modules={[EffectFade]}
+      className="h-full"
+    >
+      {product?.images?.map((item, index) => (
+        <SwiperSlide key={index} className="h-full">
+          <div className="w-full h-full flex items-center justify-center">
+            <img
+              src={item}
+              alt=""
+              className="max-h-full max-w-full object-contain"
+            />
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </div>
+
+</div>
   );
 };
 
